@@ -6,24 +6,27 @@
 <title>Klimaanlagen in Offenbach | 4M Gebäudetechnik GmbH</title>
 <meta name="description" content="Split- und Multi-Split-Klimaanlagen für Wohnung, Haus und Gewerbe. Planung, Einbau und Wartung in Offenbach und im Rhein-Main-Gebiet.">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#0E1012">
+<meta name="theme-color" content="#F5F5F7">
+<meta property="og:title" content="4M Gebäudetechnik GmbH">
+<meta property="og:description" content="Heizung, Klima und Sanitär in Offenbach am Main und im Rhein-Main-Gebiet.">
+<meta property="og:image" content="assets/logo-full.png">
 <link rel="icon" href="assets/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans:wdth,wght@75..125,100..900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 <link rel="stylesheet" href="assets/site.css">
 <script src="assets/site.js"></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script type="module" src="assets/house3d.js"></script>
 </head>
 <body>
 <a class="skip" href="#main">Zum Inhalt springen</a>
 
 <header class="nav">
-  <div class="wrap nav-in">
-    <a class="brand" href="index.html" aria-label="4M Gebäudetechnik GmbH, zur Startseite">
-      <img src="assets/logo-horizontal-dark.webp" alt="4M Gebäudetechnik GmbH" width="1000" height="152">
-    </a>
+  <a class="brand" href="index.html" aria-label="4M Gebäudetechnik GmbH, zur Startseite"><img class="logo-light" src="assets/logo-horizontal.webp" alt="4M Gebäudetechnik GmbH" width="1000" height="152"><img class="logo-dark" src="assets/logo-horizontal-dark.webp" alt="" width="1000" height="152"></a>
+  <nav aria-label="Hauptnavigation" style="margin-left:auto">
     <ul class="nav-links">
       <li><a href="index.html#leistungen">Leistungen</a></li>
       <li><a href="index.html#ablauf">Ablauf</a></li>
@@ -31,73 +34,73 @@
       <li><a href="index.html#ueber-uns">Über uns</a></li>
       <li><a href="index.html#kontakt">Kontakt</a></li>
     </ul>
-    <div class="nav-cta">
-      <a class="nav-tel" href="tel:+49XXXXXXXXX"><i class="ph ph-phone" aria-hidden="true"></i><span>[Telefonnummer]</span></a>
-      <a class="btn btn-primary" href="index.html?anliegen=klima#kontakt">Anfrage senden</a>
-    </div>
-    <button class="burger" type="button" aria-label="Menü" aria-expanded="false" aria-controls="sheet"><i class="ph ph-list" aria-hidden="true"></i></button>
-  </div>
+  </nav>
+  <div class="nav-cta"><a class="btn" href="index.html?anliegen=klima#kontakt">Anfrage senden</a></div>
+  <button class="burger" type="button" aria-label="Menü" aria-expanded="false" aria-controls="sheet"><i class="ph ph-list" aria-hidden="true"></i></button>
 </header>
-<nav class="sheet" id="sheet" aria-label="Hauptmenü">
+<nav class="sheet" id="sheet" aria-label="Menü">
   <ul>
-    <li><a href="index.html">Startseite <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
-    <li><a href="heizung.html">Heizung und Wärmepumpe <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
-    <li><a href="klima.html">Klima <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
-    <li><a href="sanitaer.html">Sanitär <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
+    <li><a href="index.html#leistungen">Leistungen <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
+    <li><a href="index.html#ablauf">Ablauf <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
+    <li><a href="index.html#einblicke">Einblicke <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
+    <li><a href="index.html#ueber-uns">Über uns <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
     <li><a href="index.html#kontakt">Kontakt <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
   </ul>
-  <a class="btn btn-primary" href="index.html?anliegen=klima#kontakt">Anfrage senden</a>
+  <a class="btn" href="index.html?anliegen=klima#kontakt">Anfrage senden</a>
 </nav>
 
 <main id="main">
-  <section class="hero page-hero">
-    <div class="wrap hero-grid">
-      <div class="hero-in">
-        <p class="crumbs"><a href="index.html">Start</a> / Klima</p>
-        <h1 class="disp">Klimaanlagen</h1>
-        <p class="lead">Kühlen im Sommer, heizen in der Übergangszeit. Leise Geräte, sauber verlegt.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="index.html?anliegen=klima#kontakt">Anfrage senden <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-          <a class="btn btn-ghost" href="tel:+49XXXXXXXXX"><i class="ph ph-phone" aria-hidden="true"></i> Anrufen</a>
+  <div class="page-stage">
+    <section class="hero page" aria-label="Klimaanlagen">
+      <div class="house" data-house="cool"></div>
+      <div class="panels">
+        <div class="panel">
+          <p class="crumbs"><a href="index.html">Start</a> / Klima</p>
+          <h1>Klimaanlagen</h1>
+          <p class="lead">Kühlen im Sommer, heizen in der Übergangszeit. Leise Geräte, sauber verlegt.</p>
+          <div class="cta">
+            <a class="btn btn-light" href="index.html?anliegen=klima#kontakt">Anfrage senden <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+            <a class="btn btn-ghost inv" href="tel:+49XXXXXXXXX"><i class="ph ph-phone" aria-hidden="true"></i> Anrufen</a>
+          </div>
         </div>
       </div>
-      <div class="schema-card" data-schema="cool">
-        <nav class="schema-ctrl" aria-label="Gewerke">
-          <a class="k-heat" href="heizung.html"><i class="ph ph-flame" aria-hidden="true"></i>Heizung</a>
-          <a class="k-cool" href="klima.html" aria-current="page"><i class="ph ph-snowflake" aria-hidden="true"></i>Klima</a>
-          <a class="k-water" href="sanitaer.html"><i class="ph ph-drop" aria-hidden="true"></i>Sanitär</a>
-        </nav>
-        <p class="schema-cap"></p>
-      </div>
-    </div>
-  </section>
+      <nav class="seg" aria-label="Gewerke">
+          <span class="thumb" aria-hidden="true"></span>
+          <a href="heizung.html"><i class="ph ph-flame" aria-hidden="true"></i>Heizung</a>
+          <a href="klima.html" aria-current="page"><i class="ph ph-snowflake" aria-hidden="true"></i>Klima</a>
+          <a href="sanitaer.html"><i class="ph ph-drop" aria-hidden="true"></i>Sanitär</a>
+      </nav>
+    </section>
+  </div>
 
-  <section class="sec" style="padding-top:clamp(24px,4vw,48px)">
+  <section class="sec">
     <div class="wrap">
-      <div class="sec-head"><h2 class="disp">Leistungsumfang</h2></div>
+      <div class="kopf rv"><h2>Leistungsumfang</h2><p>Für Wohnräume, Büros und ganze Gebäude.</p></div>
       <div class="groups">
-        <div class="group"><h3>Wohnung und Haus</h3><p>Für Schlafzimmer, Wohnräume und Dachgeschoss.</p><ul><li>Split-Geräte für einzelne Räume</li><li>Multi-Split: ein Außengerät, mehrere Räume</li><li>Unauffällige Leitungsführung</li><li>Bedienung per App</li></ul></div>
-        <div class="group"><h3>Gewerbe</h3><p>Für Büros, Praxen, Läden und Gastronomie.</p><ul><li>Deckenkassetten und Kanalgeräte</li><li>VRF-Systeme für ganze Gebäude</li><li>Zonenweise Regelung</li><li>Abstimmung mit Vermieter und Verwaltung</li></ul></div>
-        <div class="group"><h3>Planung</h3><p>Bevor ein Gerät hängt, rechnen wir.</p><ul><li>Kühllastberechnung je Raum</li><li>Standort für das Außengerät</li><li>Schall und Optik berücksichtigt</li><li>Schriftliches Angebot</li></ul></div>
-        <div class="group"><h3>Wartung</h3><p>Damit die Anlage hygienisch und effizient bleibt.</p><ul><li>Reinigung und Desinfektion</li><li>Filterwechsel</li><li>Dichtheitsprüfung</li><li>Störungsbehebung</li></ul></div>
+        <div class="group rv"><h3>Wohnung und Haus</h3><p>Für Schlafzimmer, Wohnräume und Dachgeschoss.</p><ul class="chips"><li>Split-Geräte</li><li>Multi-Split</li><li>Unauffällige Leitungen</li><li>Bedienung per App</li></ul></div>
+        <div class="group rv"><h3>Gewerbe</h3><p>Für Büros, Praxen, Läden und Gastronomie.</p><ul class="chips"><li>Deckenkassetten</li><li>VRF-Systeme</li><li>Zonenregelung</li><li>Abstimmung mit Verwaltung</li></ul></div>
+        <div class="group rv"><h3>Planung</h3><p>Bevor ein Gerät hängt, rechnen wir.</p><ul class="chips"><li>Kühllastberechnung</li><li>Standort Außengerät</li><li>Schall und Optik</li><li>Schriftliches Angebot</li></ul></div>
+        <div class="group rv"><h3>Wartung</h3><p>Damit die Anlage hygienisch und effizient bleibt.</p><ul class="chips"><li>Reinigung</li><li>Filterwechsel</li><li>Dichtheitsprüfung</li><li>Störungsbehebung</li></ul></div>
       </div>
     </div>
   </section>
 
-  <section class="sec flowsec">
+  <section class="box box-dark">
     <div class="wrap">
-      <div class="sec-head"><h2 class="disp">Geräte</h2><p class="lead">Wir beraten herstellerunabhängig. Häufig eingesetzt:</p></div>
+      <div class="kopf rv"><h2>Geräte</h2><p>Wir beraten herstellerunabhängig. Häufig eingesetzt:</p></div>
       <div class="devices">
-        <article class="device"><small>Mitsubishi Heavy Industries</small><h3>Premium Pro SRK-ZT</h3><p>Wandgerät für Wohnräume, in drei Gehäusefarben.</p><ul class="specs"><li>2 bis 5 kW</li><li>bis A+++</li><li>ab 19 dB(A)</li><li>WLAN</li></ul></article><article class="device"><small>Mitsubishi Heavy Industries</small><h3>SCM Multi-Split</h3><p>Ein Außengerät versorgt je nach Modell zwei bis sechs Innengeräte, jedes einzeln geregelt.</p><ul class="specs"><li>3 bis 12,5 kW</li><li>2 bis 6 Innengeräte</li></ul></article><article class="device"><small>Gewerbe</small><h3>PAC- und VRF-Systeme</h3><p>Zentrale Klimatisierung für Büro, Hotel und Handel.</p><ul class="specs"><li>Deckenkassetten</li><li>Zonenregelung</li></ul></article>
+        <article class="device rv"><small>Mitsubishi Heavy Industries</small><h3>Premium Pro SRK-ZT</h3><p>Wandgerät für Wohnräume, in drei Gehäusefarben.</p><ul class="chips"><li>2 bis 5 kW</li><li>bis A+++</li><li>ab 19 dB(A)</li><li>WLAN</li></ul></article>
+        <article class="device rv"><small>Mitsubishi Heavy Industries</small><h3>SCM Multi-Split</h3><p>Ein Außengerät versorgt je nach Modell zwei bis sechs Innengeräte, jedes einzeln geregelt.</p><ul class="chips"><li>3 bis 12,5 kW</li><li>2 bis 6 Innengeräte</li></ul></article>
+        <article class="device rv"><small>Gewerbe</small><h3>PAC- und VRF-Systeme</h3><p>Zentrale Klimatisierung für Büro, Hotel und Handel.</p><ul class="chips"><li>Deckenkassetten</li><li>Zonenregelung</li></ul></article>
       </div>
       <p class="src">Geräteangaben laut Hersteller.</p>
     </div>
   </section>
   <section class="sec">
     <div class="wrap">
-      <div class="note-band">
+      <div class="note-band rv">
         <div><h2>Wir kommen vorbei und messen auf.</h2><p>Danach wissen Sie, welches Gerät passt, wo es hinkommt und was es kostet.</p></div>
-        <a class="btn btn-light" href="index.html?anliegen=klima#kontakt">Anfrage senden</a>
+        <a class="btn" href="index.html?anliegen=klima#kontakt">Anfrage senden</a>
       </div>
     </div>
   </section>
@@ -107,7 +110,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <img src="assets/logo-horizontal-white.webp" alt="4M Gebäudetechnik GmbH" width="1000" height="152" loading="lazy">
+        <img src="assets/logo-horizontal.webp" alt="4M Gebäudetechnik GmbH" width="1000" height="152" loading="lazy">
         <p>Heizung, Klima und Sanitär in Offenbach am Main und im Rhein-Main-Gebiet.</p>
       </div>
       <div>
@@ -146,7 +149,7 @@
 
 <div class="callbar">
   <a class="btn btn-ghost" href="tel:+49XXXXXXXXX"><i class="ph ph-phone" aria-hidden="true"></i> Anrufen</a>
-  <a class="btn btn-primary" href="index.html?anliegen=klima#kontakt">Anfrage senden</a>
+  <a class="btn" href="index.html?anliegen=klima#kontakt">Anfrage senden</a>
 </div>
 </body>
 </html>

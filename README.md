@@ -9,15 +9,18 @@ Zugangscode der Vorschau: **1292** (wird pro Browsersitzung gemerkt).
 - `impressum.html`, `datenschutz.html` – Textbausteine mit Platzhaltern
 
 ## Gestaltung
-- Logo ohne Slogan, freigestellt: `assets/logo-*.png/webp` (Original: `assets/logo-original.jpg`), für den dunklen Kopf `logo-horizontal-dark` (4 und Schrift weiß, M farbig)
-- Farbregel: Rot und Blau nur im Logo. Seite schwarz/weiß/grau in Volltonflächen, keine Verläufe. Kopf, Hero, Ablauf und Kontakt dunkel (#0E1012)
-- Schrift: Encode Sans (breit für Überschriften, wie die Wortmarke), Symbole: Phosphor
-- Signatur: das Haus als Anlagenschema in weißen Linien (`assets/site.js`), wechselt zwischen Heizung, Klima und Sanitär; Vorlauf weiß, Rücklauf grau
+- Apple-nah, angelehnt an die Wirtshaus-an-der-Lahn-Vorschau: schwebende Glas-Navigation, runde Bühnen und Karten, Pillen-Knöpfe, Schrift Geist, Symbole Phosphor
+- Farbregel: Rot und Blau nur im Logo. Sonst schwarz, weiß, grau in Volltonflächen, keine Verläufe
+- Hero: das Haus als 3D-Anlagenschema (`assets/house3d.js`, three.js 0.170 per CDN). Beim Scrollen fährt die Kamera durch Heizung, Klima und Sanitär; Vorlauf leuchtet weiß, Rücklauf grau. Unterseiten zeigen dasselbe Haus mit festem Gewerk
+- Ohne WebGL bleibt das SVG-Schema aus `assets/site.js` sichtbar, bei reduzierter Bewegung gibt es keine Scroll-Bühne
+- Logo ohne Slogan: `assets/logo-*.png/webp`, für dunkles Glas `logo-horizontal-dark`
 
-## Fotos einsetzen
-Dateien einfach unter `images/` ablegen, dann ersetzen sie die Platzhalter automatisch:
-`projekt-1.webp` (groß) bis `projekt-5.webp`, `team.webp` (Hochformat 4:5).
-Alt-Texte in `index.html` anpassen.
+## Seiten erzeugen
+Alle HTML-Seiten entstehen aus `tools/gen_site.py` (`python tools/gen_site.py`). Texte dort ändern, nicht direkt im HTML.
+
+## Fotos
+Alle Bilder in `images/` sind **Beispielbilder von Unsplash** und werden durch eigene Fotos ersetzt (gleiche Dateinamen):
+`heizung.webp`, `klima.webp`, `sanitaer.webp` (Leistungen), `projekt-1.webp` bis `projekt-5.webp` (Einblicke), `team.webp` (Über uns, Hochformat).
 
 ## Offene Punkte
 - [ ] Telefonnummer (`tel:+49XXXXXXXXX` und `[Telefonnummer]`)
@@ -25,6 +28,6 @@ Alt-Texte in `index.html` anpassen.
 - [ ] Adresse Kaiserstraße 39, 63065 Offenbach bestätigen (stammt von der alten Seite)
 - [ ] Bürozeiten Mo bis Fr 8 bis 17 Uhr bestätigen
 - [ ] Gründungsjahr, Geschäftsführung, HRB, USt-ID, Handwerkskammer
-- [ ] Fotos vom Betrieb
-- [ ] Vor Livegang: Schrift und Symbole lokal einbinden, Formular-Endpunkt (`data-endpoint`), `noindex` entfernen, Code-Sperre entfernen
+- [ ] Eigene Fotos statt der Unsplash-Beispielbilder
+- [ ] Vor Livegang: Schrift, Symbole und three.js lokal einbinden, Formular-Endpunkt (`data-endpoint`), `noindex` entfernen, Code-Sperre entfernen
 - Hinweis: Die Code-Sperre ist clientseitig (Sichtschutz für die Vorschau, kein echter Zugriffsschutz).

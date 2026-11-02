@@ -6,46 +6,30 @@
 <title>4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Offenbach am Main</title>
 <meta name="description" content="Heizung und Wärmepumpe, Klimaanlagen, Bad und Sanitär: Planung, Einbau und Wartung durch die 4M Gebäudetechnik GmbH in Offenbach am Main und im Rhein-Main-Gebiet.">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#0E1012">
+<meta name="theme-color" content="#F5F5F7">
 <meta property="og:title" content="4M Gebäudetechnik GmbH">
 <meta property="og:description" content="Heizung, Klima und Sanitär in Offenbach am Main und im Rhein-Main-Gebiet.">
-<meta property="og:type" content="website">
 <meta property="og:image" content="assets/logo-full.png">
 <link rel="icon" href="assets/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans:wdth,wght@75..125,100..900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 <link rel="stylesheet" href="assets/site.css">
 <script src="assets/site.js"></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script type="module" src="assets/house3d.js"></script>
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "HVACBusiness",
-  "name": "4M Gebäudetechnik GmbH",
-  "description": "Heizung, Klima und Sanitär: Planung, Einbau und Wartung.",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Kaiserstraße 39",
-    "postalCode": "63065",
-    "addressLocality": "Offenbach am Main",
-    "addressCountry": "DE"
-  },
-  "areaServed": "Rhein-Main-Gebiet",
-  "openingHours": "Mo-Fr 08:00-17:00",
-  "logo": "assets/logo-full.png"
-}
+{"@context":"https://schema.org","@type":"HVACBusiness","name":"4M Gebäudetechnik GmbH","description":"Heizung, Klima und Sanitär: Planung, Einbau und Wartung.","address":{"@type":"PostalAddress","streetAddress":"Kaiserstraße 39","postalCode":"63065","addressLocality":"Offenbach am Main","addressCountry":"DE"},"areaServed":"Rhein-Main-Gebiet","openingHours":"Mo-Fr 08:00-17:00","logo":"assets/logo-full.png"}
 </script>
 </head>
 <body>
 <a class="skip" href="#main">Zum Inhalt springen</a>
 
 <header class="nav">
-  <div class="wrap nav-in">
-    <a class="brand" href="index.html" aria-label="4M Gebäudetechnik GmbH, zur Startseite">
-      <img src="assets/logo-horizontal-dark.webp" alt="4M Gebäudetechnik GmbH" width="1000" height="152">
-    </a>
+  <a class="brand" href="index.html" aria-label="4M Gebäudetechnik GmbH, zur Startseite"><img class="logo-light" src="assets/logo-horizontal.webp" alt="4M Gebäudetechnik GmbH" width="1000" height="152"><img class="logo-dark" src="assets/logo-horizontal-dark.webp" alt="" width="1000" height="152"></a>
+  <nav aria-label="Hauptnavigation" style="margin-left:auto">
     <ul class="nav-links">
       <li><a href="#leistungen">Leistungen</a></li>
       <li><a href="#ablauf">Ablauf</a></li>
@@ -53,14 +37,11 @@
       <li><a href="#ueber-uns">Über uns</a></li>
       <li><a href="#kontakt">Kontakt</a></li>
     </ul>
-    <div class="nav-cta">
-      <a class="nav-tel" href="tel:+49XXXXXXXXX"><i class="ph ph-phone" aria-hidden="true"></i><span>[Telefonnummer]</span></a>
-      <a class="btn btn-primary" href="#kontakt">Anfrage senden</a>
-    </div>
-    <button class="burger" type="button" aria-label="Menü" aria-expanded="false" aria-controls="sheet"><i class="ph ph-list" aria-hidden="true"></i></button>
-  </div>
+  </nav>
+  <div class="nav-cta"><a class="btn" href="#kontakt">Anfrage senden</a></div>
+  <button class="burger" type="button" aria-label="Menü" aria-expanded="false" aria-controls="sheet"><i class="ph ph-list" aria-hidden="true"></i></button>
 </header>
-<nav class="sheet" id="sheet" aria-label="Hauptmenü">
+<nav class="sheet" id="sheet" aria-label="Menü">
   <ul>
     <li><a href="#leistungen">Leistungen <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
     <li><a href="#ablauf">Ablauf <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
@@ -68,183 +49,144 @@
     <li><a href="#ueber-uns">Über uns <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
     <li><a href="#kontakt">Kontakt <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
   </ul>
-  <a class="btn btn-primary" href="#kontakt">Anfrage senden</a>
+  <a class="btn" href="#kontakt">Anfrage senden</a>
 </nav>
 
 <main id="main">
 
-  <!-- Hero: Haus als Anlagenschema, die drei Kreise wechseln sich ab -->
-  <section class="hero hero-home" data-schema="cycle">
-    <div class="wrap hero-grid">
-      <div class="hero-in">
-        <p class="kicker">Fachbetrieb in Offenbach am Main</p>
-        <h1 class="disp">
-          <span data-word="heat">Heizung.</span>
-          <span data-word="cool">Klima.</span>
-          <span data-word="water">Sanitär.</span>
-        </h1>
-        <p class="lead">Planung, Einbau und Wartung für Wohnhäuser und Gewerbe in Offenbach und im Rhein-Main-Gebiet.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#kontakt">Anfrage senden <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-          <a class="btn btn-ghost" href="tel:+49XXXXXXXXX"><i class="ph ph-phone" aria-hidden="true"></i> Anrufen</a>
+  <!-- Bühne: das Haus als 3D-Anlagenschema, Scrollen führt durch die drei Gewerke -->
+  <div class="story" data-step="intro">
+    <div class="stage">
+      <section class="hero" aria-label="Heizung, Klima und Sanitär">
+        <div class="house" data-house="story"></div>
+        <div class="panels">
+          <div class="panel panel-intro">
+            <p class="kicker">Fachbetrieb in Offenbach am Main</p>
+            <h1><span><i>Heizung.</i></span><span><i>Klima.</i></span><span><i>Sanitär.</i></span></h1>
+            <p class="lead">Planung, Einbau und Wartung für Wohnhäuser und Gewerbe in Offenbach und im Rhein-Main-Gebiet.</p>
+            <div class="cta">
+              <a class="btn btn-light" href="#kontakt">Anfrage senden <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+              <a class="btn btn-ghost inv" href="tel:+49XXXXXXXXX"><i class="ph ph-phone" aria-hidden="true"></i> Anrufen</a>
+            </div>
+          </div>
+          <div class="panel" data-k="heat">
+            <p class="eyebrow">01 / 03</p>
+            <h2>Heizung und Wärmepumpe</h2>
+            <p class="txt">Die Wärmepumpe holt Wärme aus der Außenluft, der Speicher hält sie vor, Heizkörper oder Fußbodenheizung geben sie an die Räume ab.</p>
+            <ul class="chips"><li>Luft-Wasser-Wärmepumpe</li><li>Heizungstausch</li><li>Hydraulischer Abgleich</li></ul>
+            <a class="btn btn-light" href="heizung.html">Mehr zur Heizung <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          </div>
+          <div class="panel" data-k="cool">
+            <p class="eyebrow">02 / 03</p>
+            <h2>Klima</h2>
+            <p class="txt">Das Außengerät führt die Wärme nach draußen, das Innengerät kühlt leise und ohne Zugluft. Im Winter heizt dieselbe Anlage.</p>
+            <ul class="chips"><li>Split</li><li>Multi-Split</li><li>Gewerbe</li></ul>
+            <a class="btn btn-light" href="klima.html">Mehr zur Klimatechnik <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          </div>
+          <div class="panel" data-k="water">
+            <p class="eyebrow">03 / 03</p>
+            <h2>Sanitär</h2>
+            <p class="txt">Kaltwasser kommt vom Hausanschluss, Warmwasser aus dem Speicher. Wir verlegen beides bis zu Dusche und Waschtisch.</p>
+            <ul class="chips"><li>Badsanierung</li><li>Trinkwasser</li><li>Warmwasser</li></ul>
+            <a class="btn btn-light" href="sanitaer.html">Mehr zum Sanitär <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          </div>
         </div>
-      </div>
-      <div class="hero-art schema-slot"></div>
+        <div class="seg" role="group" aria-label="Gewerk zeigen">
+          <span class="thumb" aria-hidden="true"></span>
+          <button type="button" data-k="heat" aria-pressed="false"><i class="ph ph-flame" aria-hidden="true"></i>Heizung</button>
+          <button type="button" data-k="cool" aria-pressed="false"><i class="ph ph-snowflake" aria-hidden="true"></i>Klima</button>
+          <button type="button" data-k="water" aria-pressed="false"><i class="ph ph-drop" aria-hidden="true"></i>Sanitär</button>
+        </div>
+        <p class="hint" aria-hidden="true"><i class="ph ph-arrow-down"></i>Scrollen</p>
+      </section>
     </div>
-    <div class="wrap">
-      <div class="hero-ctrl" role="group" aria-label="Gewerk im Schema hervorheben">
-        <button type="button" data-k="heat" aria-pressed="true"><span class="n">01</span><strong>Heizung</strong><span class="d">Wärmepumpe, Speicher und Heizkörper.</span><span class="bar" aria-hidden="true"></span></button>
-        <button type="button" data-k="cool" aria-pressed="false"><span class="n">02</span><strong>Klima</strong><span class="d">Innengerät und Außengerät, leise und ohne Zugluft.</span><span class="bar" aria-hidden="true"></span></button>
-        <button type="button" data-k="water" aria-pressed="false"><span class="n">03</span><strong>Sanitär</strong><span class="d">Trinkwasser vom Hausanschluss bis zu Dusche und Waschtisch.</span><span class="bar" aria-hidden="true"></span></button>
-      </div>
-    </div>
-  </section>
+  </div>
 
   <!-- Leistungen -->
   <section class="sec" id="leistungen">
     <div class="wrap">
-      <div class="lst">
-        <div class="lst-head">
-          <h2 class="disp">Leistungen</h2>
-          <p class="lead">Drei Gewerke, ein Ansprechpartner. Von der Planung bis zur Wartung.</p>
-          <a class="btn btn-ghost" href="#kontakt">Anfrage senden</a>
-        </div>
-
-        <div>
-          <div class="trades">
-            <article class="trade k-heat">
-              <div class="trade-name">
-                <i class="ph ph-flame" aria-hidden="true"></i>
-                <h3>Heizung und Wärmepumpe</h3>
-              </div>
-              <div class="trade-body">
-                <p>Neue Heizung, Umstieg auf die Wärmepumpe oder Modernisierung der bestehenden Anlage.</p>
-                <ul class="facts">
-                  <li>Luft-Wasser-Wärmepumpen</li>
-                  <li>Heizungstausch</li>
-                  <li>Heizkörper und Fußbodenheizung</li>
-                  <li>Hydraulischer Abgleich</li>
-                </ul>
-                <a class="more" href="heizung.html">Mehr zur Heizung <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-              </div>
-            </article>
-
-            <article class="trade k-cool">
-              <div class="trade-name">
-                <i class="ph ph-snowflake" aria-hidden="true"></i>
-                <h3>Klima</h3>
-              </div>
-              <div class="trade-body">
-                <p>Kühlen und Heizen mit Split- und Multi-Split-Geräten, für einzelne Räume bis zu ganzen Büros.</p>
-                <ul class="facts">
-                  <li>Split-Klimageräte</li>
-                  <li>Multi-Split für mehrere Räume</li>
-                  <li>Klimatechnik für Gewerbe</li>
-                  <li>Wartung und Reinigung</li>
-                </ul>
-                <a class="more" href="klima.html">Mehr zur Klimatechnik <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-              </div>
-            </article>
-
-            <article class="trade k-water">
-              <div class="trade-name">
-                <i class="ph ph-drop" aria-hidden="true"></i>
-                <h3>Sanitär</h3>
-              </div>
-              <div class="trade-body">
-                <p>Bäder und Trinkwasserinstallation, von der einzelnen Leitung bis zur kompletten Badsanierung.</p>
-                <ul class="facts">
-                  <li>Badsanierung</li>
-                  <li>Barrierearme Bäder</li>
-                  <li>Trinkwasserleitungen</li>
-                  <li>Warmwasserbereitung</li>
-                </ul>
-                <a class="more" href="sanitaer.html">Mehr zum Sanitär <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-              </div>
-            </article>
-          </div>
-
-          <div class="extras">
-            <div class="extra">
-              <i class="ph ph-wrench" aria-hidden="true"></i>
-              <h4>Wartung und Reparatur</h4>
-              <p>Regelmäßige Wartung und schnelle Hilfe bei Störungen.</p>
-            </div>
-            <div class="extra">
-              <i class="ph ph-file-text" aria-hidden="true"></i>
-              <h4>Förderung</h4>
-              <p>Wir prüfen Zuschüsse für Ihr Vorhaben und helfen beim Antrag.</p>
-            </div>
-            <div class="extra">
-              <i class="ph ph-buildings" aria-hidden="true"></i>
-              <h4>Gewerbe</h4>
-              <p>Büros, Praxen, Läden und Gastronomie.</p>
-            </div>
-          </div>
-        </div>
+      <div class="kopf rv">
+        <h2>Leistungen</h2>
+        <p>Drei Gewerke, ein Ansprechpartner. Von der Planung über den Einbau bis zur Wartung.</p>
       </div>
-
-      <div class="brands">
-        <p>Wir beraten herstellerunabhängig und bauen unter anderem Geräte dieser Marken ein:</p>
-        <span>Mitsubishi Heavy Industries</span>
-        <span>Daikin</span>
-        <span>Vaillant</span>
-        <span>Viessmann</span>
-        <span>Bosch</span>
-        <span>Panasonic</span>
+      <div class="svcs">
+        <article class="svc rv">
+          <div class="svc-body">
+            <p class="eyebrow">01</p>
+            <h3>Heizung und Wärmepumpe</h3>
+            <p>Neue Heizung, Umstieg auf die Wärmepumpe oder Modernisierung der bestehenden Anlage.</p>
+            <ul class="chips"><li>Wärmepumpen</li><li>Heizungstausch</li><li>Fußbodenheizung</li><li>Abgleich</li></ul>
+            <div class="more"><a class="btn btn-ghost btn-sm" href="heizung.html">Mehr erfahren <i class="ph ph-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+          <div class="svc-img"><img data-slot src="images/heizung.webp" alt="Wärmepumpe vor einem modernen Haus" width="2400" height="1800" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span></div>
+        </article>
+        <article class="svc rv">
+          <div class="svc-body">
+            <p class="eyebrow">02</p>
+            <h3>Klima</h3>
+            <p>Kühlen und Heizen mit Split- und Multi-Split-Geräten, für einzelne Räume bis zu ganzen Büros.</p>
+            <ul class="chips"><li>Split</li><li>Multi-Split</li><li>Gewerbe</li><li>Wartung</li></ul>
+            <div class="more"><a class="btn btn-ghost btn-sm" href="klima.html">Mehr erfahren <i class="ph ph-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+          <div class="svc-img"><img data-slot src="images/klima.webp" alt="Klimagerät an einer hellen Wand" width="2400" height="1800" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span></div>
+        </article>
+        <article class="svc rv">
+          <div class="svc-body">
+            <p class="eyebrow">03</p>
+            <h3>Sanitär</h3>
+            <p>Bäder und Trinkwasserinstallation, von der einzelnen Leitung bis zur kompletten Badsanierung.</p>
+            <ul class="chips"><li>Badsanierung</li><li>Barrierearm</li><li>Trinkwasser</li><li>Warmwasser</li></ul>
+            <div class="more"><a class="btn btn-ghost btn-sm" href="sanitaer.html">Mehr erfahren <i class="ph ph-arrow-right" aria-hidden="true"></i></a></div>
+          </div>
+          <div class="svc-img"><img data-slot src="images/sanitaer.webp" alt="Modernes Bad mit freistehender Wanne" width="2400" height="1800" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span></div>
+        </article>
+      </div>
+      <div class="minis">
+        <div class="mini rv"><span class="ic"><i class="ph ph-wrench" aria-hidden="true"></i></span><h3>Wartung und Reparatur</h3><p>Regelmäßige Wartung und schnelle Hilfe bei Störungen.</p></div>
+        <div class="mini rv"><span class="ic"><i class="ph ph-file-text" aria-hidden="true"></i></span><h3>Förderung</h3><p>Wir prüfen Zuschüsse für Ihr Vorhaben und helfen beim Antrag.</p></div>
+        <div class="mini rv"><span class="ic"><i class="ph ph-buildings" aria-hidden="true"></i></span><h3>Gewerbe</h3><p>Büros, Praxen, Läden und Gastronomie.</p></div>
+      </div>
+      <div class="brands rv">
+        <p>Herstellerunabhängig, unter anderem mit Geräten von</p>
+        <span>Mitsubishi Heavy Industries</span><span>Daikin</span><span>Vaillant</span><span>Viessmann</span><span>Bosch</span><span>Panasonic</span>
       </div>
     </div>
   </section>
 
-  <!-- Ablauf: Vorlauf = Auftrag, Rücklauf = Wartung -->
-  <section class="sec flowsec" id="ablauf">
+  <!-- Ablauf -->
+  <section class="box box-dark" id="ablauf">
     <div class="wrap">
-      <div class="sec-head">
-        <h2 class="disp">So läuft ein Auftrag ab</h2>
+      <div class="kopf rv">
+        <h2>So läuft ein Auftrag ab</h2>
+        <p>Vier Schritte, ein fester Ansprechpartner.</p>
       </div>
-      <div class="route">
-        <span class="route-vl" aria-hidden="true"></span>
-        <span class="route-rl" aria-hidden="true"></span>
-        <ol class="stops">
-          <li class="stop">
-            <svg class="valve" viewBox="0 0 38 38" aria-hidden="true"><path d="M5 9 L19 19 L5 29 Z M33 9 L19 19 L33 29 Z"/></svg>
-            <h3>Anfrage</h3>
-            <p>Per Formular oder Telefon. Wir melden uns zeitnah zurück.</p>
-          </li>
-          <li class="stop">
-            <svg class="valve" viewBox="0 0 38 38" aria-hidden="true"><path d="M5 9 L19 19 L5 29 Z M33 9 L19 19 L33 29 Z"/></svg>
-            <h3>Termin vor Ort</h3>
-            <p>Wir sehen uns Gebäude und Anlage an und nehmen alle Maße auf.</p>
-          </li>
-          <li class="stop">
-            <svg class="valve" viewBox="0 0 38 38" aria-hidden="true"><path d="M5 9 L19 19 L5 29 Z M33 9 L19 19 L33 29 Z"/></svg>
-            <h3>Angebot</h3>
-            <p>Schriftlich und nachvollziehbar, mit klarer Leistungsbeschreibung.</p>
-          </li>
-          <li class="stop">
-            <svg class="valve" viewBox="0 0 38 38" aria-hidden="true"><path d="M5 9 L19 19 L5 29 Z M33 9 L19 19 L33 29 Z"/></svg>
-            <h3>Einbau</h3>
-            <p>Montage, Inbetriebnahme und Einweisung. Alle Unterlagen inklusive.</p>
-          </li>
+      <div class="steps-wrap">
+        <div class="track" aria-hidden="true"><i></i></div>
+        <ol class="steps">
+          <li class="step"><span class="no">01</span><h3>Anfrage</h3><p>Per Formular oder Telefon. Wir melden uns zeitnah zurück.</p></li>
+          <li class="step"><span class="no">02</span><h3>Termin vor Ort</h3><p>Wir sehen uns Gebäude und Anlage an und nehmen alle Maße auf.</p></li>
+          <li class="step"><span class="no">03</span><h3>Angebot</h3><p>Schriftlich und nachvollziehbar, mit klarer Leistungsbeschreibung.</p></li>
+          <li class="step"><span class="no">04</span><h3>Einbau</h3><p>Montage, Inbetriebnahme und Einweisung. Alle Unterlagen inklusive.</p></li>
         </ol>
-        <p class="route-ret"><strong>Danach:</strong> Wartung und Service, damit die Anlage effizient bleibt.</p>
       </div>
+      <p class="after"><i class="ph ph-arrows-clockwise" aria-hidden="true"></i><span><strong>Danach:</strong> Wartung und Service, damit die Anlage effizient bleibt.</span></p>
     </div>
   </section>
 
-  <!-- Einblicke: Fotos folgen vom Betrieb. Dateien einfach unter images/ ablegen. -->
+  <!-- Einblicke -->
   <section class="sec" id="einblicke">
     <div class="wrap">
-      <div class="sec-head">
-        <h2 class="disp">Einblicke</h2>
-        <p class="lead">Aus unseren Projekten in Offenbach und Umgebung.</p>
+      <div class="kopf rv">
+        <h2>Einblicke</h2>
+        <p>Aus unseren Projekten in Offenbach und Umgebung.</p>
       </div>
       <div class="bento">
-        <figure><img data-slot src="images/projekt-1.webp" alt="[Bildbeschreibung Projekt 1]" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span></figure>
-        <figure><img data-slot src="images/projekt-2.webp" alt="[Bildbeschreibung Projekt 2]" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span></figure>
-        <figure><img data-slot src="images/projekt-3.webp" alt="[Bildbeschreibung Projekt 3]" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span></figure>
-        <figure><img data-slot src="images/projekt-4.webp" alt="[Bildbeschreibung Projekt 4]" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span></figure>
-        <figure><img data-slot src="images/projekt-5.webp" alt="[Bildbeschreibung Projekt 5]" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span></figure>
+        <figure class="tile t1 rv"><img data-slot src="images/projekt-1.webp" alt="Wärmepumpe an einem Einfamilienhaus" width="2400" height="1600" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span><figcaption>Wärmepumpe</figcaption></figure>
+        <figure class="tile t2 rv"><img data-slot src="images/projekt-2.webp" alt="Gedämmte Heizungsleitungen mit Manometer" width="2400" height="1600" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span><figcaption>Heizungsraum</figcaption></figure>
+        <figure class="tile t3 rv"><img data-slot src="images/projekt-3.webp" alt="Bad mit Doppelwaschtisch und freistehender Wanne" width="2400" height="1600" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span><figcaption>Bad</figcaption></figure>
+        <div class="tile t4 rv"><p>Ihr Vorhaben als Nächstes?</p><a href="#kontakt">Anfrage senden <i class="ph ph-arrow-right" aria-hidden="true"></i></a></div>
+        <figure class="tile t5 rv"><img data-slot src="images/projekt-5.webp" alt="Monteur bei der Installation im Bad" width="2400" height="3173" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span><figcaption>Installation</figcaption></figure>
+        <figure class="tile t6 rv"><img data-slot src="images/projekt-4.webp" alt="Heizkörper unter einem Fenster" width="2400" height="1597" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span><figcaption>Heizkörper</figcaption></figure>
       </div>
     </div>
   </section>
@@ -252,50 +194,45 @@
   <!-- Über uns -->
   <section class="sec" id="ueber-uns" style="padding-top:0">
     <div class="wrap about">
-      <div>
-        <h2 class="disp">Über uns</h2>
-        <p class="lead">Die 4M Gebäudetechnik GmbH ist ein Fachbetrieb für Heizung, Klima und Sanitär mit Sitz in Offenbach am Main. Wir planen, bauen ein und warten, für Privatkunden, Vermieter und Gewerbe.</p>
-        <dl class="facts-dl">
-          <dt>Sitz</dt><dd>Offenbach am Main</dd>
-          <dt>Gewerke</dt><dd>Heizung, Klima, Sanitär</dd>
-          <dt>Einsatzgebiet</dt><dd>Offenbach, Frankfurt und Rhein-Main</dd>
-          <dt>Gegründet</dt><dd>[Gründungsjahr]</dd>
-          <dt>Geschäftsführung</dt><dd>[Name]</dd>
+      <div class="about-pic rv"><img data-slot src="images/team.webp" alt="[Team der 4M Gebäudetechnik]" width="2400" height="3200" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Teamfoto folgt</span></div>
+      <div class="about-txt rv">
+        <div>
+          <h2>Über uns</h2>
+          <p>Die 4M Gebäudetechnik GmbH ist ein Fachbetrieb für Heizung, Klima und Sanitär mit Sitz in Offenbach am Main. Wir planen, bauen ein und warten, für Privatkunden, Vermieter und Gewerbe.</p>
+        </div>
+        <dl class="facts">
+          <div><dt>Sitz</dt><dd>Offenbach am Main</dd></div>
+          <div><dt>Gewerke</dt><dd>Heizung, Klima, Sanitär</dd></div>
+          <div><dt>Einsatzgebiet</dt><dd>Offenbach, Frankfurt, Rhein-Main</dd></div>
+          <div><dt>Gegründet</dt><dd>[Gründungsjahr]</dd></div>
+          <div><dt>Geschäftsführung</dt><dd>[Name]</dd></div>
+          <div><dt>Bürozeiten</dt><dd>Mo bis Fr, 8 bis 17 Uhr</dd></div>
         </dl>
       </div>
-      <div class="about-pic"><img data-slot src="images/team.webp" alt="[Team der 4M Gebäudetechnik]" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Teamfoto folgt</span></div>
     </div>
   </section>
 
   <!-- Kontakt -->
-  <section class="sec contact" id="kontakt">
+  <section class="box box-dark contact" id="kontakt">
     <div class="wrap contact-grid">
-      <div>
-        <h2 class="disp">Kontakt</h2>
+      <div class="rv">
+        <h2>Kontakt</h2>
         <p class="lead">Schreiben Sie uns kurz, worum es geht. Wir melden uns mit einem Terminvorschlag.</p>
         <ul class="cinfo">
-          <li><i class="ph ph-phone" aria-hidden="true"></i><div><small>Telefon</small><a href="tel:+49XXXXXXXXX">[Telefonnummer]</a></div></li>
-          <li><i class="ph ph-envelope-simple" aria-hidden="true"></i><div><small>E-Mail</small><a href="mailto:[E-Mail]">[E-Mail-Adresse]</a></div></li>
-          <li><i class="ph ph-map-pin" aria-hidden="true"></i><div><small>Adresse</small><a href="https://www.google.com/maps/search/?api=1&amp;query=Kaiserstra%C3%9Fe+39+63065+Offenbach+am+Main" target="_blank" rel="noopener">Kaiserstraße 39, 63065 Offenbach am Main</a></div></li>
-          <li><i class="ph ph-clock" aria-hidden="true"></i><div><small>Bürozeiten</small><span class="num">Montag bis Freitag, 8 bis 17 Uhr</span></div></li>
+          <li><span class="ic"><i class="ph ph-phone" aria-hidden="true"></i></span><div><small>Telefon</small><a href="tel:+49XXXXXXXXX">[Telefonnummer]</a></div></li>
+          <li><span class="ic"><i class="ph ph-envelope-simple" aria-hidden="true"></i></span><div><small>E-Mail</small><a href="mailto:[E-Mail]">[E-Mail-Adresse]</a></div></li>
+          <li><span class="ic"><i class="ph ph-map-pin" aria-hidden="true"></i></span><div><small>Adresse</small><a href="https://www.google.com/maps/search/?api=1&amp;query=Kaiserstra%C3%9Fe+39+63065+Offenbach+am+Main" target="_blank" rel="noopener">Kaiserstraße 39, 63065 Offenbach am Main</a></div></li>
+          <li><span class="ic"><i class="ph ph-clock" aria-hidden="true"></i></span><div><small>Bürozeiten</small><span class="v">Montag bis Freitag, 8 bis 17 Uhr</span></div></li>
         </ul>
       </div>
 
-      <div class="form">
+      <div class="form rv">
         <form id="anfrage" novalidate data-mail="[E-Mail]">
           <div class="form-fields">
             <h3>Anfrage senden</h3>
             <div class="frow">
-              <div class="field">
-                <label for="f-name">Name</label>
-                <input id="f-name" name="name" autocomplete="name" required>
-                <span class="err" data-err="name"></span>
-              </div>
-              <div class="field">
-                <label for="f-kontakt">Telefon oder E-Mail</label>
-                <input id="f-kontakt" name="kontakt" autocomplete="email" required>
-                <span class="err" data-err="kontakt"></span>
-              </div>
+              <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required><span class="err" data-err="name"></span></div>
+              <div class="field"><label for="f-kontakt">Telefon oder E-Mail</label><input id="f-kontakt" name="kontakt" autocomplete="email" required><span class="err" data-err="kontakt"></span></div>
             </div>
             <div class="frow">
               <div class="field">
@@ -311,20 +248,10 @@
                   <i class="ph ph-caret-down" aria-hidden="true"></i>
                 </div>
               </div>
-              <div class="field">
-                <label for="f-ort">Ort <span class="opt">(optional)</span></label>
-                <input id="f-ort" name="ort" autocomplete="address-level2" placeholder="z. B. Offenbach">
-              </div>
+              <div class="field"><label for="f-ort">Ort <span class="opt">(optional)</span></label><input id="f-ort" name="ort" autocomplete="address-level2" placeholder="z. B. Offenbach"></div>
             </div>
-            <div class="field">
-              <label for="f-nachricht">Nachricht</label>
-              <textarea id="f-nachricht" name="nachricht" required placeholder="Was ist geplant? Gebäude, Baujahr, Wunschtermin"></textarea>
-              <span class="err" data-err="nachricht"></span>
-            </div>
-            <label class="chk">
-              <input type="checkbox" name="datenschutz" required>
-              <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span>
-            </label>
+            <div class="field"><label for="f-nachricht">Nachricht</label><textarea id="f-nachricht" name="nachricht" required placeholder="Was ist geplant? Gebäude, Baujahr, Wunschtermin"></textarea><span class="err" data-err="nachricht"></span></div>
+            <label class="chk"><input type="checkbox" name="datenschutz" required><span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span></label>
             <span class="err" data-err="datenschutz" style="display:block;margin:-10px 0 16px"></span>
             <button class="btn btn-light" type="submit">Anfrage senden <i class="ph ph-paper-plane-tilt" aria-hidden="true"></i></button>
             <p class="form-note">Ihr E-Mail-Programm öffnet sich mit der fertigen Nachricht.</p>
@@ -344,7 +271,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <img src="assets/logo-horizontal-white.webp" alt="4M Gebäudetechnik GmbH" width="1000" height="152" loading="lazy">
+        <img src="assets/logo-horizontal.webp" alt="4M Gebäudetechnik GmbH" width="1000" height="152" loading="lazy">
         <p>Heizung, Klima und Sanitär in Offenbach am Main und im Rhein-Main-Gebiet.</p>
       </div>
       <div>
@@ -383,7 +310,7 @@
 
 <div class="callbar">
   <a class="btn btn-ghost" href="tel:+49XXXXXXXXX"><i class="ph ph-phone" aria-hidden="true"></i> Anrufen</a>
-  <a class="btn btn-primary" href="#kontakt">Anfrage senden</a>
+  <a class="btn" href="#kontakt">Anfrage senden</a>
 </div>
 </body>
 </html>

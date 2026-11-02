@@ -1,4 +1,4 @@
-/* 4M Gebäudetechnik GmbH: Code-Sperre, Anlagenschema, Navigation, Ablauf, Formular */
+/* 4M Gebäudetechnik GmbH: Code-Sperre, Navigation, Scroll-Bühne, Einblenden, Formular */
 (function () {
   "use strict";
 
@@ -6,6 +6,10 @@
   var KEY = "m4-vorschau";
   var root = document.documentElement;
   root.classList.add("js");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Gemeinsamer Zustand für das 3D-Haus (assets/house3d.js liest ihn in jedem Frame)
+  window.M4 = { p: 0, k: "intro", ready: false };
 
   // ---------- Code-Sperre (Vorschau) ----------
   var unlocked = false;
@@ -74,7 +78,7 @@
     pins[0].focus();
   }
 
-  // ---------- Anlagenschema ----------
+  // ---------- Anlagenschema (SVG) ----------
   // Ein Haus, drei Kreise. Weiß = Vorlauf/warm, Grau = Rücklauf/kalt. Pfade sind in Flussrichtung gezeichnet.
   var SCHEMA =
     '<svg class="schema" viewBox="0 62 640 450" role="img" aria-labelledby="schema-t">' +
@@ -152,108 +156,150 @@
     '<text class="s-lbl" x="226" y="407" text-anchor="middle" transform="rotate(-90 226 407)">Speicher</text>' +
     "</svg>";
 
-  var CAPTIONS = {
-    heat: "Heizung: Die Wärmepumpe erzeugt die Wärme, der Speicher hält sie vor, die Heizkörper geben sie an die Räume ab.",
-    cool: "Klima: Das Außengerät führt die Wärme nach draußen, das Innengerät kühlt den Raum leise und ohne Zugluft.",
-    water: "Sanitär: Kaltwasser kommt vom Hausanschluss, Warmwasser aus dem Speicher, beides bis zu Dusche und Waschtisch."
-  };
-
-  function initSchema() {
-    var holders = document.querySelectorAll("[data-schema]");
-    if (!holders.length) return;
-    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    [].forEach.call(holders, function (holder) {
-      (holder.querySelector(".schema-slot") || holder).insertAdjacentHTML("afterbegin", SCHEMA);
-      var svg = holder.querySelector("svg.schema");
-      // Fluss-Striche über jede Leitung legen
-      [].forEach.call(svg.querySelectorAll(".p"), function (p) {
-        var f = p.cloneNode();
-        f.setAttribute("class", "f");
-        p.parentNode.insertBefore(f, p.nextSibling);
-      });
-
-      var fixed = holder.getAttribute("data-schema");
-      var cap = holder.querySelector(".schema-cap");
-      var btns = [].slice.call(holder.querySelectorAll("button[data-k]"));
-      var words = [].slice.call(holder.querySelectorAll("[data-word]"));
-
-      function show(k) {
-        svg.setAttribute("data-active", k);
-        btns.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-k") === k ? "true" : "false"); });
-        words.forEach(function (w) { w.classList.toggle("on", w.getAttribute("data-word") === k); });
-        if (cap) cap.textContent = CAPTIONS[k];
-      }
-
-      if (fixed && fixed !== "cycle") { show(fixed); return; }
-
-      var order = ["heat", "cool", "water"];
-      show(order[0]);
-      btns.forEach(function (b) {
-        b.addEventListener("click", function () { holder.classList.remove("cycling"); show(b.getAttribute("data-k")); });
-      });
-      if (!reduce) {
-        // Der Fortschrittsbalken des aktiven Gewerks gibt den Takt vor
-        holder.classList.add("cycling");
-        holder.addEventListener("animationend", function (e) {
-          if (e.animationName !== "fill" || !holder.classList.contains("cycling")) return;
-          var i = order.indexOf(svg.getAttribute("data-active"));
-          show(order[(i + 1) % order.length]);
-        });
-        // Nur laufen lassen, solange der Bereich sichtbar ist
-        if ("IntersectionObserver" in window) {
-          new IntersectionObserver(function (es) {
-            es.forEach(function (e) { holder.classList.toggle("paused", !e.isIntersecting); });
-          }).observe(holder);
-        }
-      }
+  // Das SVG bleibt als Rückfall im Haus-Container, falls WebGL fehlt
+  function initFallback() {
+    var house = document.querySelector("[data-house]");
+    if (!house) return;
+    house.insertAdjacentHTML("afterbegin", SCHEMA);
+    var svg = house.querySelector("svg.schema");
+    [].forEach.call(svg.querySelectorAll(".p"), function (p) {
+      var f = p.cloneNode();
+      f.setAttribute("class", "f");
+      p.parentNode.insertBefore(f, p.nextSibling);
     });
+    var fixed = house.getAttribute("data-house");
+    svg.setAttribute("data-active", fixed === "story" ? "heat" : fixed);
+  }
+
+  // ---------- Scroll-Bühne: Intro, Heizung, Klima, Sanitär ----------
+  var STEPS = ["intro", "heat", "cool", "water"];
+  var JUMP = { heat: 0.36, cool: 0.62, water: 0.88 };
+
+  function initStory() {
+    var story = document.querySelector(".story");
+    var house = document.querySelector("[data-house]");
+    var seg = document.querySelector(".seg");
+
+    // Unterseite: festes Gewerk
+    if (house && house.getAttribute("data-house") !== "story") {
+      window.M4.k = house.getAttribute("data-house");
+      if (seg) placeThumb(seg, seg.querySelector('[aria-current="page"]'));
+      return;
+    }
+    if (!story) return;
+    var btns = seg ? [].slice.call(seg.querySelectorAll("button[data-k]")) : [];
+    var svg = function () { return house && house.querySelector("svg.schema"); };
+
+    function setStep(k) {
+      if (story.getAttribute("data-step") === k) return;
+      story.setAttribute("data-step", k);
+      window.M4.k = k;
+      var on = null;
+      btns.forEach(function (b) {
+        var hit = b.getAttribute("data-k") === k;
+        b.setAttribute("aria-pressed", hit ? "true" : "false");
+        if (hit) on = b;
+      });
+      placeThumb(seg, on);
+      var s = svg();
+      if (s && k !== "intro") s.setAttribute("data-active", k);
+    }
+
+    if (reduce) {
+      story.classList.add("static");
+      setStep("intro");
+      btns.forEach(function (b) {
+        b.addEventListener("click", function () { setStep(b.getAttribute("data-k")); });
+      });
+      return;
+    }
+
+    function update() {
+      var total = story.offsetHeight - window.innerHeight;
+      var p = total > 0 ? Math.min(1, Math.max(0, -story.getBoundingClientRect().top / total)) : 0;
+      window.M4.p = p;
+      setStep(p < 0.22 ? "intro" : p < 0.5 ? "heat" : p < 0.76 ? "cool" : "water");
+    }
+    var ticking = false;
+    window.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { update(); ticking = false; });
+    }, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+
+    btns.forEach(function (b) {
+      b.addEventListener("click", function () {
+        var total = story.offsetHeight - window.innerHeight;
+        var top = story.getBoundingClientRect().top + window.scrollY + JUMP[b.getAttribute("data-k")] * total;
+        window.scrollTo({ top: top, behavior: "smooth" });
+      });
+    });
+  }
+
+  function placeThumb(seg, btn) {
+    if (!seg) return;
+    var items = [].slice.call(seg.querySelectorAll("button, a"));
+    var i = btn ? items.indexOf(btn) : -1;
+    seg.classList.toggle("has-thumb", i >= 0);
+    if (i >= 0) seg.style.setProperty("--i", i);
   }
 
   // ---------- Navigation ----------
   function initNav() {
+    // Glas wird dunkel, solange die Leiste über einer schwarzen Fläche schwebt
     var nav = document.querySelector(".nav");
+    var darks = [].slice.call(document.querySelectorAll(".hero, .box-dark"));
+    if (nav && darks.length) {
+      var tone = function () {
+        var y = nav.getBoundingClientRect().top + 30;
+        var on = darks.some(function (d) { var r = d.getBoundingClientRect(); return r.top <= y && r.bottom >= y; });
+        nav.classList.toggle("dark", on);
+      };
+      var t2 = false;
+      window.addEventListener("scroll", function () {
+        if (t2) return;
+        t2 = true;
+        requestAnimationFrame(function () { tone(); t2 = false; });
+      }, { passive: true });
+      window.addEventListener("resize", tone);
+      tone();
+    }
     var burger = document.querySelector(".burger");
     var sheet = document.querySelector(".sheet");
-    if (nav) {
-      var onScroll = function () { nav.classList.toggle("scrolled", window.scrollY > 8); };
-      var ticking = false;
-      window.addEventListener("scroll", function () {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function () { onScroll(); ticking = false; });
-      }, { passive: true });
-      onScroll();
-    }
-    if (burger && sheet) {
-      var setOpen = function (open) {
-        sheet.classList.toggle("open", open);
-        burger.setAttribute("aria-expanded", open ? "true" : "false");
-        burger.querySelector("i").className = open ? "ph ph-x" : "ph ph-list";
-      };
-      burger.addEventListener("click", function () { setOpen(!sheet.classList.contains("open")); });
-      sheet.addEventListener("click", function (e) { if (e.target.closest("a")) setOpen(false); });
-      document.addEventListener("keydown", function (e) { if (e.key === "Escape") setOpen(false); });
-    }
+    if (!burger || !sheet) return;
+    var setOpen = function (open) {
+      sheet.classList.toggle("open", open);
+      burger.setAttribute("aria-expanded", open ? "true" : "false");
+      burger.querySelector("i").className = open ? "ph ph-x" : "ph ph-list";
+    };
+    burger.addEventListener("click", function () { setOpen(!sheet.classList.contains("open")); });
+    sheet.addEventListener("click", function (e) { if (e.target.closest("a")) setOpen(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") setOpen(false); });
   }
 
-  // ---------- Ablauf ----------
-  function initRoute() {
-    var route = document.querySelector(".route");
-    if (!route) return;
-    if (!("IntersectionObserver" in window)) { route.classList.add("on"); return; }
+  // ---------- Einblenden beim Scrollen, Ablauf ----------
+  function initReveal() {
+    var els = document.querySelectorAll(".rv, .steps-wrap");
+    if (!("IntersectionObserver" in window)) {
+      [].forEach.call(els, function (el) { el.classList.add("an", "on"); });
+      return;
+    }
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
-        if (e.isIntersecting) { route.classList.add("on"); io.disconnect(); }
+        if (!e.isIntersecting) return;
+        e.target.classList.add(e.target.classList.contains("steps-wrap") ? "on" : "an");
+        io.unobserve(e.target);
       });
-    }, { threshold: 0.35 });
-    io.observe(route);
+    }, { threshold: 0.14 });
+    [].forEach.call(els, function (el) { io.observe(el); });
   }
 
-  // ---------- Bilder: Platzhalter, bis die echten Fotos da sind ----------
+  // ---------- Bilder: Platzhalter, falls ein Foto fehlt ----------
   function initSlots() {
     [].forEach.call(document.querySelectorAll("img[data-slot]"), function (img) {
-      var mark = function () { img.closest("figure, .about-pic").classList.add("ph-slot"); };
+      var mark = function () { img.parentNode.classList.add("ph-slot"); };
       if (img.complete && img.naturalWidth === 0) mark();
       img.addEventListener("error", mark);
     });
@@ -264,8 +310,7 @@
     var form = document.querySelector("#anfrage");
     if (!form) return;
     var F = form.elements;
-    var params = new URLSearchParams(location.search);
-    var pre = params.get("anliegen");
+    var pre = new URLSearchParams(location.search).get("anliegen");
     if (pre && F.anliegen) {
       [].forEach.call(F.anliegen.options, function (o) { if (o.value === pre) F.anliegen.value = pre; });
     }
@@ -298,15 +343,15 @@
         "Anliegen: " + label + "\n\n" + F.nachricht.value.trim();
       var to = form.getAttribute("data-mail");
       var endpoint = form.getAttribute("data-endpoint");
+      var mail = function () {
+        location.href = "mailto:" + to + "?subject=" + encodeURIComponent("Anfrage: " + label) + "&body=" + encodeURIComponent(body);
+      };
       var done = function () { form.closest(".form").classList.add("sent"); };
 
       if (endpoint) {
-        fetch(endpoint, { method: "POST", body: new FormData(form) }).then(done, function () {
-          location.href = "mailto:" + to + "?subject=" + encodeURIComponent("Anfrage: " + label) + "&body=" + encodeURIComponent(body);
-          done();
-        });
+        fetch(endpoint, { method: "POST", body: new FormData(form) }).then(done, function () { mail(); done(); });
       } else {
-        location.href = "mailto:" + to + "?subject=" + encodeURIComponent("Anfrage: " + label) + "&body=" + encodeURIComponent(body);
+        mail();
         done();
       }
     });
@@ -316,13 +361,14 @@
   }
 
   function afterUnlock() {
-    initRoute();
+    window.M4.ready = true;
+    initReveal();
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    var y = document.querySelectorAll("[data-year]");
-    [].forEach.call(y, function (el) { el.textContent = new Date().getFullYear(); });
-    initSchema();
+    [].forEach.call(document.querySelectorAll("[data-year]"), function (el) { el.textContent = new Date().getFullYear(); });
+    initFallback();
+    initStory();
     initNav();
     initSlots();
     initForm();
