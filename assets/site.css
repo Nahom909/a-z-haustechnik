@@ -48,6 +48,7 @@ h1,h2,h3,h4{margin:0;font-weight:600;text-wrap:balance}
 p{margin:0;text-wrap:pretty}
 ::selection{background:var(--ink);color:#fff}
 :focus-visible{outline:2px solid currentColor;outline-offset:3px;border-radius:6px}
+[tabindex="-1"]:focus{outline:none}
 .wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .skip{position:absolute;left:12px;top:-60px;z-index:200;background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;text-decoration:none}

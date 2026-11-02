@@ -22,6 +22,8 @@ Keine Verläufe, keine Schatten, kein Slogan, keine Symbolzeile. Das ursprüngli
 ## Seiten erzeugen
 Alle HTML-Seiten entstehen aus `tools/gen_site.py` (`python tools/gen_site.py`). Texte dort ändern, nicht direkt im HTML.
 Unterseiten: `heizung.html`, `klima.html`, `sanitaer.html`, dazu `impressum.html` und `datenschutz.html`.
+Abschnitts-Links: auf der Startseite `#anker` (per JS ohne Eintrag in der Adresse), von Unterseiten `index.html?ziel=anker`. So startet die Startseite beim Öffnen und Neuladen immer oben.
+Nach Änderungen an CSS/JS die Versionsnummer `V` in `tools/gen_site.py` erhöhen.
 
 ## Fotos
 Beispielbilder von Unsplash unter der Unsplash-Lizenz (kostenlos, kommerziell nutzbar). Fotograf, Quelle und Bearbeitungen: `images/BILDNACHWEIS.md`.

@@ -246,6 +246,45 @@
     if (i >= 0) seg.style.setProperty("--i", i);
   }
 
+  // ---------- Sprungmarken: die Startseite beginnt immer oben ----------
+  // Eine #Sprungmarke in der Adresse (z. B. nach einem Klick auf "Anfrage senden") würde beim
+  // nächsten Öffnen oder Neuladen direkt zum Kontakt springen. Deshalb kommt keine in die Adresse,
+  // und Unterseiten verlinken mit ?ziel= auf einen Abschnitt.
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  var pendingTarget = null;
+
+  function initAnchors() {
+    var params = new URLSearchParams(location.search);
+    pendingTarget = params.get("ziel");
+    if (location.hash || pendingTarget) {
+      params.delete("ziel");
+      var q = params.toString();
+      history.replaceState(null, "", location.pathname + (q ? "?" + q : ""));
+    }
+    window.scrollTo(0, 0);
+
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest('a[href^="#"]');
+      if (!a || a.getAttribute("href").length < 2) return;
+      var el = document.getElementById(a.getAttribute("href").slice(1));
+      if (!el) return;
+      e.preventDefault();
+      goTo(el, reduce ? "auto" : "smooth");
+    });
+  }
+
+  function goTo(el, behavior) {
+    el.scrollIntoView({ behavior: behavior, block: "start" });
+    if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
+    el.focus({ preventScroll: true });
+  }
+
+  function goPending() {
+    var el = pendingTarget && document.getElementById(pendingTarget);
+    pendingTarget = null;
+    if (el) requestAnimationFrame(function () { goTo(el, "auto"); });
+  }
+
   // ---------- Navigation ----------
   function initNav() {
     // Glas wird dunkel, solange die Leiste über einer schwarzen Fläche schwebt
@@ -363,10 +402,12 @@
   function afterUnlock() {
     window.M4.ready = true;
     initReveal();
+    goPending();
   }
 
   document.addEventListener("DOMContentLoaded", function () {
     [].forEach.call(document.querySelectorAll("[data-year]"), function (el) { el.textContent = new Date().getFullYear(); });
+    initAnchors();
     initFallback();
     initStory();
     initNav();

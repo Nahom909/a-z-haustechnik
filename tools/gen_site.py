@@ -2,9 +2,10 @@
 import pathlib
 OUT = pathlib.Path(r"C:\Users\nahom\OneDrive\Claude_Websites\4M_Gebaeudetechnik")
 TEL = "tel:+49XXXXXXXXX"
+V = "20261102c"  # bei jeder Änderung an CSS/JS erhöhen, damit Browser nicht die alte Datei aus dem Cache nehmen
 
 THREE = """<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
-<script type="module" src="assets/house3d.js"></script>"""
+<script type="module" src="assets/house3d.js?v=__V__"></script>""".replace("__V__", V)
 
 
 def head(title, desc, three=False, extra=""):
@@ -27,8 +28,8 @@ def head(title, desc, three=False, extra=""):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
-<link rel="stylesheet" href="assets/site.css">
-<script src="assets/site.js"></script>
+<link rel="stylesheet" href="assets/site.css?v={V}">
+<script src="assets/site.js?v={V}"></script>
 {THREE if three else ""}{extra}
 </head>
 <body>
@@ -36,11 +37,17 @@ def head(title, desc, three=False, extra=""):
 """
 
 
+def to(home, anchor, anfrage=""):
+    """Link zu einem Abschnitt der Startseite. Von Unterseiten per ?ziel=, damit keine #Sprungmarke in der Adresse hängen bleibt."""
+    if home:
+        return "#" + anchor
+    return "index.html" + (anfrage + "&" if anfrage else "?") + "ziel=" + anchor
+
+
 def nav(home, anfrage=""):
-    pre = "" if home else "index.html"
     links = [("leistungen", "Leistungen"), ("ablauf", "Ablauf"), ("einblicke", "Einblicke"), ("ueber-uns", "Über uns"), ("kontakt", "Kontakt")]
-    li = "\n      ".join(f'<li><a href="{pre}#{a}">{t}</a></li>' for a, t in links)
-    sheet = "\n    ".join(f'<li><a href="{pre}#{a}">{t} <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>' for a, t in links)
+    li = "\n      ".join(f'<li><a href="{to(home, a)}">{t}</a></li>' for a, t in links)
+    sheet = "\n    ".join(f'<li><a href="{to(home, a)}">{t} <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>' for a, t in links)
     return f"""
 <header class="nav">
   <a class="brand" href="index.html" aria-label="4M Gebäudetechnik GmbH, zur Startseite"><img class="logo-light" src="assets/logo-horizontal.svg" alt="4M Gebäudetechnik GmbH" width="976" height="120"><img class="logo-dark" src="assets/logo-horizontal-dark.svg" alt="" width="976" height="120"></a>
@@ -49,20 +56,19 @@ def nav(home, anfrage=""):
       {li}
     </ul>
   </nav>
-  <div class="nav-cta"><a class="btn" href="{pre}{anfrage}#kontakt">Anfrage senden</a></div>
+  <div class="nav-cta"><a class="btn" href="{to(home, 'kontakt', anfrage)}">Anfrage senden</a></div>
   <button class="burger" type="button" aria-label="Menü" aria-expanded="false" aria-controls="sheet"><i class="ph ph-list" aria-hidden="true"></i></button>
 </header>
 <nav class="sheet" id="sheet" aria-label="Menü">
   <ul>
     {sheet}
   </ul>
-  <a class="btn" href="{pre}{anfrage}#kontakt">Anfrage senden</a>
+  <a class="btn" href="{to(home, 'kontakt', anfrage)}">Anfrage senden</a>
 </nav>
 """
 
 
 def foot(home, anfrage=""):
-    pre = "" if home else "index.html"
     return f"""
 <footer class="foot">
   <div class="wrap">
@@ -82,10 +88,10 @@ def foot(home, anfrage=""):
       <div>
         <h4>Seite</h4>
         <ul>
-          <li><a href="{pre}#ablauf">Ablauf</a></li>
-          <li><a href="{pre}#einblicke">Einblicke</a></li>
-          <li><a href="{pre}#ueber-uns">Über uns</a></li>
-          <li><a href="{pre}#kontakt">Kontakt</a></li>
+          <li><a href="{to(home, 'ablauf')}">Ablauf</a></li>
+          <li><a href="{to(home, 'einblicke')}">Einblicke</a></li>
+          <li><a href="{to(home, 'ueber-uns')}">Über uns</a></li>
+          <li><a href="{to(home, 'kontakt')}">Kontakt</a></li>
         </ul>
       </div>
       <div>
@@ -107,7 +113,7 @@ def foot(home, anfrage=""):
 
 <div class="callbar">
   <a class="btn btn-ghost" href="{TEL}"><i class="ph ph-phone" aria-hidden="true"></i> Anrufen</a>
-  <a class="btn" href="{pre}{anfrage}#kontakt">Anfrage senden</a>
+  <a class="btn" href="{to(home, 'kontakt', anfrage)}">Anfrage senden</a>
 </div>
 </body>
 </html>
@@ -375,7 +381,7 @@ def trade_page(p):
           <h1>{p['h1']}</h1>
           <p class="lead">{p['lead']}</p>
           <div class="cta">
-            <a class="btn btn-light" href="index.html{anfrage}#kontakt">Anfrage senden <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+            <a class="btn btn-light" href="{to(False, 'kontakt', anfrage)}">Anfrage senden <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
             <a class="btn btn-ghost inv" href="{TEL}"><i class="ph ph-phone" aria-hidden="true"></i> Anrufen</a>
           </div>
         </div>
@@ -400,7 +406,7 @@ def trade_page(p):
     <div class="wrap">
       <div class="note-band rv">
         <div><h2>{p['band'][0]}</h2><p>{p['band'][1]}</p></div>
-        <a class="btn" href="index.html{anfrage}#kontakt">Anfrage senden</a>
+        <a class="btn" href="{to(False, 'kontakt', anfrage)}">Anfrage senden</a>
       </div>
     </div>
   </section>
