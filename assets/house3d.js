@@ -1,6 +1,6 @@
 /* 4M Gebäudetechnik GmbH: das Haus als 3D-Anlagenschema (Three.js)
-   Glashaus mit Heizung, Klima und Sanitär. Vorlauf leuchtet weiß, Rücklauf grau,
-   Lichtimpulse laufen in Flussrichtung. Zustand kommt aus window.M4 (assets/site.js). */
+   Glashaus mit Heizung, Klima und Sanitär. Vorlauf rot, Rücklauf blau, beides Vollton;
+   hart abgesetzte hellere Striche laufen in Flussrichtung. Zustand kommt aus window.M4 (assets/site.js). */
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
@@ -240,8 +240,8 @@ function start(host) {
       if (vUv.x > uDraw) discard;
       float s = vUv.x * uLen - uTime * uSpeed;
       float f = fract(s / 1.15);
-      float b = smoothstep(0.0, 0.05, f) * (1.0 - smoothstep(0.09, 0.3, f));
-      gl_FragColor = vec4(mix(uBase, uGlow, b), uOpacity);
+      vec3 c = f < 0.18 ? uGlow : uBase;
+      gl_FragColor = vec4(c, uOpacity);
       #include <colorspace_fragment>
     }`;
 
@@ -252,8 +252,8 @@ function start(host) {
     const mat = new THREE.ShaderMaterial({
       uniforms: {
         uTime: { value: 0 }, uLen: { value: len }, uDraw: { value: 0 }, uOpacity: { value: 1 }, uSpeed: { value: 1.3 },
-        uBase: { value: new THREE.Color(hot ? 0xd5d9dd : 0x6a6f75) },
-        uGlow: { value: new THREE.Color(hot ? 0xffffff : 0xb3b8be) },
+        uBase: { value: new THREE.Color(hot ? 0xc1121c : 0x0e518d) },
+        uGlow: { value: new THREE.Color(hot ? 0xf06a70 : 0x6fa6dc) },
       },
       vertexShader: PIPE_VERT,
       fragmentShader: PIPE_FRAG,
@@ -281,8 +281,8 @@ function start(host) {
     const pts = [];
     for (let i = 0; i <= 12; i++) pts.push([x + Math.sin(i * 0.9) * 0.1, 5.3 - i * 0.07, -2.82 + i * 0.04]);
     const m = pipe("cool", pts, false, 0.022);
-    m.material.uniforms.uBase.value.set(0x2a2c30);
-    m.material.uniforms.uGlow.value.set(0xc9ced3);
+    m.material.uniforms.uBase.value.set(0x1b2a3b);
+    m.material.uniforms.uGlow.value.set(0x6fa6dc);
     m.material.uniforms.uSpeed.value = 0.7;
   });
 
@@ -334,7 +334,7 @@ function start(host) {
         return { az: A.az + (B.az - A.az) * t, el: A.el + (B.el - A.el) * t, r: A.r + (B.r - A.r) * t, t: A.t.clone().lerp(B.t, t) };
       }
     }
-    return ST.water;
+    return { ...ST.water };
   }
 
   const cam = { az: ST.intro.az + 0.5, el: ST.intro.el + 0.08, r: ST.intro.r + 9, t: ST.intro.t.clone() };
@@ -356,10 +356,10 @@ function start(host) {
     camera.aspect = W / H;
     // Das Haus rückt neben den Text: auf breiten Bildschirmen nach rechts, auf schmalen nach oben
     const wide = W / H > 1.05;
-    shiftX = wide ? (mode === "story" ? 0.17 : 0.23) : 0;
+    shiftX = wide ? (mode === "story" ? (camera.aspect < 1.5 ? 0.2 : 0.17) : 0.23) : 0;
     shiftY = wide ? 0 : 0.25;
-    // Hochformat: Kamera weiter weg, damit das ganze Haus in die Breite passt
-    rScale = camera.aspect < 1.2 ? Math.min(2.5, 1.3 / camera.aspect) : 1;
+    // Schmale Bühnen (Tablet, Handy): Kamera weiter weg, damit das ganze Haus in die Breite passt
+    rScale = camera.aspect < 1.6 ? Math.min(2.5, 1.55 / camera.aspect) : 1;
     camera.setViewOffset(W * (1 + 2 * shiftX), H * (1 + 2 * shiftY), 0, 2 * shiftY * H, W, H);
     camera.updateProjectionMatrix();
   }
@@ -388,6 +388,11 @@ function start(host) {
 
     // Kamera folgt kritisch gedämpft, nie sprunghaft
     const want = wanted(state.p);
+    // Hochformat: Blick mehr zur Hausmitte, damit nichts aus dem Bild läuft
+    if (camera.aspect < 1.05) {
+      want.t = want.t.clone().setX(want.t.x * 0.45 - 0.3);
+      want.r = Math.max(want.r, 35);
+    }
     const k = 1 - Math.exp(-dt * (reduce ? 60 : 3.2));
     const idle = reduce ? 0 : Math.sin(time * 0.25) * 0.05;
     pointer.sx += (pointer.x - pointer.sx) * (1 - Math.exp(-dt * 4));
@@ -447,7 +452,8 @@ function start(host) {
       if (on !== L.on) { L.el.classList.toggle("on", on); L.on = on; }
       if (!on && !L.el.classList.contains("on")) return;
       tmp.copy(L.pos).project(camera);
-      const x = (tmp.x * 0.5 + 0.5) * W;
+      const half = L.el.offsetWidth / 2 + 10;
+      const x = Math.min(W - half, Math.max(half, (tmp.x * 0.5 + 0.5) * W));
       const y = (-tmp.y * 0.5 + 0.5) * H;
       L.el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -100%)`;
     });

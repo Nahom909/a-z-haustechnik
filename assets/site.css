@@ -1,6 +1,7 @@
 /* 4M Gebäudetechnik GmbH
    Apple-nah: helle Fläche #F5F5F7, schwarze Bühnen, runde Karten, Pillen-Knöpfe, Geist.
-   Farbregel: Rot und Blau gibt es nur im Logo. Sonst schwarz, weiß, grau in Volltonflächen, keine Verläufe. */
+   Farbregel: Rot und Blau (Volltöne, angelehnt an RAL 3020 und 5017) nur im Logo und für die Leitungen im Haus.
+   Sonst schwarz, weiß, grau in Volltonflächen, keine Verläufe. */
 
 :root{
   --bg:#F5F5F7;
@@ -85,7 +86,7 @@ h3{letter-spacing:-.028em;line-height:1.08}
   border:1px solid rgba(0,0,0,.06);box-shadow:0 8px 30px rgba(0,0,0,.08);
 }
 .brand{flex:none;display:grid}
-.brand img{grid-area:1/1;height:30px;width:auto;transition:opacity .3s ease}
+.brand img{grid-area:1/1;height:26px;width:auto;transition:opacity .3s ease}
 .brand .logo-dark{opacity:0}
 /* Über dunklen Bereichen wird das Glas dunkel */
 .nav{transition:background-color .35s ease,border-color .35s ease,box-shadow .35s ease}
@@ -310,7 +311,7 @@ section.sec{padding-block:clamp(4.5rem,9vw,8rem)}
 /* Footer */
 .foot{padding:56px 0 calc(40px + env(safe-area-inset-bottom));font-size:.93rem;color:var(--ink-3)}
 .foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:32px}
-.foot img{height:30px;width:auto}
+.foot img{height:26px;width:auto}
 .foot p{margin-top:14px;max-width:32ch}
 .foot h4{color:var(--ink);font-size:.93rem;font-weight:600;margin-bottom:10px}
 .foot ul{list-style:none;margin:0;padding:0}
@@ -381,7 +382,7 @@ section.sec{padding-block:clamp(4.5rem,9vw,8rem)}
 html.locked .gate{display:grid}
 html.locked body > *:not(.gate){display:none!important}
 .gate-box{width:min(440px,100%);text-align:center;background:var(--card);border-radius:var(--r-xl);padding:44px 34px 34px;box-shadow:0 20px 60px rgba(0,0,0,.08)}
-.gate-box img{width:min(240px,72%);height:auto;margin:0 auto 30px}
+.gate-box img{width:min(260px,76%);height:auto;margin:0 auto 30px}
 .gate-box p{color:var(--ink-3);font-size:.98rem}
 .pins{display:flex;justify-content:center;gap:10px;margin:22px 0 14px}
 .pins input{
@@ -404,10 +405,10 @@ html.locked body > *:not(.gate){display:none!important}
 .schema .s-soil{fill:#111113}
 .schema .s-dot{fill:#26262A}
 .schema .p{fill:none;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
-.schema .p-hot{stroke:#F4F5F6}
-.schema .p-cold{stroke:#79818A}
+.schema .p-hot{stroke:#C1121C}
+.schema .p-cold{stroke:#0E518D}
 .schema .f{fill:none;stroke:#000;stroke-width:1.6;stroke-linecap:round;stroke-dasharray:2 12;opacity:.9}
-.schema .air{fill:none;stroke:#9BA3AB;stroke-width:1.5;stroke-linecap:round;stroke-dasharray:3 6}
+.schema .air{fill:none;stroke:#6FA6DC;stroke-width:1.5;stroke-linecap:round;stroke-dasharray:3 6}
 .schema .s-lbl{font-family:var(--f);font-size:13px;font-weight:500;fill:#AEB5BC}
 .schema .c{transition:opacity .45s var(--ease-out)}
 .schema[data-active="heat"] .c:not(.c-heat),

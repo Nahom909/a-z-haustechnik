@@ -24,7 +24,7 @@
     g.setAttribute("aria-labelledby", "gate-t");
     g.innerHTML =
       '<form class="gate-box" novalidate>' +
-      '<img src="assets/logo-full.webp" alt="4M Gebäudetechnik GmbH" width="560" height="482">' +
+      '<img src="assets/logo-full.svg" alt="4M Gebäudetechnik GmbH" width="702" height="234">' +
       '<p id="gate-t">Diese Vorschau ist geschützt. Bitte geben Sie den Zugangscode ein.</p>' +
       '<div class="pins">' +
       [0, 1, 2, 3].map(function (i) {

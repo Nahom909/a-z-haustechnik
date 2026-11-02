@@ -20,7 +20,8 @@ def head(title, desc, three=False, extra=""):
 <meta property="og:title" content="4M Gebäudetechnik GmbH">
 <meta property="og:description" content="Heizung, Klima und Sanitär in Offenbach am Main und im Rhein-Main-Gebiet.">
 <meta property="og:image" content="assets/logo-full.png">
-<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon.png" type="image/png" sizes="64x64">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +43,7 @@ def nav(home, anfrage=""):
     sheet = "\n    ".join(f'<li><a href="{pre}#{a}">{t} <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>' for a, t in links)
     return f"""
 <header class="nav">
-  <a class="brand" href="index.html" aria-label="4M Gebäudetechnik GmbH, zur Startseite"><img class="logo-light" src="assets/logo-horizontal.webp" alt="4M Gebäudetechnik GmbH" width="1000" height="152"><img class="logo-dark" src="assets/logo-horizontal-dark.webp" alt="" width="1000" height="152"></a>
+  <a class="brand" href="index.html" aria-label="4M Gebäudetechnik GmbH, zur Startseite"><img class="logo-light" src="assets/logo-horizontal.svg" alt="4M Gebäudetechnik GmbH" width="976" height="120"><img class="logo-dark" src="assets/logo-horizontal-dark.svg" alt="" width="976" height="120"></a>
   <nav aria-label="Hauptnavigation" style="margin-left:auto">
     <ul class="nav-links">
       {li}
@@ -67,7 +68,7 @@ def foot(home, anfrage=""):
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <img src="assets/logo-horizontal.webp" alt="4M Gebäudetechnik GmbH" width="1000" height="152" loading="lazy">
+        <img src="assets/logo-horizontal.svg" alt="4M Gebäudetechnik GmbH" width="976" height="120" loading="lazy">
         <p>Heizung, Klima und Sanitär in Offenbach am Main und im Rhein-Main-Gebiet.</p>
       </div>
       <div>
@@ -141,7 +142,7 @@ SVCS = [
     ("02", "Klima", "Kühlen und Heizen mit Split- und Multi-Split-Geräten, für einzelne Räume bis zu ganzen Büros.",
      ["Split", "Multi-Split", "Gewerbe", "Wartung"], "klima.html", "images/klima.webp", "Klimagerät an einer hellen Wand"),
     ("03", "Sanitär", "Bäder und Trinkwasserinstallation, von der einzelnen Leitung bis zur kompletten Badsanierung.",
-     ["Badsanierung", "Barrierearm", "Trinkwasser", "Warmwasser"], "sanitaer.html", "images/sanitaer.webp", "Modernes Bad mit freistehender Wanne"),
+     ["Badsanierung", "Barrierearm", "Trinkwasser", "Warmwasser"], "sanitaer.html", "images/sanitaer.webp", "Modernes Bad mit begehbarer Dusche und Doppelwaschtisch"),
 ]
 svcs = "\n".join(f"""        <article class="svc rv">
           <div class="svc-body">
@@ -244,7 +245,7 @@ INDEX = head("4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Offenbach
         <figure class="tile t2 rv"><img data-slot src="images/projekt-2.webp" alt="Gedämmte Heizungsleitungen mit Manometer" width="2400" height="1600" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span><figcaption>Heizungsraum</figcaption></figure>
         <figure class="tile t3 rv"><img data-slot src="images/projekt-3.webp" alt="Bad mit Doppelwaschtisch und freistehender Wanne" width="2400" height="1600" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span><figcaption>Bad</figcaption></figure>
         <div class="tile t4 rv"><p>Ihr Vorhaben als Nächstes?</p><a href="#kontakt">Anfrage senden <i class="ph ph-arrow-right" aria-hidden="true"></i></a></div>
-        <figure class="tile t5 rv"><img data-slot src="images/projekt-5.webp" alt="Monteur bei der Installation im Bad" width="2400" height="3173" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span><figcaption>Installation</figcaption></figure>
+        <figure class="tile t5 rv"><img data-slot src="images/projekt-5.webp" alt="Bodengleiche Dusche mit dunklen Fliesen und Regendusche" width="2400" height="1600" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span><figcaption>Dusche</figcaption></figure>
         <figure class="tile t6 rv"><img data-slot src="images/projekt-4.webp" alt="Heizkörper unter einem Fenster" width="2400" height="1597" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span><figcaption>Heizkörper</figcaption></figure>
       </div>
     </div>
@@ -253,7 +254,7 @@ INDEX = head("4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Offenbach
   <!-- Über uns -->
   <section class="sec" id="ueber-uns" style="padding-top:0">
     <div class="wrap about">
-      <div class="about-pic rv"><img data-slot src="images/team.webp" alt="[Team der 4M Gebäudetechnik]" width="2400" height="3200" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Teamfoto folgt</span></div>
+      <div class="about-pic rv"><img data-slot src="images/werkstatt.webp" alt="Neu verlegte Kupferleitungen in einer offenen Wand" width="2400" height="3600" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span></div>
       <div class="about-txt rv">
         <div>
           <h2>Über uns</h2>
@@ -509,6 +510,8 @@ LEGAL_IMP = """
       <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Für diese Inhalte ist stets der jeweilige Anbieter verantwortlich.</p>
       <h2>Urheberrecht</h2>
       <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht.</p>
+      <h2>Bildnachweis</h2>
+      <p>Fotos: Unsplash (Unsplash-Lizenz). alpha innotec, Illia Horokhovsky, Peter Muniz, Fabian Kleiser, Ibrar Tariq, e24, immo RENOVATION, Kelsey Todd.</p>
     </div>
   </section>
 </main>
