@@ -2,7 +2,7 @@
 import pathlib
 OUT = pathlib.Path(r"C:\Users\nahom\OneDrive\Claude_Websites\4M_Gebaeudetechnik")
 TEL = "tel:+49XXXXXXXXX"
-V = "20261102c"  # bei jeder Änderung an CSS/JS erhöhen, damit Browser nicht die alte Datei aus dem Cache nehmen
+V = "20261102d"  # bei jeder Änderung an CSS/JS erhöhen, damit Browser nicht die alte Datei aus dem Cache nehmen
 
 THREE = """<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
 <script type="module" src="assets/house3d.js?v=__V__"></script>""".replace("__V__", V)

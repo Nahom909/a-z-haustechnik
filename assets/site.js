@@ -399,10 +399,19 @@
     });
   }
 
+  // Nach dem Entsperren erscheint die ganze Seite auf einmal; der Browser kann dabei die Position
+  // verschieben (Fokus, Scroll-Verankerung). Deshalb ausdrücklich und ohne Animation nach oben.
+  function toTop() { window.scrollTo({ top: 0, left: 0, behavior: "instant" }); }
+
   function afterUnlock() {
     window.M4.ready = true;
+    if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
     initReveal();
-    goPending();
+    if (pendingTarget) { goPending(); return; }
+    toTop();
+    requestAnimationFrame(toTop);
+    setTimeout(toTop, 150);
+    setTimeout(toTop, 600);
   }
 
   document.addEventListener("DOMContentLoaded", function () {

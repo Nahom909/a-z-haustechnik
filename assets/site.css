@@ -36,6 +36,7 @@
 html{-webkit-text-size-adjust:100%;scroll-padding-top:96px}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 body{
+  overflow-anchor:none;
   margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);
   font-size:17px;line-height:1.55;letter-spacing:-.006em;
   -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:clip;
