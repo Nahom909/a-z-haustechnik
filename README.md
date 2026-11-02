@@ -9,10 +9,10 @@ Zugangscode der Vorschau: **1292** (wird pro Browsersitzung gemerkt).
 - `impressum.html`, `datenschutz.html` – Textbausteine mit Platzhaltern
 
 ## Gestaltung
-- Logo ohne Slogan, freigestellt: `assets/logo-*.png/webp` (Original: `assets/logo-original.jpg`)
-- Farbregel: Rot = Vorlauf/Heizung, Blau = Rücklauf/Klima/Sanitär, Knöpfe anthrazit, keine Verläufe
+- Logo ohne Slogan, freigestellt: `assets/logo-*.png/webp` (Original: `assets/logo-original.jpg`), für den dunklen Kopf `logo-horizontal-dark` (4 und Schrift weiß, M farbig)
+- Farbregel: Rot und Blau nur im Logo. Seite schwarz/weiß/grau in Volltonflächen, keine Verläufe. Kopf, Hero, Ablauf und Kontakt dunkel (#0E1012)
 - Schrift: Encode Sans (breit für Überschriften, wie die Wortmarke), Symbole: Phosphor
-- Signatur: das Haus als Anlagenschema (`assets/site.js`), wechselt zwischen Heizung, Klima und Sanitär
+- Signatur: das Haus als Anlagenschema in weißen Linien (`assets/site.js`), wechselt zwischen Heizung, Klima und Sanitär; Vorlauf weiß, Rücklauf grau
 
 ## Fotos einsetzen
 Dateien einfach unter `images/` ablegen, dann ersetzen sie die Platzhalter automatisch:

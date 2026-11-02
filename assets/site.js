@@ -75,7 +75,7 @@
   }
 
   // ---------- Anlagenschema ----------
-  // Ein Haus, drei Kreise. Rot = Vorlauf/warm, Blau = Rücklauf/kalt. Pfade sind in Flussrichtung gezeichnet.
+  // Ein Haus, drei Kreise. Weiß = Vorlauf/warm, Grau = Rücklauf/kalt. Pfade sind in Flussrichtung gezeichnet.
   var SCHEMA =
     '<svg class="schema" viewBox="0 62 640 450" role="img" aria-labelledby="schema-t">' +
     '<title id="schema-t">Anlagenschema eines Hauses mit Heizung, Klimaanlage und Sanitär</title>' +
@@ -164,8 +164,8 @@
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     [].forEach.call(holders, function (holder) {
-      holder.insertAdjacentHTML("afterbegin", SCHEMA);
-      var svg = holder.querySelector("svg");
+      (holder.querySelector(".schema-slot") || holder).insertAdjacentHTML("afterbegin", SCHEMA);
+      var svg = holder.querySelector("svg.schema");
       // Fluss-Striche über jede Leitung legen
       [].forEach.call(svg.querySelectorAll(".p"), function (p) {
         var f = p.cloneNode();
@@ -176,33 +176,35 @@
       var fixed = holder.getAttribute("data-schema");
       var cap = holder.querySelector(".schema-cap");
       var btns = [].slice.call(holder.querySelectorAll("button[data-k]"));
+      var words = [].slice.call(holder.querySelectorAll("[data-word]"));
 
       function show(k) {
         svg.setAttribute("data-active", k);
         btns.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-k") === k ? "true" : "false"); });
+        words.forEach(function (w) { w.classList.toggle("on", w.getAttribute("data-word") === k); });
         if (cap) cap.textContent = CAPTIONS[k];
       }
 
       if (fixed && fixed !== "cycle") { show(fixed); return; }
 
       var order = ["heat", "cool", "water"];
-      var i = 0, timer = null;
       show(order[0]);
-      function stop() { if (timer) { clearInterval(timer); timer = null; } }
       btns.forEach(function (b) {
-        b.addEventListener("click", function () { stop(); show(b.getAttribute("data-k")); });
+        b.addEventListener("click", function () { holder.classList.remove("cycling"); show(b.getAttribute("data-k")); });
       });
       if (!reduce) {
-        timer = setInterval(function () {
-          if (document.hidden) return;
-          i = (i + 1) % order.length;
-          show(order[i]);
-        }, 4200);
-        // Nur laufen lassen, solange das Schema sichtbar ist
+        // Der Fortschrittsbalken des aktiven Gewerks gibt den Takt vor
+        holder.classList.add("cycling");
+        holder.addEventListener("animationend", function (e) {
+          if (e.animationName !== "fill" || !holder.classList.contains("cycling")) return;
+          var i = order.indexOf(svg.getAttribute("data-active"));
+          show(order[(i + 1) % order.length]);
+        });
+        // Nur laufen lassen, solange der Bereich sichtbar ist
         if ("IntersectionObserver" in window) {
           new IntersectionObserver(function (es) {
-            es.forEach(function (e) { svg.classList.toggle("paused", !e.isIntersecting); });
-          }).observe(svg);
+            es.forEach(function (e) { holder.classList.toggle("paused", !e.isIntersecting); });
+          }).observe(holder);
         }
       }
     });

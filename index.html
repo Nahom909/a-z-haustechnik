@@ -6,7 +6,7 @@
 <title>4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Offenbach am Main</title>
 <meta name="description" content="Heizung und Wärmepumpe, Klimaanlagen, Bad und Sanitär: Planung, Einbau und Wartung durch die 4M Gebäudetechnik GmbH in Offenbach am Main und im Rhein-Main-Gebiet.">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#F5F6F7">
+<meta name="theme-color" content="#0E1012">
 <meta property="og:title" content="4M Gebäudetechnik GmbH">
 <meta property="og:description" content="Heizung, Klima und Sanitär in Offenbach am Main und im Rhein-Main-Gebiet.">
 <meta property="og:type" content="website">
@@ -44,7 +44,7 @@
 <header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="index.html" aria-label="4M Gebäudetechnik GmbH, zur Startseite">
-      <img src="assets/logo-horizontal.webp" alt="4M Gebäudetechnik GmbH" width="1000" height="152">
+      <img src="assets/logo-horizontal-dark.webp" alt="4M Gebäudetechnik GmbH" width="1000" height="152">
     </a>
     <ul class="nav-links">
       <li><a href="#leistungen">Leistungen</a></li>
@@ -74,13 +74,14 @@
 <main id="main">
 
   <!-- Hero: Haus als Anlagenschema, die drei Kreise wechseln sich ab -->
-  <section class="hero">
+  <section class="hero hero-home" data-schema="cycle">
     <div class="wrap hero-grid">
       <div class="hero-in">
+        <p class="kicker">Fachbetrieb in Offenbach am Main</p>
         <h1 class="disp">
-          <span><span class="t-heat">Heizung</span><span class="dot">.</span></span>
-          <span><span class="t-cool">Klima</span><span class="dot">.</span></span>
-          <span><span class="t-cool">Sanitär</span><span class="dot">.</span></span>
+          <span data-word="heat">Heizung.</span>
+          <span data-word="cool">Klima.</span>
+          <span data-word="water">Sanitär.</span>
         </h1>
         <p class="lead">Planung, Einbau und Wartung für Wohnhäuser und Gewerbe in Offenbach und im Rhein-Main-Gebiet.</p>
         <div class="hero-actions">
@@ -88,14 +89,13 @@
           <a class="btn btn-ghost" href="tel:+49XXXXXXXXX"><i class="ph ph-phone" aria-hidden="true"></i> Anrufen</a>
         </div>
       </div>
-
-      <div class="schema-card" data-schema="cycle">
-        <div class="schema-ctrl" role="group" aria-label="Kreis im Schema hervorheben">
-          <button type="button" class="k-heat" data-k="heat" aria-pressed="true"><i class="ph ph-flame" aria-hidden="true"></i>Heizung</button>
-          <button type="button" class="k-cool" data-k="cool" aria-pressed="false"><i class="ph ph-snowflake" aria-hidden="true"></i>Klima</button>
-          <button type="button" class="k-water" data-k="water" aria-pressed="false"><i class="ph ph-drop" aria-hidden="true"></i>Sanitär</button>
-        </div>
-        <p class="schema-cap" aria-live="polite"></p>
+      <div class="hero-art schema-slot"></div>
+    </div>
+    <div class="wrap">
+      <div class="hero-ctrl" role="group" aria-label="Gewerk im Schema hervorheben">
+        <button type="button" data-k="heat" aria-pressed="true"><span class="n">01</span><strong>Heizung</strong><span class="d">Wärmepumpe, Speicher und Heizkörper.</span><span class="bar" aria-hidden="true"></span></button>
+        <button type="button" data-k="cool" aria-pressed="false"><span class="n">02</span><strong>Klima</strong><span class="d">Innengerät und Außengerät, leise und ohne Zugluft.</span><span class="bar" aria-hidden="true"></span></button>
+        <button type="button" data-k="water" aria-pressed="false"><span class="n">03</span><strong>Sanitär</strong><span class="d">Trinkwasser vom Hausanschluss bis zu Dusche und Waschtisch.</span><span class="bar" aria-hidden="true"></span></button>
       </div>
     </div>
   </section>
