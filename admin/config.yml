@@ -473,6 +473,20 @@ collections:
           label: Punkt
           name: eintrag
           widget: string
+    - label: Fotos (bis zu 3; das erste wird groß gezeigt)
+      name: bilder
+      widget: list
+      required: false
+      max: 3
+      summary: '{{fields.alt}}'
+      fields:
+      - label: Bild
+        name: bild
+        widget: image
+        choose_url: false
+      - label: Bildbeschreibung (Alt-Text)
+        name: alt
+        widget: string
     - label: Titel Geräte
       name: geraete_titel
       widget: string
@@ -562,6 +576,20 @@ collections:
           label: Punkt
           name: eintrag
           widget: string
+    - label: Fotos (bis zu 3; das erste wird groß gezeigt)
+      name: bilder
+      widget: list
+      required: false
+      max: 3
+      summary: '{{fields.alt}}'
+      fields:
+      - label: Bild
+        name: bild
+        widget: image
+        choose_url: false
+      - label: Bildbeschreibung (Alt-Text)
+        name: alt
+        widget: string
     - label: Titel Geräte
       name: geraete_titel
       widget: string
@@ -651,6 +679,20 @@ collections:
           label: Punkt
           name: eintrag
           widget: string
+    - label: Fotos (bis zu 3; das erste wird groß gezeigt)
+      name: bilder
+      widget: list
+      required: false
+      max: 3
+      summary: '{{fields.alt}}'
+      fields:
+      - label: Bild
+        name: bild
+        widget: image
+        choose_url: false
+      - label: Bildbeschreibung (Alt-Text)
+        name: alt
+        widget: string
     - label: Titel Geräte
       name: geraete_titel
       widget: string

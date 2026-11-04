@@ -50,6 +50,20 @@
       ]
     }
   ],
+  "bilder": [
+    {
+      "bild": "images/klima-wohnzimmer.webp",
+      "alt": "Wohnzimmer mit Klimagerät an der Wand"
+    },
+    {
+      "bild": "images/klima.webp",
+      "alt": "Klimagerät an einer hellen Wand"
+    },
+    {
+      "bild": "images/klima-gewerbe.webp",
+      "alt": "Außengeräte an der Fassade eines Gewerbebaus"
+    }
+  ],
   "geraete_titel": "Geräte",
   "geraete_text": "Wir beraten herstellerunabhängig. Häufig eingesetzt:",
   "geraete": [

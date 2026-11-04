@@ -346,7 +346,7 @@ function start(host) {
   }, { passive: true });
 
   // ---------- Größe und Bildausschnitt ----------
-  let W = 0, H = 0, shiftX = 0, shiftY = 0, rScale = 1;
+  let W = 0, H = 0, shiftX = 0, shiftY = 0, rScale = 1, compact = false;
   function resize() {
     const r = host.getBoundingClientRect();
     W = Math.round(r.width);
@@ -354,12 +354,15 @@ function start(host) {
     if (!W || !H) return;
     renderer.setSize(W, H, false);
     camera.aspect = W / H;
-    // Das Haus rückt neben den Text: auf breiten Bildschirmen nach rechts, auf schmalen nach oben
+    // Handy: Das Haus hat einen eigenen Bereich über dem Text (siehe CSS) und steht dort mittig
+    const stage = host.parentElement.getBoundingClientRect();
+    compact = H < stage.height * 0.85;
+    // Sonst rückt das Haus neben den Text: auf breiten Bildschirmen nach rechts, auf schmalen nach oben
     const wide = W / H > 1.05;
-    shiftX = wide ? (mode === "story" ? (camera.aspect < 1.5 ? 0.2 : 0.17) : 0.23) : 0;
-    shiftY = wide ? 0 : 0.25;
+    shiftX = compact ? 0 : wide ? (mode === "story" ? (camera.aspect < 1.5 ? 0.2 : 0.17) : 0.23) : 0;
+    shiftY = compact || wide ? 0 : 0.25;
     // Schmale Bühnen (Tablet, Handy): Kamera weiter weg, damit das ganze Haus in die Breite passt
-    rScale = camera.aspect < 1.6 ? Math.min(2.5, 1.55 / camera.aspect) : 1;
+    rScale = compact ? Math.min(2.2, Math.max(0.95, 1.3 / camera.aspect)) : camera.aspect < 1.6 ? Math.min(2.5, 1.55 / camera.aspect) : 1;
     camera.setViewOffset(W * (1 + 2 * shiftX), H * (1 + 2 * shiftY), 0, 2 * shiftY * H, W, H);
     camera.updateProjectionMatrix();
   }
@@ -389,9 +392,9 @@ function start(host) {
     // Kamera folgt kritisch gedämpft, nie sprunghaft
     const want = wanted(state.p);
     // Hochformat: Blick mehr zur Hausmitte, damit nichts aus dem Bild läuft
-    if (camera.aspect < 1.05) {
+    if (camera.aspect < 1.05 || compact) {
       want.t = want.t.clone().setX(want.t.x * 0.45 - 0.3);
-      want.r = Math.max(want.r, 35);
+      if (!compact) want.r = Math.max(want.r, 35);
     }
     const k = 1 - Math.exp(-dt * (reduce ? 60 : 3.2));
     const idle = reduce ? 0 : Math.sin(time * 0.25) * 0.05;

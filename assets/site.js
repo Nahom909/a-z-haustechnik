@@ -305,6 +305,16 @@
       window.addEventListener("resize", tone);
       tone();
     }
+    // Leistungen-Menü: Klick öffnet und schließt, auf Geräten mit Maus zusätzlich beim Darüberfahren (CSS)
+    var dd = document.querySelector(".dd");
+    if (dd) {
+      var ddBtn = dd.querySelector(".dd-btn");
+      var ddSet = function (open) { dd.classList.toggle("open", open); ddBtn.setAttribute("aria-expanded", open ? "true" : "false"); };
+      ddBtn.addEventListener("click", function (e) { e.stopPropagation(); ddSet(!dd.classList.contains("open")); });
+      document.addEventListener("click", function (e) { if (!dd.contains(e.target)) ddSet(false); });
+      dd.addEventListener("focusout", function (e) { if (!dd.contains(e.relatedTarget)) ddSet(false); });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape" && dd.classList.contains("open")) { ddSet(false); ddBtn.focus(); } });
+    }
     var burger = document.querySelector(".burger");
     var sheet = document.querySelector(".sheet");
     if (!burger || !sheet) return;

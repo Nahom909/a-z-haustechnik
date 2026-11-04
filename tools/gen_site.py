@@ -8,7 +8,7 @@ import re
 
 OUT = pathlib.Path(__file__).resolve().parent.parent
 CONTENT = OUT / "content"
-V = "20261104c"  # bei jeder Änderung an CSS/JS erhöhen, damit Browser nicht die alte Datei aus dem Cache nehmen
+V = "20261104d"  # bei jeder Änderung an CSS/JS erhöhen, damit Browser nicht die alte Datei aus dem Cache nehmen
 
 
 def load(name):
@@ -85,22 +85,50 @@ def to(home, anchor, anfrage=""):
     return "index.html" + (anfrage + "&" if anfrage else "?") + "ziel=" + anchor
 
 
-def nav(home, anfrage=""):
-    links = [("leistungen", "Leistungen"), ("ablauf", "Ablauf"), ("einblicke", "Einblicke"), ("ueber-uns", "Über uns"), ("kontakt", "Kontakt")]
-    li = "\n      ".join(f'<li><a href="{to(home, a)}">{t}</a></li>' for a, t in links)
-    sheet = "\n    ".join(f'<li><a href="{to(home, a)}">{t} <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>' for a, t in links)
+TRADES = [("heizung.html", "ph-flame", "Heizung und Wärmepumpe", "Wärmepumpe, Heizungstausch, Wartung", "Heizung"),
+          ("klima.html", "ph-snowflake", "Klima", "Split, Multi-Split, Gewerbe", "Klima"),
+          ("sanitaer.html", "ph-drop", "Sanitär und Bad", "Badsanierung, Trinkwasser, Warmwasser", "Sanitär")]
+
+
+def nav(home, anfrage="", cur=None):
+    """Glas-Navigation. cur = Dateiname der aktuellen Unterseite (für die Markierung im Menü)."""
+    start = "#main" if home else "index.html"
+    start_cur = ' aria-current="page"' if home else ""
+    cc = lambda f: ' aria-current="page"' if f == cur else ""  # noqa: E731
+    sections = [("ablauf", "Ablauf"), ("einblicke", "Einblicke"), ("ueber-uns", "Über uns"), ("kontakt", "Kontakt")]
+    li = "\n      ".join(f'<li><a href="{to(home, a)}">{t}</a></li>' for a, t in sections)
+    dd = "\n          ".join(
+        f'<a href="{f}"{cc(f)}><span class="ic"><i class="ph {ic}" aria-hidden="true"></i></span><span><strong>{t}</strong><small>{sub}</small></span></a>'
+        for f, ic, t, sub, short in TRADES)
+    tiles = "\n      ".join(
+        f'<a href="{f}"{cc(f)}><i class="ph {ic}" aria-hidden="true"></i>{short}</a>'
+        for f, ic, t, sub, short in TRADES)
+    sheet = "\n    ".join(f'<li><a href="{to(home, a)}">{t} <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>' for a, t in sections)
     return f"""
 <header class="nav">
+  <button class="burger" type="button" aria-label="Menü" aria-expanded="false" aria-controls="sheet"><i class="ph ph-list" aria-hidden="true"></i></button>
   <a class="brand" href="index.html" aria-label="{FIRMA}, zur Startseite"><img class="logo-light" src="assets/logo-horizontal.svg" alt="{FIRMA}" width="976" height="120"><img class="logo-dark" src="assets/logo-horizontal-dark.svg" alt="" width="976" height="120"></a>
   <nav aria-label="Hauptnavigation" style="margin-left:auto">
     <ul class="nav-links">
+      <li><a href="{start}"{start_cur}>Start</a></li>
+      <li class="dd">
+        <button class="dd-btn" type="button" aria-expanded="false" aria-controls="dd-leistungen"{' data-cur' if cur else ''}>Leistungen <i class="ph ph-caret-down" aria-hidden="true"></i></button>
+        <div class="dd-menu" id="dd-leistungen">
+          {dd}
+        </div>
+      </li>
       {li}
     </ul>
   </nav>
   <div class="nav-cta"><a class="btn" href="{to(home, 'kontakt', anfrage)}">Anfrage starten</a></div>
-  <button class="burger" type="button" aria-label="Menü" aria-expanded="false" aria-controls="sheet"><i class="ph ph-list" aria-hidden="true"></i></button>
+  <a class="nav-home" href="{start}" aria-label="Start"{start_cur}><i class="ph ph-house" aria-hidden="true"></i></a>
 </header>
 <nav class="sheet" id="sheet" aria-label="Menü">
+  <a class="sheet-start" href="{start}"{start_cur}><i class="ph ph-house" aria-hidden="true"></i>Start</a>
+  <p class="sheet-label">Leistungen</p>
+  <div class="sheet-tiles">
+      {tiles}
+  </div>
   <ul>
     {sheet}
   </ul>
@@ -411,6 +439,14 @@ def groups(items):
     return "\n".join(f'        <div class="group rv"><h3>{e(g["titel"])}</h3><p>{e(g["text"])}</p><ul class="chips">{chips(g["punkte"])}</ul></div>' for g in items)
 
 
+def pics(items):
+    """Drei Fotos zum Gewerk: eines groß links, zwei rechts übereinander."""
+    if not items:
+        return ""
+    figs = "\n".join(f'        <figure class="pic rv">{slot(b["bild"], b["alt"], 1800, 1200)}</figure>' for b in items[:3])
+    return f'      <div class="pics n{min(len(items), 3)}">\n{figs}\n      </div>'
+
+
 def devices(p):
     items = p.get("geraete") or []
     if not items:
@@ -460,6 +496,7 @@ def trade_page(file, k, anliegen):
       <div class="groups">
 {groups(p['gruppen'])}
       </div>
+{pics(p.get('bilder') or [])}
     </div>
   </section>
 {devices(p)}
@@ -473,7 +510,7 @@ def trade_page(file, k, anliegen):
   </section>
 </main>
 """
-    page = head(p["seo"]["titel"], p["seo"]["beschreibung"], three=True) + nav(False, anfrage) + body + foot(False, anfrage)
+    page = head(p["seo"]["titel"], p["seo"]["beschreibung"], three=True) + nav(False, anfrage, file) + body + foot(False, anfrage)
     (OUT / file).write_text(page, encoding="utf-8")
 
 

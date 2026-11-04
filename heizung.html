@@ -17,20 +17,29 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
-<link rel="stylesheet" href="assets/site.css?v=20261104c">
+<link rel="stylesheet" href="assets/site.css?v=20261104d">
 <script>if(/(invite|recovery|confirmation)_token=/.test(location.hash)){location.replace("/admin/"+location.hash)}</script>
-<script src="assets/site.js?v=20261104c"></script>
+<script src="assets/site.js?v=20261104d"></script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
-<script type="module" src="assets/house3d.js?v=20261104c"></script>
+<script type="module" src="assets/house3d.js?v=20261104d"></script>
 </head>
 <body>
 <a class="skip" href="#main">Zum Inhalt springen</a>
 
 <header class="nav">
+  <button class="burger" type="button" aria-label="Menü" aria-expanded="false" aria-controls="sheet"><i class="ph ph-list" aria-hidden="true"></i></button>
   <a class="brand" href="index.html" aria-label="4M Gebäudetechnik GmbH, zur Startseite"><img class="logo-light" src="assets/logo-horizontal.svg" alt="4M Gebäudetechnik GmbH" width="976" height="120"><img class="logo-dark" src="assets/logo-horizontal-dark.svg" alt="" width="976" height="120"></a>
   <nav aria-label="Hauptnavigation" style="margin-left:auto">
     <ul class="nav-links">
-      <li><a href="index.html?ziel=leistungen">Leistungen</a></li>
+      <li><a href="index.html">Start</a></li>
+      <li class="dd">
+        <button class="dd-btn" type="button" aria-expanded="false" aria-controls="dd-leistungen" data-cur>Leistungen <i class="ph ph-caret-down" aria-hidden="true"></i></button>
+        <div class="dd-menu" id="dd-leistungen">
+          <a href="heizung.html" aria-current="page"><span class="ic"><i class="ph ph-flame" aria-hidden="true"></i></span><span><strong>Heizung und Wärmepumpe</strong><small>Wärmepumpe, Heizungstausch, Wartung</small></span></a>
+          <a href="klima.html"><span class="ic"><i class="ph ph-snowflake" aria-hidden="true"></i></span><span><strong>Klima</strong><small>Split, Multi-Split, Gewerbe</small></span></a>
+          <a href="sanitaer.html"><span class="ic"><i class="ph ph-drop" aria-hidden="true"></i></span><span><strong>Sanitär und Bad</strong><small>Badsanierung, Trinkwasser, Warmwasser</small></span></a>
+        </div>
+      </li>
       <li><a href="index.html?ziel=ablauf">Ablauf</a></li>
       <li><a href="index.html?ziel=einblicke">Einblicke</a></li>
       <li><a href="index.html?ziel=ueber-uns">Über uns</a></li>
@@ -38,11 +47,17 @@
     </ul>
   </nav>
   <div class="nav-cta"><a class="btn" href="index.html?anliegen=heizung&ziel=kontakt">Anfrage starten</a></div>
-  <button class="burger" type="button" aria-label="Menü" aria-expanded="false" aria-controls="sheet"><i class="ph ph-list" aria-hidden="true"></i></button>
+  <a class="nav-home" href="index.html" aria-label="Start"><i class="ph ph-house" aria-hidden="true"></i></a>
 </header>
 <nav class="sheet" id="sheet" aria-label="Menü">
+  <a class="sheet-start" href="index.html"><i class="ph ph-house" aria-hidden="true"></i>Start</a>
+  <p class="sheet-label">Leistungen</p>
+  <div class="sheet-tiles">
+      <a href="heizung.html" aria-current="page"><i class="ph ph-flame" aria-hidden="true"></i>Heizung</a>
+      <a href="klima.html"><i class="ph ph-snowflake" aria-hidden="true"></i>Klima</a>
+      <a href="sanitaer.html"><i class="ph ph-drop" aria-hidden="true"></i>Sanitär</a>
+  </div>
   <ul>
-    <li><a href="index.html?ziel=leistungen">Leistungen <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
     <li><a href="index.html?ziel=ablauf">Ablauf <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
     <li><a href="index.html?ziel=einblicke">Einblicke <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
     <li><a href="index.html?ziel=ueber-uns">Über uns <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
@@ -83,6 +98,11 @@
         <div class="group rv"><h3>Heizungstausch</h3><p>Wenn die alte Gas- oder Ölheizung ersetzt werden soll.</p><ul class="chips"><li>Bestandsaufnahme</li><li>Ausbau der Altanlage</li><li>Umstieg auf die Wärmepumpe</li><li>Einweisung</li></ul></div>
         <div class="group rv"><h3>Wärmeverteilung</h3><p>Damit die Wärme gleichmäßig in jedem Raum ankommt.</p><ul class="chips"><li>Heizkörper</li><li>Fußbodenheizung</li><li>Pumpen und Regelung</li><li>Hydraulischer Abgleich</li></ul></div>
         <div class="group rv"><h3>Wartung und Service</h3><p>Für eine Anlage, die zuverlässig und sparsam läuft.</p><ul class="chips"><li>Regelmäßige Wartung</li><li>Störungsbehebung</li><li>Regelung anpassen</li><li>Dokumentation</li></ul></div>
+      </div>
+      <div class="pics n3">
+        <figure class="pic rv"><img data-slot src="images/projekt-1.webp" alt="Wärmepumpe an einem Einfamilienhaus" width="1800" height="1200" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span></figure>
+        <figure class="pic rv"><img data-slot src="images/projekt-2.webp" alt="Gedämmte Heizungsleitungen mit Manometer" width="1800" height="1200" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span></figure>
+        <figure class="pic rv"><img data-slot src="images/projekt-4.webp" alt="Heizkörper unter einem Fenster" width="1800" height="1200" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span></figure>
       </div>
     </div>
   </section>

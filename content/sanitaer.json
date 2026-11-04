@@ -50,6 +50,20 @@
       ]
     }
   ],
+  "bilder": [
+    {
+      "bild": "images/bad-waschtisch.webp",
+      "alt": "Aufsatzwaschbecken mit goldener Armatur"
+    },
+    {
+      "bild": "images/bad-armatur.webp",
+      "alt": "Waschtischarmatur aus Edelstahl"
+    },
+    {
+      "bild": "images/projekt-5.webp",
+      "alt": "Bodengleiche Dusche mit dunklen Fliesen"
+    }
+  ],
   "geraete_titel": "Geräte",
   "geraete_text": "Wir beraten herstellerunabhängig. Häufig eingesetzt:",
   "geraete": [],
