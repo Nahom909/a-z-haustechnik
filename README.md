@@ -19,8 +19,16 @@ Neu gezeichnet als Vektor (`assets/logo-*.svg`, `icon.svg`), erzeugt mit `python
 geometrisches 4M-Monogramm in Volltonfarben, Wortmarke aus Archivo (SIL Open Font License, Buchstaben in Pfade umgewandelt).
 Keine Verläufe, keine Schatten, kein Slogan, keine Symbolzeile. Das ursprüngliche Logo liegt nur noch als `assets/logo-original.jpg` zum Vergleich bei.
 
+## Texte bearbeiten (Netlify CMS)
+Alle Texte stehen in `content/*.json` und lassen sich im Browser unter `https://<ihre-seite>/admin/` bearbeiten (Decap CMS). Speichern erzeugt einen Commit auf `main`, Netlify baut die Seite neu (`netlify.toml`: `python3 tools/gen_site.py`).
+Einrichtung einmalig in Netlify: **Identity** aktivieren, unter *Identity > Registration* auf „Invite only“ stellen, unter *Identity > Services* **Git Gateway** einschalten, dann Nutzer einladen. Der Einladungslink führt automatisch ins CMS.
+- `content/site.json`: Firmendaten (Adresse, Telefon, E-Mail, Bürozeiten, Geschäftsführung). In allen Texten gelten die Platzhalter `{{firma}}`, `{{telefon}}`, `{{email}}`, `{{strasse}}`, `{{plz}}`, `{{ort}}`, `{{buero}}`, `{{geschaeftsfuehrung}}`.
+- `content/startseite.json`, `heizung.json`, `klima.json`, `sanitaer.json`, `impressum.json`, `datenschutz.json`: Seitentexte, Bilder und Stichworte.
+- Bilder lädt das CMS nach `images/` hoch. Menü-Namen, Formularfelder und die Gewerke-Schalter sind fest im Code.
+- Die Felder des CMS sind in `admin/config.yml` beschrieben; neue Felder dort und in `tools/gen_site.py` ergänzen.
+
 ## Seiten erzeugen
-Alle HTML-Seiten entstehen aus `tools/gen_site.py` (`python tools/gen_site.py`). Texte dort ändern, nicht direkt im HTML.
+`python3 tools/gen_site.py` erzeugt alle HTML-Seiten aus `content/*.json`. Texte in `content/` ändern (oder im CMS), nicht direkt im HTML. Die eingecheckten HTML-Dateien sind das Ergebnis des letzten Laufs; Netlify erzeugt sie beim Veröffentlichen neu.
 Unterseiten: `heizung.html`, `klima.html`, `sanitaer.html`, dazu `impressum.html` und `datenschutz.html`.
 Abschnitts-Links: auf der Startseite `#anker` (per JS ohne Eintrag in der Adresse), von Unterseiten `index.html?ziel=anker`. So startet die Startseite beim Öffnen und Neuladen immer oben.
 Nach Änderungen an CSS/JS die Versionsnummer `V` in `tools/gen_site.py` erhöhen.

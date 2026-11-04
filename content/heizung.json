@@ -1,0 +1,80 @@
+{
+  "seo": {
+    "titel": "Heizung und Wärmepumpe in Frankfurt | 4M Gebäudetechnik GmbH",
+    "beschreibung": "Wärmepumpe, Heizungstausch, Heizkörper, Fußbodenheizung und Wartung in Frankfurt und im Rhein-Main-Gebiet."
+  },
+  "crumb": "Heizung und Wärmepumpe",
+  "h1": "Heizung und Wärmepumpe",
+  "lead": "Heizungen, die zum Haus passen. Mit Heizlastberechnung, sauberem Einbau und Wartung.",
+  "leistungen_titel": "Leistungsumfang",
+  "intro": "Von der Heizlastberechnung bis zur Wartung.",
+  "gruppen": [
+    {
+      "titel": "Wärmepumpe",
+      "text": "Luft-Wasser-Wärmepumpen für Neubau und Bestand.",
+      "punkte": [
+        "Heizlastberechnung",
+        "Auslegung des Geräts",
+        "Aufstellung und Anschluss",
+        "Speicher und Warmwasser"
+      ]
+    },
+    {
+      "titel": "Heizungstausch",
+      "text": "Wenn die alte Gas- oder Ölheizung ersetzt werden soll.",
+      "punkte": [
+        "Bestandsaufnahme",
+        "Ausbau der Altanlage",
+        "Umstieg auf die Wärmepumpe",
+        "Einweisung"
+      ]
+    },
+    {
+      "titel": "Wärmeverteilung",
+      "text": "Damit die Wärme gleichmäßig in jedem Raum ankommt.",
+      "punkte": [
+        "Heizkörper",
+        "Fußbodenheizung",
+        "Pumpen und Regelung",
+        "Hydraulischer Abgleich"
+      ]
+    },
+    {
+      "titel": "Wartung und Service",
+      "text": "Für eine Anlage, die zuverlässig und sparsam läuft.",
+      "punkte": [
+        "Regelmäßige Wartung",
+        "Störungsbehebung",
+        "Regelung anpassen",
+        "Dokumentation"
+      ]
+    }
+  ],
+  "geraete_titel": "Geräte",
+  "geraete_text": "Wir beraten herstellerunabhängig. Häufig eingesetzt:",
+  "geraete": [
+    {
+      "hersteller": "Mitsubishi Heavy Industries",
+      "name": "Hydrolution EZY",
+      "text": "Monoblock-Wärmepumpe: Die Kältetechnik sitzt komplett im Außengerät, ins Haus führen nur Wasserleitungen.",
+      "daten": [
+        "6 bis 14,5 kW Heizen",
+        "Betrieb bis −25 °C",
+        "WLAN"
+      ]
+    },
+    {
+      "hersteller": "Weitere Hersteller",
+      "name": "Daikin, Vaillant, Viessmann, Bosch, Panasonic",
+      "text": "Welches Gerät passt, entscheidet die Heizlast Ihres Hauses, nicht die Marke.",
+      "daten": [
+        "Herstellerunabhängig"
+      ]
+    }
+  ],
+  "geraete_quelle": "Geräteangaben laut Hersteller.",
+  "band": {
+    "titel": "Förderung für Wärmepumpen",
+    "text": "Für den Umstieg auf eine Wärmepumpe gibt es staatliche Zuschüsse. Wir prüfen, was für Ihr Haus infrage kommt, und unterstützen Sie beim Antrag."
+  }
+}

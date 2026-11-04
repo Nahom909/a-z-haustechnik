@@ -1,0 +1,61 @@
+{
+  "seo": {
+    "titel": "Sanitär und Badsanierung in Frankfurt | 4M Gebäudetechnik GmbH",
+    "beschreibung": "Badsanierung, barrierearme Bäder, Trinkwasserleitungen und Warmwasser in Frankfurt und im Rhein-Main-Gebiet."
+  },
+  "crumb": "Sanitär",
+  "h1": "Sanitär und Bad",
+  "lead": "Neue Bäder, Trinkwasserleitungen und Warmwasser. Geplant, abgestimmt und sauber ausgeführt.",
+  "leistungen_titel": "Leistungsumfang",
+  "intro": "Vom Hausanschluss bis zur Armatur.",
+  "gruppen": [
+    {
+      "titel": "Badsanierung",
+      "text": "Vom alten Bad zum neuen, mit einem Ansprechpartner.",
+      "punkte": [
+        "Planung vor Ort",
+        "Rückbau",
+        "Vorwandinstallation",
+        "Dusche, WC, Waschtisch"
+      ]
+    },
+    {
+      "titel": "Barrierearme Bäder",
+      "text": "Für mehr Komfort und Sicherheit im Alltag.",
+      "punkte": [
+        "Bodengleiche Duschen",
+        "Haltegriffe",
+        "Mehr Bewegungsfläche",
+        "Unterfahrbare Waschtische"
+      ]
+    },
+    {
+      "titel": "Trinkwasser",
+      "text": "Saubere Leitungen vom Hausanschluss bis zur Armatur.",
+      "punkte": [
+        "Leitungen ersetzen",
+        "Hauswasserstation",
+        "Druckminderer",
+        "Leckage-Schutz"
+      ]
+    },
+    {
+      "titel": "Warmwasser",
+      "text": "Warmwasser, das zur Heizung passt.",
+      "punkte": [
+        "Speicher",
+        "Durchlauferhitzer",
+        "Über die Wärmepumpe",
+        "Zirkulation"
+      ]
+    }
+  ],
+  "geraete_titel": "Geräte",
+  "geraete_text": "Wir beraten herstellerunabhängig. Häufig eingesetzt:",
+  "geraete": [],
+  "geraete_quelle": "",
+  "band": {
+    "titel": "Ein Ansprechpartner für das ganze Bad.",
+    "text": "Wir stimmen die Arbeiten rund um Ihr Bad ab, damit Termine und Details zusammenpassen."
+  }
+}

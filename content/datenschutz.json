@@ -1,0 +1,34 @@
+{
+  "titel": "Datenschutzerklärung",
+  "hinweis": "Hinweis für die Vorschau: Textbausteine, vor Veröffentlichung an Hosting und tatsächliche Abläufe anpassen und rechtlich prüfen lassen.",
+  "abschnitte": [
+    {
+      "titel": "1. Verantwortlicher",
+      "text": "{{firma}}, {{strasse}}, {{plz}} {{ort}}\nTelefon: {{telefon}}, E-Mail: {{email}}"
+    },
+    {
+      "titel": "2. Hosting",
+      "text": "Diese Website wird bei [Hosting-Anbieter] gehostet. Beim Aufruf werden technisch notwendige Daten (zum Beispiel IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browser) in Server-Logfiles verarbeitet. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse liegt im sicheren und stabilen Betrieb der Website."
+    },
+    {
+      "titel": "3. Kontaktaufnahme",
+      "text": "Wenn Sie uns per Telefon, E-Mail oder über das Anfrageformular kontaktieren, verarbeiten wir Ihre Angaben zur Bearbeitung der Anfrage (Art. 6 Abs. 1 lit. b DSGVO). Das Formular öffnet Ihr eigenes E-Mail-Programm mit einer vorbereiteten Nachricht; auf dieser Website selbst werden dabei keine Daten gespeichert."
+    },
+    {
+      "titel": "4. Schriften, Symbole und 3D-Darstellung",
+      "text": "Für die Darstellung laden wir die Schrift „Geist“ über Google Fonts (Google Ireland Limited), Symbole über das Content-Delivery-Netzwerk unpkg und die 3D-Bibliothek three.js über jsDelivr. Dabei wird Ihre IP-Adresse an diese Anbieter übertragen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. [Empfehlung: Schrift, Symbole und Bibliothek vor Veröffentlichung lokal einbinden, dann entfällt dieser Abschnitt.]"
+    },
+    {
+      "titel": "5. Lokale Speicherung",
+      "text": "Die Vorschau merkt sich für die Dauer der Browsersitzung, dass der Zugangscode eingegeben wurde (Session Storage). Es werden keine Cookies zu Analyse- oder Werbezwecken gesetzt."
+    },
+    {
+      "titel": "6. Ihre Rechte",
+      "text": "Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch sowie das Recht auf Beschwerde bei einer Aufsichtsbehörde, zum Beispiel beim Hessischen Beauftragten für Datenschutz und Informationsfreiheit."
+    },
+    {
+      "titel": "7. Speicherdauer",
+      "text": "Wir speichern personenbezogene Daten nur so lange, wie es für den jeweiligen Zweck erforderlich ist oder gesetzliche Aufbewahrungsfristen bestehen."
+    }
+  ]
+}

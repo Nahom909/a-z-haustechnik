@@ -1,0 +1,91 @@
+{
+  "seo": {
+    "titel": "Klimaanlagen in Frankfurt | 4M Gebäudetechnik GmbH",
+    "beschreibung": "Split- und Multi-Split-Klimaanlagen für Wohnung, Haus und Gewerbe. Planung, Einbau und Wartung in Frankfurt und im Rhein-Main-Gebiet."
+  },
+  "crumb": "Klima",
+  "h1": "Klimaanlagen",
+  "lead": "Kühlen im Sommer, heizen in der Übergangszeit. Leise Geräte, sauber verlegt.",
+  "leistungen_titel": "Leistungsumfang",
+  "intro": "Für Wohnräume, Büros und ganze Gebäude.",
+  "gruppen": [
+    {
+      "titel": "Wohnung und Haus",
+      "text": "Für Schlafzimmer, Wohnräume und Dachgeschoss.",
+      "punkte": [
+        "Split-Geräte",
+        "Multi-Split",
+        "Unauffällige Leitungen",
+        "Bedienung per App"
+      ]
+    },
+    {
+      "titel": "Gewerbe",
+      "text": "Für Büros, Praxen, Läden und Gastronomie.",
+      "punkte": [
+        "Deckenkassetten",
+        "VRF-Systeme",
+        "Zonenregelung",
+        "Abstimmung mit Verwaltung"
+      ]
+    },
+    {
+      "titel": "Planung",
+      "text": "Bevor ein Gerät hängt, rechnen wir.",
+      "punkte": [
+        "Kühllastberechnung",
+        "Standort Außengerät",
+        "Schall und Optik",
+        "Schriftliches Angebot"
+      ]
+    },
+    {
+      "titel": "Wartung",
+      "text": "Damit die Anlage hygienisch und effizient bleibt.",
+      "punkte": [
+        "Reinigung",
+        "Filterwechsel",
+        "Dichtheitsprüfung",
+        "Störungsbehebung"
+      ]
+    }
+  ],
+  "geraete_titel": "Geräte",
+  "geraete_text": "Wir beraten herstellerunabhängig. Häufig eingesetzt:",
+  "geraete": [
+    {
+      "hersteller": "Mitsubishi Heavy Industries",
+      "name": "Premium Pro SRK-ZT",
+      "text": "Wandgerät für Wohnräume, in drei Gehäusefarben.",
+      "daten": [
+        "2 bis 5 kW",
+        "bis A+++",
+        "ab 19 dB(A)",
+        "WLAN"
+      ]
+    },
+    {
+      "hersteller": "Mitsubishi Heavy Industries",
+      "name": "SCM Multi-Split",
+      "text": "Ein Außengerät versorgt je nach Modell zwei bis sechs Innengeräte, jedes einzeln geregelt.",
+      "daten": [
+        "3 bis 12,5 kW",
+        "2 bis 6 Innengeräte"
+      ]
+    },
+    {
+      "hersteller": "Gewerbe",
+      "name": "PAC- und VRF-Systeme",
+      "text": "Zentrale Klimatisierung für Büro, Hotel und Handel.",
+      "daten": [
+        "Deckenkassetten",
+        "Zonenregelung"
+      ]
+    }
+  ],
+  "geraete_quelle": "Geräteangaben laut Hersteller.",
+  "band": {
+    "titel": "Wir kommen vorbei und messen auf.",
+    "text": "Danach wissen Sie, welches Gerät passt, wo es hinkommt und was es kostet."
+  }
+}
