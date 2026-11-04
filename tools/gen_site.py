@@ -1,11 +1,51 @@
-# Erzeugt alle Seiten der 4M-Vorschau als statische HTML-Dateien (kein Build-Schritt auf dem Server nötig).
+# Erzeugt alle Seiten als statische HTML-Dateien.
+# Alle Texte stehen in content/*.json und werden im Netlify-CMS (/admin) bearbeitet.
+# Netlify führt beim Veröffentlichen `python3 tools/gen_site.py` aus (siehe netlify.toml).
+import html
+import json
 import pathlib
-OUT = pathlib.Path(r"C:\Users\nahom\OneDrive\Claude_Websites\4M_Gebaeudetechnik")
-TEL = "tel:+49XXXXXXXXX"
-V = "20261102d"  # bei jeder Änderung an CSS/JS erhöhen, damit Browser nicht die alte Datei aus dem Cache nehmen
+import re
+
+OUT = pathlib.Path(__file__).resolve().parent.parent
+CONTENT = OUT / "content"
+V = "20261104b"  # bei jeder Änderung an CSS/JS erhöhen, damit Browser nicht die alte Datei aus dem Cache nehmen
+
+
+def load(name):
+    return json.loads((CONTENT / f"{name}.json").read_text(encoding="utf-8"))
+
+
+SITE = load("site")
+TEL = "tel:" + SITE["telefon_link"]
+FIRMA_RAW = SITE["firma"]
+
+
+def tok(s):
+    """Ersetzt {{firma}}, {{telefon}}, {{email}}, {{strasse}}, {{plz}}, {{ort}}, ... durch die Werte aus content/site.json."""
+    return re.sub(r"\{\{(\w+)\}\}", lambda m: str(SITE.get(m.group(1), m.group(0))), s or "")
+
+
+def e(s):
+    """Text aus dem CMS: Platzhalter ersetzen und HTML-Sonderzeichen maskieren (für Fließtext und Attribute)."""
+    return html.escape(tok(s), quote=True)
+
+
+def eb(s):
+    """Wie e(), dazu Zeilenumbrüche als <br>."""
+    return e(s).replace("\r\n", "\n").replace("\n", "<br>")
+
+
+FIRMA = e(FIRMA_RAW)
+TAGLINE = e(SITE["tagline"])
+ADRESSE = f'{SITE["strasse"]}, {SITE["plz"]} {SITE["ort"]}'
+MAPS = "https://www.google.com/maps/search/?api=1&amp;query=" + html.escape(
+    __import__("urllib.parse", fromlist=["quote_plus"]).quote_plus(ADRESSE), quote=True)
 
 THREE = """<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
 <script type="module" src="assets/house3d.js?v=__V__"></script>""".replace("__V__", V)
+
+# Einladungs- und Passwort-Links von Netlify Identity landen auf der Startseite; von dort weiter ins CMS.
+IDENTITY = """<script>if(/(invite|recovery|confirmation)_token=/.test(location.hash)){location.replace("/admin/"+location.hash)}</script>"""
 
 
 def head(title, desc, three=False, extra=""):
@@ -14,12 +54,12 @@ def head(title, desc, three=False, extra=""):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>{title}</title>
-<meta name="description" content="{desc}">
+<title>{e(title)}</title>
+<meta name="description" content="{e(desc)}">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#F5F5F7">
-<meta property="og:title" content="4M Gebäudetechnik GmbH">
-<meta property="og:description" content="Heizung, Klima und Sanitär in Offenbach am Main und im Rhein-Main-Gebiet.">
+<meta property="og:title" content="{FIRMA}">
+<meta property="og:description" content="{TAGLINE}">
 <meta property="og:image" content="assets/logo-full.png">
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon.png" type="image/png" sizes="64x64">
@@ -29,6 +69,7 @@ def head(title, desc, three=False, extra=""):
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 <link rel="stylesheet" href="assets/site.css?v={V}">
+{IDENTITY}
 <script src="assets/site.js?v={V}"></script>
 {THREE if three else ""}{extra}
 </head>
@@ -50,7 +91,7 @@ def nav(home, anfrage=""):
     sheet = "\n    ".join(f'<li><a href="{to(home, a)}">{t} <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>' for a, t in links)
     return f"""
 <header class="nav">
-  <a class="brand" href="index.html" aria-label="4M Gebäudetechnik GmbH, zur Startseite"><img class="logo-light" src="assets/logo-horizontal.svg" alt="4M Gebäudetechnik GmbH" width="976" height="120"><img class="logo-dark" src="assets/logo-horizontal-dark.svg" alt="" width="976" height="120"></a>
+  <a class="brand" href="index.html" aria-label="{FIRMA}, zur Startseite"><img class="logo-light" src="assets/logo-horizontal.svg" alt="{FIRMA}" width="976" height="120"><img class="logo-dark" src="assets/logo-horizontal-dark.svg" alt="" width="976" height="120"></a>
   <nav aria-label="Hauptnavigation" style="margin-left:auto">
     <ul class="nav-links">
       {li}
@@ -74,8 +115,8 @@ def foot(home, anfrage=""):
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <img src="assets/logo-horizontal.svg" alt="4M Gebäudetechnik GmbH" width="976" height="120" loading="lazy">
-        <p>Heizung, Klima und Sanitär in Offenbach am Main und im Rhein-Main-Gebiet.</p>
+        <img src="assets/logo-horizontal.svg" alt="{FIRMA}" width="976" height="120" loading="lazy">
+        <p>{TAGLINE}</p>
       </div>
       <div>
         <h4>Leistungen</h4>
@@ -97,15 +138,15 @@ def foot(home, anfrage=""):
       <div>
         <h4>Kontakt</h4>
         <ul>
-          <li>Kaiserstraße 39</li>
-          <li>63065 Offenbach am Main</li>
-          <li><a href="{TEL}">[Telefonnummer]</a></li>
-          <li><a href="mailto:[E-Mail]">[E-Mail-Adresse]</a></li>
+          <li>{e(SITE['strasse'])}</li>
+          <li>{e(SITE['plz'])} {e(SITE['ort'])}</li>
+          <li><a href="{TEL}">{e(SITE['telefon'])}</a></li>
+          <li><a href="mailto:{e(SITE['email'])}">{e(SITE['email'])}</a></li>
         </ul>
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© <span data-year>2026</span> 4M Gebäudetechnik GmbH</span>
+      <span>© <span data-year>2026</span> {FIRMA}</span>
       <span><a href="impressum.html">Impressum</a> &nbsp; <a href="datenschutz.html">Datenschutz</a></span>
     </div>
   </div>
@@ -121,52 +162,80 @@ def foot(home, anfrage=""):
 
 
 def chips(items):
-    return "".join(f"<li>{i}</li>" for i in items)
+    return "".join(f"<li>{e(i)}</li>" for i in items)
+
+
+def slot(img, alt, w, h):
+    return (f'<img data-slot src="{e(img)}" alt="{e(alt)}" width="{w}" height="{h}" loading="lazy">'
+            '<span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span>')
 
 
 # ---------------- Startseite ----------------
-STEPS = [
-    ("heat", "01 / 03", "Heizung und Wärmepumpe", "Die Wärmepumpe holt Wärme aus der Außenluft, der Speicher hält sie vor, Heizkörper oder Fußbodenheizung geben sie an die Räume ab.",
-     ["Luft-Wasser-Wärmepumpe", "Heizungstausch", "Hydraulischer Abgleich"], "heizung.html", "Mehr zur Heizung"),
-    ("cool", "02 / 03", "Klima", "Das Außengerät führt die Wärme nach draußen, das Innengerät kühlt leise und ohne Zugluft. Im Winter heizt dieselbe Anlage.",
-     ["Split", "Multi-Split", "Gewerbe"], "klima.html", "Mehr zur Klimatechnik"),
-    ("water", "03 / 03", "Sanitär", "Kaltwasser kommt vom Hausanschluss, Warmwasser aus dem Speicher. Wir verlegen beides bis zu Dusche und Waschtisch.",
-     ["Badsanierung", "Trinkwasser", "Warmwasser"], "sanitaer.html", "Mehr zum Sanitär"),
-]
+C = load("startseite")
+KEYS = ["heat", "cool", "water"]
+HREFS = ["heizung.html", "klima.html", "sanitaer.html"]
+H = C["hero"]
 
 panels = "\n".join(f"""          <div class="panel" data-k="{k}">
-            <p class="eyebrow">{no}</p>
-            <h2>{h}</h2>
-            <p class="txt">{t}</p>
-            <ul class="chips">{chips(c)}</ul>
-            <a class="btn btn-light" href="{href}">{more} <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-          </div>""" for k, no, h, t, c, href, more in STEPS)
+            <p class="eyebrow">{e(p['nummer'])}</p>
+            <h2>{e(p['titel'])}</h2>
+            <p class="txt">{e(p['text'])}</p>
+            <ul class="chips">{chips(p['chips'])}</ul>
+            <a class="btn btn-light" href="{href}">{e(p['knopf'])} <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          </div>""" for k, href, p in zip(KEYS, HREFS, C["panels"]))
 
-SVCS = [
-    ("01", "Heizung und Wärmepumpe", "Neue Heizung, Umstieg auf die Wärmepumpe oder Modernisierung der bestehenden Anlage.",
-     ["Wärmepumpen", "Heizungstausch", "Fußbodenheizung", "Abgleich"], "heizung.html", "images/heizung.webp", "Wärmepumpe vor einem modernen Haus"),
-    ("02", "Klima", "Kühlen und Heizen mit Split- und Multi-Split-Geräten, für einzelne Räume bis zu ganzen Büros.",
-     ["Split", "Multi-Split", "Gewerbe", "Wartung"], "klima.html", "images/klima.webp", "Klimagerät an einer hellen Wand"),
-    ("03", "Sanitär", "Bäder und Trinkwasserinstallation, von der einzelnen Leitung bis zur kompletten Badsanierung.",
-     ["Badsanierung", "Barrierearm", "Trinkwasser", "Warmwasser"], "sanitaer.html", "images/sanitaer.webp", "Modernes Bad mit begehbarer Dusche und Doppelwaschtisch"),
-]
+L = C["leistungen"]
 svcs = "\n".join(f"""        <article class="svc rv">
           <div class="svc-body">
-            <p class="eyebrow">{no}</p>
-            <h3>{h}</h3>
-            <p>{t}</p>
-            <ul class="chips">{chips(c)}</ul>
+            <p class="eyebrow">{e(s['nummer'])}</p>
+            <h3>{e(s['titel'])}</h3>
+            <p>{e(s['text'])}</p>
+            <ul class="chips">{chips(s['chips'])}</ul>
             <div class="more"><a class="btn btn-ghost btn-sm" href="{href}">Mehr erfahren <i class="ph ph-arrow-right" aria-hidden="true"></i></a></div>
           </div>
-          <div class="svc-img"><img data-slot src="{img}" alt="{alt}" width="2400" height="1800" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span></div>
-        </article>""" for no, h, t, c, href, img, alt in SVCS)
+          <div class="svc-img">{slot(s['bild'], s['bild_alt'], 2400, 1800)}</div>
+        </article>""" for href, s in zip(HREFS, L["items"]))
 
-INDEX = head("4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Offenbach am Main",
-             "Heizung und Wärmepumpe, Klimaanlagen, Bad und Sanitär: Planung, Einbau und Wartung durch die 4M Gebäudetechnik GmbH in Offenbach am Main und im Rhein-Main-Gebiet.",
-             three=True, extra="""
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"HVACBusiness","name":"4M Gebäudetechnik GmbH","description":"Heizung, Klima und Sanitär: Planung, Einbau und Wartung.","address":{"@type":"PostalAddress","streetAddress":"Kaiserstraße 39","postalCode":"63065","addressLocality":"Offenbach am Main","addressCountry":"DE"},"areaServed":"Rhein-Main-Gebiet","openingHours":"Mo-Fr 08:00-17:00","logo":"assets/logo-full.png"}
-</script>""") + nav(True) + f"""
+MINI_ICONS = ["ph-wrench", "ph-file-text", "ph-buildings"]
+minis = "\n".join(
+    f'        <div class="mini rv"><span class="ic"><i class="ph {ic}" aria-hidden="true"></i></span><h3>{e(m["titel"])}</h3><p>{e(m["text"])}</p></div>'
+    for ic, m in zip(MINI_ICONS, L["minis"]))
+marken = "".join(f"<span>{e(m)}</span>" for m in L["marken"])
+
+A = C["ablauf"]
+steps = "\n".join(
+    f'          <li class="step"><span class="no">{i:02d}</span><h3>{e(s["titel"])}</h3><p>{e(s["text"])}</p></li>'
+    for i, s in enumerate(A["schritte"], 1))
+
+EB = C["einblicke"]
+B = EB["bilder"]
+
+
+def tile(cls, b, w=2400, h=1600):
+    return (f'        <figure class="tile {cls} rv">{slot(b["bild"], b["alt"], w, h)}'
+            f'<figcaption>{e(b["beschriftung"])}</figcaption></figure>')
+
+
+bento = "\n".join([
+    tile("t1", B[0]), tile("t2", B[1]), tile("t3", B[2]),
+    f'        <div class="tile t4 rv"><p>{e(EB["cta_text"])}</p><a href="#kontakt">{e(EB["cta_knopf"])} <i class="ph ph-arrow-right" aria-hidden="true"></i></a></div>',
+    tile("t5", B[3]), tile("t6", B[4], h=1597),
+])
+
+U = C["ueber"]
+facts = "\n".join(f'          <div><dt>{e(f["label"])}</dt><dd>{e(f["wert"])}</dd></div>' for f in U["fakten"])
+K = C["kontakt"]
+
+JSONLD = json.dumps({
+    "@context": "https://schema.org", "@type": "HVACBusiness", "name": FIRMA_RAW,
+    "description": "Heizung, Klima und Sanitär: Planung, Einbau und Wartung.",
+    "address": {"@type": "PostalAddress", "streetAddress": SITE["strasse"], "postalCode": SITE["plz"],
+                "addressLocality": SITE["ort"], "addressCountry": "DE"},
+    "areaServed": "Rhein-Main-Gebiet", "openingHours": "Mo-Fr 08:00-17:00", "logo": "assets/logo-full.png",
+}, ensure_ascii=False)
+
+INDEX = head(C["seo"]["titel"], C["seo"]["beschreibung"], three=True,
+             extra=f'\n<script type="application/ld+json">\n{JSONLD}\n</script>') + nav(True) + f"""
 <main id="main">
 
   <!-- Bühne: das Haus als 3D-Anlagenschema, Scrollen führt durch die drei Gewerke -->
@@ -176,12 +245,12 @@ INDEX = head("4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Offenbach
         <div class="house" data-house="story"></div>
         <div class="panels">
           <div class="panel panel-intro">
-            <p class="kicker">Fachbetrieb in Offenbach am Main</p>
-            <h1><span><i>Heizung.</i></span><span><i>Klima.</i></span><span><i>Sanitär.</i></span></h1>
-            <p class="lead">Planung, Einbau und Wartung für Wohnhäuser und Gewerbe in Offenbach und im Rhein-Main-Gebiet.</p>
+            <p class="kicker">{e(H['kicker'])}</p>
+            <h1>{''.join(f'<span><i>{e(w)}</i></span>' for w in H['ueberschrift'])}</h1>
+            <p class="lead">{e(H['lead'])}</p>
             <div class="cta">
-              <a class="btn btn-light" href="#kontakt">Anfrage senden <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-              <a class="btn btn-ghost inv" href="{TEL}"><i class="ph ph-phone" aria-hidden="true"></i> Anrufen</a>
+              <a class="btn btn-light" href="#kontakt">{e(H['knopf'])} <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+              <a class="btn btn-ghost inv" href="{TEL}"><i class="ph ph-phone" aria-hidden="true"></i> {e(H['knopf_anrufen'])}</a>
             </div>
           </div>
 {panels}
@@ -201,20 +270,18 @@ INDEX = head("4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Offenbach
   <section class="sec" id="leistungen">
     <div class="wrap">
       <div class="kopf rv">
-        <h2>Leistungen</h2>
-        <p>Drei Gewerke, ein Ansprechpartner. Von der Planung über den Einbau bis zur Wartung.</p>
+        <h2>{e(L['titel'])}</h2>
+        <p>{e(L['text'])}</p>
       </div>
       <div class="svcs">
 {svcs}
       </div>
       <div class="minis">
-        <div class="mini rv"><span class="ic"><i class="ph ph-wrench" aria-hidden="true"></i></span><h3>Wartung und Reparatur</h3><p>Regelmäßige Wartung und schnelle Hilfe bei Störungen.</p></div>
-        <div class="mini rv"><span class="ic"><i class="ph ph-file-text" aria-hidden="true"></i></span><h3>Förderung</h3><p>Wir prüfen Zuschüsse für Ihr Vorhaben und helfen beim Antrag.</p></div>
-        <div class="mini rv"><span class="ic"><i class="ph ph-buildings" aria-hidden="true"></i></span><h3>Gewerbe</h3><p>Büros, Praxen, Läden und Gastronomie.</p></div>
+{minis}
       </div>
       <div class="brands rv">
-        <p>Herstellerunabhängig, unter anderem mit Geräten von</p>
-        <span>Mitsubishi Heavy Industries</span><span>Daikin</span><span>Vaillant</span><span>Viessmann</span><span>Bosch</span><span>Panasonic</span>
+        <p>{e(L['marken_text'])}</p>
+        {marken}
       </div>
     </div>
   </section>
@@ -223,19 +290,16 @@ INDEX = head("4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Offenbach
   <section class="box box-dark" id="ablauf">
     <div class="wrap">
       <div class="kopf rv">
-        <h2>So läuft ein Auftrag ab</h2>
-        <p>Vier Schritte, ein fester Ansprechpartner.</p>
+        <h2>{e(A['titel'])}</h2>
+        <p>{e(A['text'])}</p>
       </div>
       <div class="steps-wrap">
         <div class="track" aria-hidden="true"><i></i></div>
         <ol class="steps">
-          <li class="step"><span class="no">01</span><h3>Anfrage</h3><p>Per Formular oder Telefon. Wir melden uns zeitnah zurück.</p></li>
-          <li class="step"><span class="no">02</span><h3>Termin vor Ort</h3><p>Wir sehen uns Gebäude und Anlage an und nehmen alle Maße auf.</p></li>
-          <li class="step"><span class="no">03</span><h3>Angebot</h3><p>Schriftlich und nachvollziehbar, mit klarer Leistungsbeschreibung.</p></li>
-          <li class="step"><span class="no">04</span><h3>Einbau</h3><p>Montage, Inbetriebnahme und Einweisung. Alle Unterlagen inklusive.</p></li>
+{steps}
         </ol>
       </div>
-      <p class="after"><i class="ph ph-arrows-clockwise" aria-hidden="true"></i><span><strong>Danach:</strong> Wartung und Service, damit die Anlage effizient bleibt.</span></p>
+      <p class="after"><i class="ph ph-arrows-clockwise" aria-hidden="true"></i><span><strong>{e(A['danach_label'])}</strong> {e(A['danach_text'])}</span></p>
     </div>
   </section>
 
@@ -243,16 +307,11 @@ INDEX = head("4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Offenbach
   <section class="sec" id="einblicke">
     <div class="wrap">
       <div class="kopf rv">
-        <h2>Einblicke</h2>
-        <p>Aus unseren Projekten in Offenbach und Umgebung.</p>
+        <h2>{e(EB['titel'])}</h2>
+        <p>{e(EB['text'])}</p>
       </div>
       <div class="bento">
-        <figure class="tile t1 rv"><img data-slot src="images/projekt-1.webp" alt="Wärmepumpe an einem Einfamilienhaus" width="2400" height="1600" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span><figcaption>Wärmepumpe</figcaption></figure>
-        <figure class="tile t2 rv"><img data-slot src="images/projekt-2.webp" alt="Gedämmte Heizungsleitungen mit Manometer" width="2400" height="1600" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span><figcaption>Heizungsraum</figcaption></figure>
-        <figure class="tile t3 rv"><img data-slot src="images/projekt-3.webp" alt="Bad mit Doppelwaschtisch und freistehender Wanne" width="2400" height="1600" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span><figcaption>Bad</figcaption></figure>
-        <div class="tile t4 rv"><p>Ihr Vorhaben als Nächstes?</p><a href="#kontakt">Anfrage senden <i class="ph ph-arrow-right" aria-hidden="true"></i></a></div>
-        <figure class="tile t5 rv"><img data-slot src="images/projekt-5.webp" alt="Bodengleiche Dusche mit dunklen Fliesen und Regendusche" width="2400" height="1600" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span><figcaption>Dusche</figcaption></figure>
-        <figure class="tile t6 rv"><img data-slot src="images/projekt-4.webp" alt="Heizkörper unter einem Fenster" width="2400" height="1597" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span><figcaption>Heizkörper</figcaption></figure>
+{bento}
       </div>
     </div>
   </section>
@@ -260,19 +319,14 @@ INDEX = head("4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Offenbach
   <!-- Über uns -->
   <section class="sec" id="ueber-uns" style="padding-top:0">
     <div class="wrap about">
-      <div class="about-pic rv"><img data-slot src="images/werkstatt.webp" alt="Neu verlegte Kupferleitungen in einer offenen Wand" width="2400" height="3600" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span></div>
+      <div class="about-pic rv">{slot(U['bild'], U['bild_alt'], 2400, 3600)}</div>
       <div class="about-txt rv">
         <div>
-          <h2>Über uns</h2>
-          <p>Die 4M Gebäudetechnik GmbH ist ein Fachbetrieb für Heizung, Klima und Sanitär mit Sitz in Offenbach am Main. Wir planen, bauen ein und warten, für Privatkunden, Vermieter und Gewerbe.</p>
+          <h2>{e(U['titel'])}</h2>
+          <p>{e(U['text'])}</p>
         </div>
         <dl class="facts">
-          <div><dt>Sitz</dt><dd>Offenbach am Main</dd></div>
-          <div><dt>Gewerke</dt><dd>Heizung, Klima, Sanitär</dd></div>
-          <div><dt>Einsatzgebiet</dt><dd>Offenbach, Frankfurt, Rhein-Main</dd></div>
-          <div><dt>Gegründet</dt><dd>[Gründungsjahr]</dd></div>
-          <div><dt>Geschäftsführung</dt><dd>[Name]</dd></div>
-          <div><dt>Bürozeiten</dt><dd>Mo bis Fr, 8 bis 17 Uhr</dd></div>
+{facts}
         </dl>
       </div>
     </div>
@@ -282,20 +336,20 @@ INDEX = head("4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Offenbach
   <section class="box box-dark contact" id="kontakt">
     <div class="wrap contact-grid">
       <div class="rv">
-        <h2>Kontakt</h2>
-        <p class="lead">Schreiben Sie uns kurz, worum es geht. Wir melden uns mit einem Terminvorschlag.</p>
+        <h2>{e(K['titel'])}</h2>
+        <p class="lead">{e(K['lead'])}</p>
         <ul class="cinfo">
-          <li><span class="ic"><i class="ph ph-phone" aria-hidden="true"></i></span><div><small>Telefon</small><a href="{TEL}">[Telefonnummer]</a></div></li>
-          <li><span class="ic"><i class="ph ph-envelope-simple" aria-hidden="true"></i></span><div><small>E-Mail</small><a href="mailto:[E-Mail]">[E-Mail-Adresse]</a></div></li>
-          <li><span class="ic"><i class="ph ph-map-pin" aria-hidden="true"></i></span><div><small>Adresse</small><a href="https://www.google.com/maps/search/?api=1&amp;query=Kaiserstra%C3%9Fe+39+63065+Offenbach+am+Main" target="_blank" rel="noopener">Kaiserstraße 39, 63065 Offenbach am Main</a></div></li>
-          <li><span class="ic"><i class="ph ph-clock" aria-hidden="true"></i></span><div><small>Bürozeiten</small><span class="v">Montag bis Freitag, 8 bis 17 Uhr</span></div></li>
+          <li><span class="ic"><i class="ph ph-phone" aria-hidden="true"></i></span><div><small>Telefon</small><a href="{TEL}">{e(SITE['telefon'])}</a></div></li>
+          <li><span class="ic"><i class="ph ph-envelope-simple" aria-hidden="true"></i></span><div><small>E-Mail</small><a href="mailto:{e(SITE['email'])}">{e(SITE['email'])}</a></div></li>
+          <li><span class="ic"><i class="ph ph-map-pin" aria-hidden="true"></i></span><div><small>Adresse</small><a href="{MAPS}" target="_blank" rel="noopener">{e(ADRESSE)}</a></div></li>
+          <li><span class="ic"><i class="ph ph-clock" aria-hidden="true"></i></span><div><small>Bürozeiten</small><span class="v">{e(SITE['buero'])}</span></div></li>
         </ul>
       </div>
 
       <div class="form rv">
-        <form id="anfrage" novalidate data-mail="[E-Mail]">
+        <form id="anfrage" novalidate data-mail="{e(SITE['email'])}">
           <div class="form-fields">
-            <h3>Anfrage senden</h3>
+            <h3>{e(K['formular_titel'])}</h3>
             <div class="frow">
               <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required><span class="err" data-err="name"></span></div>
               <div class="field"><label for="f-kontakt">Telefon oder E-Mail</label><input id="f-kontakt" name="kontakt" autocomplete="email" required><span class="err" data-err="kontakt"></span></div>
@@ -314,18 +368,18 @@ INDEX = head("4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Offenbach
                   <i class="ph ph-caret-down" aria-hidden="true"></i>
                 </div>
               </div>
-              <div class="field"><label for="f-ort">Ort <span class="opt">(optional)</span></label><input id="f-ort" name="ort" autocomplete="address-level2" placeholder="z. B. Offenbach"></div>
+              <div class="field"><label for="f-ort">Ort <span class="opt">(optional)</span></label><input id="f-ort" name="ort" autocomplete="address-level2" placeholder="z. B. {e(SITE['ort'].replace(' am Main', ''))}"></div>
             </div>
             <div class="field"><label for="f-nachricht">Nachricht</label><textarea id="f-nachricht" name="nachricht" required placeholder="Was ist geplant? Gebäude, Baujahr, Wunschtermin"></textarea><span class="err" data-err="nachricht"></span></div>
             <label class="chk"><input type="checkbox" name="datenschutz" required><span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span></label>
             <span class="err" data-err="datenschutz" style="display:block;margin:-10px 0 16px"></span>
-            <button class="btn btn-light" type="submit">Anfrage senden <i class="ph ph-paper-plane-tilt" aria-hidden="true"></i></button>
-            <p class="form-note">Ihr E-Mail-Programm öffnet sich mit der fertigen Nachricht.</p>
+            <button class="btn btn-light" type="submit">{e(K['formular_titel'])} <i class="ph ph-paper-plane-tilt" aria-hidden="true"></i></button>
+            <p class="form-note">{e(K['formular_hinweis'])}</p>
           </div>
           <div class="form-ok" role="status">
             <i class="ph ph-check-circle" aria-hidden="true"></i>
-            <h3>Danke für Ihre Anfrage.</h3>
-            <p>Bitte senden Sie die vorbereitete E-Mail ab. Wir melden uns so schnell wie möglich.</p>
+            <h3>{e(K['danke_titel'])}</h3>
+            <p>{e(K['danke_text'])}</p>
           </div>
         </form>
       </div>
@@ -349,37 +403,39 @@ def seg(active):
 
 
 def groups(items):
-    return "\n".join(f'        <div class="group rv"><h3>{t}</h3><p>{x}</p><ul class="chips">{chips(pts)}</ul></div>' for t, x, pts in items)
+    return "\n".join(f'        <div class="group rv"><h3>{e(g["titel"])}</h3><p>{e(g["text"])}</p><ul class="chips">{chips(g["punkte"])}</ul></div>' for g in items)
 
 
-def devices(items, src):
+def devices(p):
+    items = p.get("geraete") or []
     if not items:
         return ""
-    cards = "\n".join(f'        <article class="device rv"><small>{mk}</small><h3>{n}</h3><p>{x}</p><ul class="chips">{chips(sp)}</ul></article>' for mk, n, x, sp in items)
+    cards = "\n".join(f'        <article class="device rv"><small>{e(d["hersteller"])}</small><h3>{e(d["name"])}</h3><p>{e(d["text"])}</p><ul class="chips">{chips(d["daten"])}</ul></article>' for d in items)
     return f"""
   <section class="box box-dark">
     <div class="wrap">
-      <div class="kopf rv"><h2>Geräte</h2><p>Wir beraten herstellerunabhängig. Häufig eingesetzt:</p></div>
+      <div class="kopf rv"><h2>{e(p['geraete_titel'])}</h2><p>{e(p['geraete_text'])}</p></div>
       <div class="devices">
 {cards}
       </div>
-      <p class="src">{src}</p>
+      <p class="src">{e(p.get('geraete_quelle', ''))}</p>
     </div>
   </section>"""
 
 
-def trade_page(p):
-    anfrage = f"?anliegen={p['anliegen']}"
+def trade_page(file, k, anliegen):
+    p = load(file.replace(".html", ""))
+    anfrage = f"?anliegen={anliegen}"
     body = f"""
 <main id="main">
   <div class="page-stage">
-    <section class="hero page" aria-label="{p['h1']}">
-      <div class="house" data-house="{p['k']}"></div>
+    <section class="hero page" aria-label="{e(p['h1'])}">
+      <div class="house" data-house="{k}"></div>
       <div class="panels">
         <div class="panel">
-          <p class="crumbs"><a href="index.html">Start</a> / {p['crumb']}</p>
-          <h1>{p['h1']}</h1>
-          <p class="lead">{p['lead']}</p>
+          <p class="crumbs"><a href="index.html">Start</a> / {e(p['crumb'])}</p>
+          <h1>{e(p['h1'])}</h1>
+          <p class="lead">{e(p['lead'])}</p>
           <div class="cta">
             <a class="btn btn-light" href="{to(False, 'kontakt', anfrage)}">Anfrage senden <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
             <a class="btn btn-ghost inv" href="{TEL}"><i class="ph ph-phone" aria-hidden="true"></i> Anrufen</a>
@@ -388,169 +444,59 @@ def trade_page(p):
       </div>
       <nav class="seg" aria-label="Gewerke">
           <span class="thumb" aria-hidden="true"></span>
-          {seg(p['k'])}
+          {seg(k)}
       </nav>
     </section>
   </div>
 
   <section class="sec">
     <div class="wrap">
-      <div class="kopf rv"><h2>Leistungsumfang</h2><p>{p['intro']}</p></div>
+      <div class="kopf rv"><h2>{e(p['leistungen_titel'])}</h2><p>{e(p['intro'])}</p></div>
       <div class="groups">
-{groups(p['groups'])}
+{groups(p['gruppen'])}
       </div>
     </div>
   </section>
-{devices(p.get('devices'), p.get('src', ''))}
+{devices(p)}
   <section class="sec">
     <div class="wrap">
       <div class="note-band rv">
-        <div><h2>{p['band'][0]}</h2><p>{p['band'][1]}</p></div>
+        <div><h2>{e(p['band']['titel'])}</h2><p>{e(p['band']['text'])}</p></div>
         <a class="btn" href="{to(False, 'kontakt', anfrage)}">Anfrage senden</a>
       </div>
     </div>
   </section>
 </main>
 """
-    html = head(p["title"], p["desc"], three=True) + nav(False, anfrage) + body + foot(False, anfrage)
-    (OUT / p["file"]).write_text(html, encoding="utf-8")
+    page = head(p["seo"]["titel"], p["seo"]["beschreibung"], three=True) + nav(False, anfrage) + body + foot(False, anfrage)
+    (OUT / file).write_text(page, encoding="utf-8")
 
 
-PAGES = [
-    dict(file="heizung.html", k="heat", anliegen="heizung", crumb="Heizung und Wärmepumpe",
-         title="Heizung und Wärmepumpe in Offenbach | 4M Gebäudetechnik GmbH",
-         desc="Wärmepumpe, Heizungstausch, Heizkörper, Fußbodenheizung und Wartung in Offenbach und im Rhein-Main-Gebiet.",
-         h1="Heizung und Wärmepumpe", intro="Von der Heizlastberechnung bis zur Wartung.",
-         lead="Heizungen, die zum Haus passen. Mit Heizlastberechnung, sauberem Einbau und Wartung.",
-         groups=[
-             ("Wärmepumpe", "Luft-Wasser-Wärmepumpen für Neubau und Bestand.",
-              ["Heizlastberechnung", "Auslegung des Geräts", "Aufstellung und Anschluss", "Speicher und Warmwasser"]),
-             ("Heizungstausch", "Wenn die alte Gas- oder Ölheizung ersetzt werden soll.",
-              ["Bestandsaufnahme", "Ausbau der Altanlage", "Umstieg auf die Wärmepumpe", "Einweisung"]),
-             ("Wärmeverteilung", "Damit die Wärme gleichmäßig in jedem Raum ankommt.",
-              ["Heizkörper", "Fußbodenheizung", "Pumpen und Regelung", "Hydraulischer Abgleich"]),
-             ("Wartung und Service", "Für eine Anlage, die zuverlässig und sparsam läuft.",
-              ["Regelmäßige Wartung", "Störungsbehebung", "Regelung anpassen", "Dokumentation"]),
-         ],
-         devices=[
-             ("Mitsubishi Heavy Industries", "Hydrolution EZY", "Monoblock-Wärmepumpe: Die Kältetechnik sitzt komplett im Außengerät, ins Haus führen nur Wasserleitungen.",
-              ["6 bis 14,5 kW Heizen", "Betrieb bis −25 °C", "WLAN"]),
-             ("Weitere Hersteller", "Daikin, Vaillant, Viessmann, Bosch, Panasonic", "Welches Gerät passt, entscheidet die Heizlast Ihres Hauses, nicht die Marke.",
-              ["Herstellerunabhängig"]),
-         ],
-         src="Geräteangaben laut Hersteller.",
-         band=("Förderung für Wärmepumpen", "Für den Umstieg auf eine Wärmepumpe gibt es staatliche Zuschüsse. Wir prüfen, was für Ihr Haus infrage kommt, und unterstützen Sie beim Antrag.")),
-
-    dict(file="klima.html", k="cool", anliegen="klima", crumb="Klima",
-         title="Klimaanlagen in Offenbach | 4M Gebäudetechnik GmbH",
-         desc="Split- und Multi-Split-Klimaanlagen für Wohnung, Haus und Gewerbe. Planung, Einbau und Wartung in Offenbach und im Rhein-Main-Gebiet.",
-         h1="Klimaanlagen", intro="Für Wohnräume, Büros und ganze Gebäude.",
-         lead="Kühlen im Sommer, heizen in der Übergangszeit. Leise Geräte, sauber verlegt.",
-         groups=[
-             ("Wohnung und Haus", "Für Schlafzimmer, Wohnräume und Dachgeschoss.",
-              ["Split-Geräte", "Multi-Split", "Unauffällige Leitungen", "Bedienung per App"]),
-             ("Gewerbe", "Für Büros, Praxen, Läden und Gastronomie.",
-              ["Deckenkassetten", "VRF-Systeme", "Zonenregelung", "Abstimmung mit Verwaltung"]),
-             ("Planung", "Bevor ein Gerät hängt, rechnen wir.",
-              ["Kühllastberechnung", "Standort Außengerät", "Schall und Optik", "Schriftliches Angebot"]),
-             ("Wartung", "Damit die Anlage hygienisch und effizient bleibt.",
-              ["Reinigung", "Filterwechsel", "Dichtheitsprüfung", "Störungsbehebung"]),
-         ],
-         devices=[
-             ("Mitsubishi Heavy Industries", "Premium Pro SRK-ZT", "Wandgerät für Wohnräume, in drei Gehäusefarben.",
-              ["2 bis 5 kW", "bis A+++", "ab 19 dB(A)", "WLAN"]),
-             ("Mitsubishi Heavy Industries", "SCM Multi-Split", "Ein Außengerät versorgt je nach Modell zwei bis sechs Innengeräte, jedes einzeln geregelt.",
-              ["3 bis 12,5 kW", "2 bis 6 Innengeräte"]),
-             ("Gewerbe", "PAC- und VRF-Systeme", "Zentrale Klimatisierung für Büro, Hotel und Handel.",
-              ["Deckenkassetten", "Zonenregelung"]),
-         ],
-         src="Geräteangaben laut Hersteller.",
-         band=("Wir kommen vorbei und messen auf.", "Danach wissen Sie, welches Gerät passt, wo es hinkommt und was es kostet.")),
-
-    dict(file="sanitaer.html", k="water", anliegen="sanitaer", crumb="Sanitär",
-         title="Sanitär und Badsanierung in Offenbach | 4M Gebäudetechnik GmbH",
-         desc="Badsanierung, barrierearme Bäder, Trinkwasserleitungen und Warmwasser in Offenbach und im Rhein-Main-Gebiet.",
-         h1="Sanitär und Bad", intro="Vom Hausanschluss bis zur Armatur.",
-         lead="Neue Bäder, Trinkwasserleitungen und Warmwasser. Geplant, abgestimmt und sauber ausgeführt.",
-         groups=[
-             ("Badsanierung", "Vom alten Bad zum neuen, mit einem Ansprechpartner.",
-              ["Planung vor Ort", "Rückbau", "Vorwandinstallation", "Dusche, WC, Waschtisch"]),
-             ("Barrierearme Bäder", "Für mehr Komfort und Sicherheit im Alltag.",
-              ["Bodengleiche Duschen", "Haltegriffe", "Mehr Bewegungsfläche", "Unterfahrbare Waschtische"]),
-             ("Trinkwasser", "Saubere Leitungen vom Hausanschluss bis zur Armatur.",
-              ["Leitungen ersetzen", "Hauswasserstation", "Druckminderer", "Leckage-Schutz"]),
-             ("Warmwasser", "Warmwasser, das zur Heizung passt.",
-              ["Speicher", "Durchlauferhitzer", "Über die Wärmepumpe", "Zirkulation"]),
-         ],
-         band=("Ein Ansprechpartner für das ganze Bad.", "Wir stimmen die Arbeiten rund um Ihr Bad ab, damit Termine und Details zusammenpassen.")),
-]
-for p in PAGES:
-    trade_page(p)
+for file, k, anliegen in [("heizung.html", "heat", "heizung"), ("klima.html", "cool", "klima"), ("sanitaer.html", "water", "sanitaer")]:
+    trade_page(file, k, anliegen)
 
 
 # ---------------- Rechtstexte ----------------
-LEGAL_IMP = """
+def legal_page(file, name, label):
+    d = load(name)
+    todo = f'\n      <div class="todo">{e(d["hinweis"])}</div>' if d.get("hinweis", "").strip() else ""
+    secs = "\n".join(f'      <h2>{e(a["titel"])}</h2>\n      <p>{eb(a["text"])}</p>' for a in d["abschnitte"])
+    body = f"""
 <main id="main">
   <section class="sec" style="padding-top:0">
     <div class="wrap legal">
-      <p class="crumbs"><a href="index.html">Start</a> / Impressum</p>
-      <h1>Impressum</h1>
-      <div class="todo">Hinweis für die Vorschau: Alle Angaben in eckigen Klammern bitte durch die echten Daten ersetzen und vor Veröffentlichung prüfen lassen.</div>
-      <h2>Angaben gemäß § 5 DDG</h2>
-      <p>4M Gebäudetechnik GmbH<br>Kaiserstraße 39<br>63065 Offenbach am Main</p>
-      <h2>Vertreten durch</h2>
-      <p>[Name der Geschäftsführung]</p>
-      <h2>Kontakt</h2>
-      <p>Telefon: [Telefonnummer]<br>E-Mail: [E-Mail-Adresse]</p>
-      <h2>Registereintrag</h2>
-      <p>Eintragung im Handelsregister<br>Registergericht: [Amtsgericht]<br>Registernummer: [HRB]</p>
-      <h2>Umsatzsteuer-ID</h2>
-      <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: [DE...]</p>
-      <h2>Berufsrechtliche Angaben</h2>
-      <p>Zuständige Handwerkskammer: [Handwerkskammer]<br>Eintragung in die Handwerksrolle: [Gewerke, Nummer]</p>
-      <h2>Verbraucherstreitbeilegung</h2>
-      <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
-      <h2>Haftung für Inhalte</h2>
-      <p>Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen.</p>
-      <h2>Haftung für Links</h2>
-      <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Für diese Inhalte ist stets der jeweilige Anbieter verantwortlich.</p>
-      <h2>Urheberrecht</h2>
-      <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht.</p>
-      <h2>Bildnachweis</h2>
-      <p>Fotos: Unsplash (Unsplash-Lizenz). alpha innotec, Illia Horokhovsky, Peter Muniz, Fabian Kleiser, Ibrar Tariq, e24, immo RENOVATION, Kelsey Todd.</p>
+      <p class="crumbs"><a href="index.html">Start</a> / {label}</p>
+      <h1>{e(d['titel'])}</h1>{todo}
+{secs}
     </div>
   </section>
 </main>
 """
+    page = head(f"{label} | {FIRMA_RAW}", f"{label} der {FIRMA_RAW}, {SITE['ort']}.") + nav(False) + body + foot(False)
+    (OUT / file).write_text(page, encoding="utf-8")
 
-LEGAL_DS = """
-<main id="main">
-  <section class="sec" style="padding-top:0">
-    <div class="wrap legal">
-      <p class="crumbs"><a href="index.html">Start</a> / Datenschutz</p>
-      <h1>Datenschutzerklärung</h1>
-      <div class="todo">Hinweis für die Vorschau: Textbausteine, vor Veröffentlichung an Hosting und tatsächliche Abläufe anpassen und rechtlich prüfen lassen.</div>
-      <h2>1. Verantwortlicher</h2>
-      <p>4M Gebäudetechnik GmbH, Kaiserstraße 39, 63065 Offenbach am Main<br>Telefon: [Telefonnummer], E-Mail: [E-Mail-Adresse]</p>
-      <h2>2. Hosting</h2>
-      <p>Diese Website wird bei [Hosting-Anbieter] gehostet. Beim Aufruf werden technisch notwendige Daten (zum Beispiel IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browser) in Server-Logfiles verarbeitet. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse liegt im sicheren und stabilen Betrieb der Website.</p>
-      <h2>3. Kontaktaufnahme</h2>
-      <p>Wenn Sie uns per Telefon, E-Mail oder über das Anfrageformular kontaktieren, verarbeiten wir Ihre Angaben zur Bearbeitung der Anfrage (Art. 6 Abs. 1 lit. b DSGVO). Das Formular öffnet Ihr eigenes E-Mail-Programm mit einer vorbereiteten Nachricht; auf dieser Website selbst werden dabei keine Daten gespeichert.</p>
-      <h2>4. Schriften, Symbole und 3D-Darstellung</h2>
-      <p>Für die Darstellung laden wir die Schrift „Geist“ über Google Fonts (Google Ireland Limited), Symbole über das Content-Delivery-Netzwerk unpkg und die 3D-Bibliothek three.js über jsDelivr. Dabei wird Ihre IP-Adresse an diese Anbieter übertragen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. [Empfehlung: Schrift, Symbole und Bibliothek vor Veröffentlichung lokal einbinden, dann entfällt dieser Abschnitt.]</p>
-      <h2>5. Lokale Speicherung</h2>
-      <p>Die Vorschau merkt sich für die Dauer der Browsersitzung, dass der Zugangscode eingegeben wurde (Session Storage). Es werden keine Cookies zu Analyse- oder Werbezwecken gesetzt.</p>
-      <h2>6. Ihre Rechte</h2>
-      <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch sowie das Recht auf Beschwerde bei einer Aufsichtsbehörde, zum Beispiel beim Hessischen Beauftragten für Datenschutz und Informationsfreiheit.</p>
-      <h2>7. Speicherdauer</h2>
-      <p>Wir speichern personenbezogene Daten nur so lange, wie es für den jeweiligen Zweck erforderlich ist oder gesetzliche Aufbewahrungsfristen bestehen.</p>
-    </div>
-  </section>
-</main>
-"""
 
-for name, body, title in [("impressum.html", LEGAL_IMP, "Impressum"), ("datenschutz.html", LEGAL_DS, "Datenschutz")]:
-    html = head(f"{title} | 4M Gebäudetechnik GmbH", f"{title} der 4M Gebäudetechnik GmbH, Offenbach am Main.") + nav(False) + body + foot(False)
-    (OUT / name).write_text(html, encoding="utf-8")
+legal_page("impressum.html", "impressum", "Impressum")
+legal_page("datenschutz.html", "datenschutz", "Datenschutz")
 
 print("ok")

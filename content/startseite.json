@@ -1,0 +1,217 @@
+{
+  "seo": {
+    "titel": "4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Frankfurt am Main",
+    "beschreibung": "Heizung und Wärmepumpe, Klimaanlagen, Bad und Sanitär: Planung, Einbau und Wartung durch die 4M Gebäudetechnik GmbH in Frankfurt am Main und im Rhein-Main-Gebiet."
+  },
+  "hero": {
+    "kicker": "Fachbetrieb in Frankfurt am Main",
+    "ueberschrift": [
+      "Heizung.",
+      "Klima.",
+      "Sanitär."
+    ],
+    "lead": "Planung, Einbau und Wartung für Wohnhäuser und Gewerbe in Frankfurt und im Rhein-Main-Gebiet.",
+    "knopf": "Anfrage senden",
+    "knopf_anrufen": "Anrufen"
+  },
+  "panels": [
+    {
+      "nummer": "01 / 03",
+      "titel": "Heizung und Wärmepumpe",
+      "text": "Die Wärmepumpe holt Wärme aus der Außenluft, der Speicher hält sie vor, Heizkörper oder Fußbodenheizung geben sie an die Räume ab.",
+      "chips": [
+        "Luft-Wasser-Wärmepumpe",
+        "Heizungstausch",
+        "Hydraulischer Abgleich"
+      ],
+      "knopf": "Mehr zur Heizung"
+    },
+    {
+      "nummer": "02 / 03",
+      "titel": "Klima",
+      "text": "Das Außengerät führt die Wärme nach draußen, das Innengerät kühlt leise und ohne Zugluft. Im Winter heizt dieselbe Anlage.",
+      "chips": [
+        "Split",
+        "Multi-Split",
+        "Gewerbe"
+      ],
+      "knopf": "Mehr zur Klimatechnik"
+    },
+    {
+      "nummer": "03 / 03",
+      "titel": "Sanitär",
+      "text": "Kaltwasser kommt vom Hausanschluss, Warmwasser aus dem Speicher. Wir verlegen beides bis zu Dusche und Waschtisch.",
+      "chips": [
+        "Badsanierung",
+        "Trinkwasser",
+        "Warmwasser"
+      ],
+      "knopf": "Mehr zum Sanitär"
+    }
+  ],
+  "leistungen": {
+    "titel": "Leistungen",
+    "text": "Drei Gewerke, ein Ansprechpartner. Von der Planung über den Einbau bis zur Wartung.",
+    "items": [
+      {
+        "nummer": "01",
+        "titel": "Heizung und Wärmepumpe",
+        "text": "Neue Heizung, Umstieg auf die Wärmepumpe oder Modernisierung der bestehenden Anlage.",
+        "chips": [
+          "Wärmepumpen",
+          "Heizungstausch",
+          "Fußbodenheizung",
+          "Abgleich"
+        ],
+        "bild": "images/heizung.webp",
+        "bild_alt": "Wärmepumpe vor einem modernen Haus"
+      },
+      {
+        "nummer": "02",
+        "titel": "Klima",
+        "text": "Kühlen und Heizen mit Split- und Multi-Split-Geräten, für einzelne Räume bis zu ganzen Büros.",
+        "chips": [
+          "Split",
+          "Multi-Split",
+          "Gewerbe",
+          "Wartung"
+        ],
+        "bild": "images/klima.webp",
+        "bild_alt": "Klimagerät an einer hellen Wand"
+      },
+      {
+        "nummer": "03",
+        "titel": "Sanitär",
+        "text": "Bäder und Trinkwasserinstallation, von der einzelnen Leitung bis zur kompletten Badsanierung.",
+        "chips": [
+          "Badsanierung",
+          "Barrierearm",
+          "Trinkwasser",
+          "Warmwasser"
+        ],
+        "bild": "images/sanitaer.webp",
+        "bild_alt": "Modernes Bad mit begehbarer Dusche und Doppelwaschtisch"
+      }
+    ],
+    "minis": [
+      {
+        "titel": "Wartung und Reparatur",
+        "text": "Regelmäßige Wartung und schnelle Hilfe bei Störungen."
+      },
+      {
+        "titel": "Förderung",
+        "text": "Wir prüfen Zuschüsse für Ihr Vorhaben und helfen beim Antrag."
+      },
+      {
+        "titel": "Gewerbe",
+        "text": "Büros, Praxen, Läden und Gastronomie."
+      }
+    ],
+    "marken_text": "Herstellerunabhängig, unter anderem mit Geräten von",
+    "marken": [
+      "Mitsubishi Heavy Industries",
+      "Daikin",
+      "Vaillant",
+      "Viessmann",
+      "Bosch",
+      "Panasonic"
+    ]
+  },
+  "ablauf": {
+    "titel": "So läuft ein Auftrag ab",
+    "text": "Vier Schritte, ein fester Ansprechpartner.",
+    "schritte": [
+      {
+        "titel": "Anfrage",
+        "text": "Per Formular oder Telefon. Wir melden uns zeitnah zurück."
+      },
+      {
+        "titel": "Termin vor Ort",
+        "text": "Wir sehen uns Gebäude und Anlage an und nehmen alle Maße auf."
+      },
+      {
+        "titel": "Angebot",
+        "text": "Schriftlich und nachvollziehbar, mit klarer Leistungsbeschreibung."
+      },
+      {
+        "titel": "Einbau",
+        "text": "Montage, Inbetriebnahme und Einweisung. Alle Unterlagen inklusive."
+      }
+    ],
+    "danach_label": "Danach:",
+    "danach_text": "Wartung und Service, damit die Anlage effizient bleibt."
+  },
+  "einblicke": {
+    "titel": "Einblicke",
+    "text": "Aus unseren Projekten in Frankfurt und Umgebung.",
+    "bilder": [
+      {
+        "bild": "images/projekt-1.webp",
+        "alt": "Wärmepumpe an einem Einfamilienhaus",
+        "beschriftung": "Wärmepumpe"
+      },
+      {
+        "bild": "images/projekt-2.webp",
+        "alt": "Gedämmte Heizungsleitungen mit Manometer",
+        "beschriftung": "Heizungsraum"
+      },
+      {
+        "bild": "images/projekt-3.webp",
+        "alt": "Bad mit Doppelwaschtisch und freistehender Wanne",
+        "beschriftung": "Bad"
+      },
+      {
+        "bild": "images/projekt-5.webp",
+        "alt": "Bodengleiche Dusche mit dunklen Fliesen und Regendusche",
+        "beschriftung": "Dusche"
+      },
+      {
+        "bild": "images/projekt-4.webp",
+        "alt": "Heizkörper unter einem Fenster",
+        "beschriftung": "Heizkörper"
+      }
+    ],
+    "cta_text": "Ihr Vorhaben als Nächstes?",
+    "cta_knopf": "Anfrage senden"
+  },
+  "ueber": {
+    "titel": "Über uns",
+    "text": "Die 4M Gebäudetechnik GmbH ist ein Fachbetrieb für Heizung, Klima und Sanitär mit Sitz in Frankfurt am Main. Wir planen, bauen ein und warten, für Privatkunden, Vermieter und Gewerbe.",
+    "bild": "images/werkstatt.webp",
+    "bild_alt": "Neu verlegte Kupferleitungen in einer offenen Wand",
+    "fakten": [
+      {
+        "label": "Sitz",
+        "wert": "{{ort}}"
+      },
+      {
+        "label": "Gewerke",
+        "wert": "Heizung, Klima, Sanitär"
+      },
+      {
+        "label": "Einsatzgebiet",
+        "wert": "Frankfurt, Offenbach, Rhein-Main"
+      },
+      {
+        "label": "Gegründet",
+        "wert": "[Gründungsjahr]"
+      },
+      {
+        "label": "Geschäftsführung",
+        "wert": "{{geschaeftsfuehrung}}"
+      },
+      {
+        "label": "Bürozeiten",
+        "wert": "Mo bis Fr, 8 bis 17 Uhr"
+      }
+    ]
+  },
+  "kontakt": {
+    "titel": "Kontakt",
+    "lead": "Schreiben Sie uns kurz, worum es geht. Wir melden uns mit einem Terminvorschlag.",
+    "formular_titel": "Anfrage senden",
+    "formular_hinweis": "Ihr E-Mail-Programm öffnet sich mit der fertigen Nachricht.",
+    "danke_titel": "Danke für Ihre Anfrage.",
+    "danke_text": "Bitte senden Sie die vorbereitete E-Mail ab. Wir melden uns so schnell wie möglich."
+  }
+}

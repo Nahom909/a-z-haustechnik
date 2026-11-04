@@ -1,0 +1,50 @@
+{
+  "titel": "Impressum",
+  "hinweis": "Hinweis für die Vorschau: Alle Angaben in eckigen Klammern bitte durch die echten Daten ersetzen und vor Veröffentlichung prüfen lassen.",
+  "abschnitte": [
+    {
+      "titel": "Angaben gemäß § 5 DDG",
+      "text": "{{firma}}\n{{strasse}}\n{{plz}} {{ort}}"
+    },
+    {
+      "titel": "Vertreten durch",
+      "text": "{{geschaeftsfuehrung}}"
+    },
+    {
+      "titel": "Kontakt",
+      "text": "Telefon: {{telefon}}\nE-Mail: {{email}}"
+    },
+    {
+      "titel": "Registereintrag",
+      "text": "Eintragung im Handelsregister\nRegistergericht: [Amtsgericht]\nRegisternummer: [HRB]"
+    },
+    {
+      "titel": "Umsatzsteuer-ID",
+      "text": "Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: [DE...]"
+    },
+    {
+      "titel": "Berufsrechtliche Angaben",
+      "text": "Zuständige Handwerkskammer: [Handwerkskammer]\nEintragung in die Handwerksrolle: [Gewerke, Nummer]"
+    },
+    {
+      "titel": "Verbraucherstreitbeilegung",
+      "text": "Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."
+    },
+    {
+      "titel": "Haftung für Inhalte",
+      "text": "Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen."
+    },
+    {
+      "titel": "Haftung für Links",
+      "text": "Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Für diese Inhalte ist stets der jeweilige Anbieter verantwortlich."
+    },
+    {
+      "titel": "Urheberrecht",
+      "text": "Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht."
+    },
+    {
+      "titel": "Bildnachweis",
+      "text": "Fotos: Unsplash (Unsplash-Lizenz). alpha innotec, Illia Horokhovsky, Peter Muniz, Fabian Kleiser, Ibrar Tariq, e24, immo RENOVATION, Kelsey Todd."
+    }
+  ]
+}
