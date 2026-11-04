@@ -8,7 +8,7 @@ import re
 
 OUT = pathlib.Path(__file__).resolve().parent.parent
 CONTENT = OUT / "content"
-V = "20261104b"  # bei jeder Änderung an CSS/JS erhöhen, damit Browser nicht die alte Datei aus dem Cache nehmen
+V = "20261104c"  # bei jeder Änderung an CSS/JS erhöhen, damit Browser nicht die alte Datei aus dem Cache nehmen
 
 
 def load(name):
@@ -97,20 +97,36 @@ def nav(home, anfrage=""):
       {li}
     </ul>
   </nav>
-  <div class="nav-cta"><a class="btn" href="{to(home, 'kontakt', anfrage)}">Anfrage senden</a></div>
+  <div class="nav-cta"><a class="btn" href="{to(home, 'kontakt', anfrage)}">Anfrage starten</a></div>
   <button class="burger" type="button" aria-label="Menü" aria-expanded="false" aria-controls="sheet"><i class="ph ph-list" aria-hidden="true"></i></button>
 </header>
 <nav class="sheet" id="sheet" aria-label="Menü">
   <ul>
     {sheet}
   </ul>
-  <a class="btn" href="{to(home, 'kontakt', anfrage)}">Anfrage senden</a>
+  <a class="btn" href="{to(home, 'kontakt', anfrage)}">Anfrage starten</a>
 </nav>
 """
 
 
-def foot(home, anfrage=""):
+def cta_band(anfrage):
+    """Band „Bereit für Ihr Projekt?“ vor der Fußzeile (nur Unterseiten; auf der Startseite steht der Assistent direkt darüber)."""
     return f"""
+<section class="cta-band" aria-label="{e(SITE['cta_titel'])}">
+  <div class="wrap">
+    <div class="cta-box">
+      <div><h2>{e(SITE['cta_titel'])}</h2><p>{e(SITE['cta_text'])}</p></div>
+      <div class="cta-btns">
+        <a class="btn btn-light" href="{to(False, 'kontakt', anfrage)}">Anfrage starten <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        <a class="btn btn-ghost inv" href="{TEL}"><i class="ph ph-phone" aria-hidden="true"></i> Anrufen</a>
+      </div>
+    </div>
+  </div>
+</section>"""
+
+
+def foot(home, anfrage=""):
+    return ("" if home else cta_band(anfrage)) + f"""
 <footer class="foot">
   <div class="wrap">
     <div class="foot-grid">
@@ -154,7 +170,7 @@ def foot(home, anfrage=""):
 
 <div class="callbar">
   <a class="btn btn-ghost" href="{TEL}"><i class="ph ph-phone" aria-hidden="true"></i> Anrufen</a>
-  <a class="btn" href="{to(home, 'kontakt', anfrage)}">Anfrage senden</a>
+  <a class="btn" href="{to(home, 'kontakt', anfrage)}">Anfrage starten</a>
 </div>
 </body>
 </html>
@@ -225,6 +241,20 @@ bento = "\n".join([
 U = C["ueber"]
 facts = "\n".join(f'          <div><dt>{e(f["label"])}</dt><dd>{e(f["wert"])}</dd></div>' for f in U["fakten"])
 K = C["kontakt"]
+R = load("rechner")
+
+
+def tok_all(v):
+    if isinstance(v, str):
+        return tok(v)
+    if isinstance(v, list):
+        return [tok_all(x) for x in v]
+    if isinstance(v, dict):
+        return {k: tok_all(x) for k, x in v.items()}
+    return v
+
+
+WIZ_JSON = json.dumps(tok_all(R), ensure_ascii=False).replace("</", "<\\/")
 
 JSONLD = json.dumps({
     "@context": "https://schema.org", "@type": "HVACBusiness", "name": FIRMA_RAW,
@@ -346,42 +376,17 @@ INDEX = head(C["seo"]["titel"], C["seo"]["beschreibung"], three=True,
         </ul>
       </div>
 
-      <div class="form rv">
-        <form id="anfrage" novalidate data-mail="{e(SITE['email'])}">
-          <div class="form-fields">
-            <h3>{e(K['formular_titel'])}</h3>
-            <div class="frow">
-              <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required><span class="err" data-err="name"></span></div>
-              <div class="field"><label for="f-kontakt">Telefon oder E-Mail</label><input id="f-kontakt" name="kontakt" autocomplete="email" required><span class="err" data-err="kontakt"></span></div>
-            </div>
-            <div class="frow">
-              <div class="field">
-                <label for="f-anliegen">Anliegen</label>
-                <div class="selwrap">
-                  <select id="f-anliegen" name="anliegen">
-                    <option value="heizung">Heizung oder Wärmepumpe</option>
-                    <option value="klima">Klimaanlage</option>
-                    <option value="sanitaer">Bad oder Sanitär</option>
-                    <option value="wartung">Wartung oder Reparatur</option>
-                    <option value="sonstiges">Sonstiges</option>
-                  </select>
-                  <i class="ph ph-caret-down" aria-hidden="true"></i>
-                </div>
-              </div>
-              <div class="field"><label for="f-ort">Ort <span class="opt">(optional)</span></label><input id="f-ort" name="ort" autocomplete="address-level2" placeholder="z. B. {e(SITE['ort'].replace(' am Main', ''))}"></div>
-            </div>
-            <div class="field"><label for="f-nachricht">Nachricht</label><textarea id="f-nachricht" name="nachricht" required placeholder="Was ist geplant? Gebäude, Baujahr, Wunschtermin"></textarea><span class="err" data-err="nachricht"></span></div>
-            <label class="chk"><input type="checkbox" name="datenschutz" required><span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span></label>
-            <span class="err" data-err="datenschutz" style="display:block;margin:-10px 0 16px"></span>
-            <button class="btn btn-light" type="submit">{e(K['formular_titel'])} <i class="ph ph-paper-plane-tilt" aria-hidden="true"></i></button>
-            <p class="form-note">{e(K['formular_hinweis'])}</p>
-          </div>
-          <div class="form-ok" role="status">
-            <i class="ph ph-check-circle" aria-hidden="true"></i>
-            <h3>{e(K['danke_titel'])}</h3>
-            <p>{e(K['danke_text'])}</p>
-          </div>
-        </form>
+      <div class="wiz rv" id="anfrage" data-mail="{e(SITE['email'])}">
+        <div class="wiz-head">
+          <h3>{e(R['titel'])}</h3>
+          <p>{e(R['text'])}</p>
+          <div class="wiz-prog" aria-hidden="true"><span class="wiz-step"></span><span class="wiz-pct"></span><div class="wiz-bar"><i></i></div></div>
+          <ul class="wiz-trust">{"".join(f'<li><i class="ph {ic}" aria-hidden="true"></i>{e(t)}</li>' for ic, t in zip(["ph-check-circle", "ph-handshake", "ph-scales"], R['vertrauen']))}</ul>
+        </div>
+        <div class="wiz-body" tabindex="-1">
+          <noscript><p>Bitte rufen Sie uns an oder schreiben Sie eine E-Mail an <a href="mailto:{e(SITE['email'])}">{e(SITE['email'])}</a>.</p></noscript>
+        </div>
+        <script type="application/json" id="wiz-data">{WIZ_JSON}</script>
       </div>
     </div>
   </section>
@@ -437,7 +442,7 @@ def trade_page(file, k, anliegen):
           <h1>{e(p['h1'])}</h1>
           <p class="lead">{e(p['lead'])}</p>
           <div class="cta">
-            <a class="btn btn-light" href="{to(False, 'kontakt', anfrage)}">Anfrage senden <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+            <a class="btn btn-light" href="{to(False, 'kontakt', anfrage)}">Anfrage starten <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
             <a class="btn btn-ghost inv" href="{TEL}"><i class="ph ph-phone" aria-hidden="true"></i> Anrufen</a>
           </div>
         </div>
@@ -462,7 +467,7 @@ def trade_page(file, k, anliegen):
     <div class="wrap">
       <div class="note-band rv">
         <div><h2>{e(p['band']['titel'])}</h2><p>{e(p['band']['text'])}</p></div>
-        <a class="btn" href="{to(False, 'kontakt', anfrage)}">Anfrage senden</a>
+        <a class="btn" href="{to(False, 'kontakt', anfrage)}">Preis grob berechnen</a>
       </div>
     </div>
   </section>

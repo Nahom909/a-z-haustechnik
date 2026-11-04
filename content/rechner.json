@@ -1,0 +1,633 @@
+{
+  "titel": "Anfrage starten",
+  "text": "In wenigen Schritten zur groben Preisvorstellung. Danach schreiben Sie uns direkt, mit allen Angaben.",
+  "vertrauen": [
+    "Kostenlos und unverbindlich",
+    "Festpreis nach Termin vor Ort",
+    "Herstellerunabhängig"
+  ],
+  "start_frage": "Was planen Sie?",
+  "ergebnis_titel": "Ihre grobe Preisvorstellung",
+  "ergebnis_ohne_preis": "Preis nach Aufwand. Wir nennen ihn Ihnen vorab.",
+  "ergebnis_hinweis": "Unverbindliche Richtwerte inklusive Montage. Den Festpreis nennen wir nach dem Termin vor Ort.",
+  "weiter_knopf": "Weiter zur Anfrage",
+  "kontakt_titel": "Wohin dürfen wir uns melden?",
+  "kontakt_text": "Ihre Angaben von eben senden wir mit. So wissen wir vor dem Termin schon, worum es geht.",
+  "senden_knopf": "Anfrage senden",
+  "senden_hinweis": "Ihr E-Mail-Programm öffnet sich mit der fertigen Nachricht.",
+  "danke_titel": "Danke für Ihre Anfrage.",
+  "danke_text": "Bitte senden Sie die vorbereitete E-Mail ab. Wir melden uns mit einem Terminvorschlag.",
+  "gewerke": [
+    {
+      "id": "klima",
+      "label": "Klimaanlage",
+      "sub": "Kühlen und heizen",
+      "icon": "ph-snowflake",
+      "fragen": [
+        {
+          "frage": "Wie viele Räume sollen gekühlt werden?",
+          "hilfe": "",
+          "optionen": [
+            {
+              "label": "1 Raum",
+              "sub": "Single-Split",
+              "min": 1500,
+              "max": 3500,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "2 Räume",
+              "sub": "Multi-Split",
+              "min": 3500,
+              "max": 5500,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "3 Räume",
+              "sub": "Multi-Split",
+              "min": 5500,
+              "max": 8000,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "4 oder mehr",
+              "sub": "Multi-Split",
+              "min": 6000,
+              "max": 9000,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Weiß ich noch nicht",
+              "sub": "",
+              "min": 1500,
+              "max": 9000,
+              "faktor": null,
+              "hinweis": "Wie viele Innengeräte sinnvoll sind, klären wir beim Termin vor Ort."
+            }
+          ]
+        },
+        {
+          "frage": "Wie groß ist der größte Raum?",
+          "hilfe": "Danach richtet sich die Leistung des Innengeräts.",
+          "optionen": [
+            {
+              "label": "Bis 25 m²",
+              "sub": "z. B. Schlafzimmer",
+              "min": 0,
+              "max": 0,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "25 bis 40 m²",
+              "sub": "z. B. Wohnzimmer",
+              "min": 200,
+              "max": 500,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Über 40 m²",
+              "sub": "z. B. offener Wohnbereich, Büro",
+              "min": 400,
+              "max": 1000,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Weiß ich nicht",
+              "sub": "",
+              "min": 0,
+              "max": 500,
+              "faktor": null,
+              "hinweis": ""
+            }
+          ]
+        },
+        {
+          "frage": "Wo soll das Außengerät hin?",
+          "hilfe": "Je weiter der Weg und je höher, desto aufwendiger die Montage.",
+          "optionen": [
+            {
+              "label": "Boden, Terrasse oder Balkon",
+              "sub": "nah am Raum, kurze Leitung",
+              "min": 0,
+              "max": 0,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Fassade, Obergeschoss",
+              "sub": "Wandkonsole, 6 bis 8 m Leitung",
+              "min": 300,
+              "max": 400,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Dach oder weit entfernt",
+              "sub": "lange Leitung, Dachkonsole",
+              "min": 700,
+              "max": 1200,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Weiß ich noch nicht",
+              "sub": "",
+              "min": 0,
+              "max": 1200,
+              "faktor": null,
+              "hinweis": ""
+            }
+          ]
+        },
+        {
+          "frage": "Um welches Gebäude geht es?",
+          "hilfe": "",
+          "optionen": [
+            {
+              "label": "Einfamilienhaus",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Eigentumswohnung",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": null,
+              "hinweis": "Für das Außengerät an der Fassade braucht es meist die Zustimmung der Eigentümergemeinschaft."
+            },
+            {
+              "label": "Mietwohnung",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": null,
+              "hinweis": "Für den Einbau braucht es die Zustimmung des Vermieters."
+            },
+            {
+              "label": "Büro oder Gewerbe",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": null,
+              "hinweis": "Für Gewerbe planen wir individuell, zum Beispiel mit Deckenkassetten oder VRF-Systemen."
+            }
+          ]
+        },
+        {
+          "frage": "Wann soll es losgehen?",
+          "hilfe": "",
+          "optionen": [
+            {
+              "label": "So bald wie möglich",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "In 1 bis 3 Monaten",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Später als 3 Monate",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Ich informiere mich erst",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": null,
+              "hinweis": ""
+            }
+          ]
+        }
+      ],
+      "enthalten": [
+        "Innen- und Außengerät",
+        "Kältemittelleitung und Kondensatablauf",
+        "Wanddurchbruch (Kernbohrung)",
+        "Elektroanschluss",
+        "Inbetriebnahme mit Dichtheitsprüfung"
+      ],
+      "hinweis": ""
+    },
+    {
+      "id": "heizung",
+      "label": "Wärmepumpe",
+      "sub": "Heizungstausch oder Neubau",
+      "icon": "ph-flame",
+      "fragen": [
+        {
+          "frage": "Wie groß ist die Wohnfläche?",
+          "hilfe": "Danach richtet sich die Größe der Wärmepumpe.",
+          "optionen": [
+            {
+              "label": "Bis 120 m²",
+              "sub": "",
+              "min": 15000,
+              "max": 22000,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "120 bis 200 m²",
+              "sub": "",
+              "min": 18000,
+              "max": 25000,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Über 200 m²",
+              "sub": "",
+              "min": 22000,
+              "max": 30000,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Weiß ich nicht genau",
+              "sub": "",
+              "min": 15000,
+              "max": 30000,
+              "faktor": null,
+              "hinweis": ""
+            }
+          ]
+        },
+        {
+          "frage": "Was heizt bisher?",
+          "hilfe": "",
+          "optionen": [
+            {
+              "label": "Gas oder Öl",
+              "sub": "alte Heizung wird ersetzt",
+              "min": 500,
+              "max": 1500,
+              "faktor": null,
+              "hinweis": "Beim Tausch einer Gas- oder Ölheizung gibt es meist höhere Zuschüsse."
+            },
+            {
+              "label": "Neubau",
+              "sub": "noch keine Heizung",
+              "min": 0,
+              "max": 0,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Etwas anderes",
+              "sub": "z. B. Nachtspeicher",
+              "min": 500,
+              "max": 1500,
+              "faktor": null,
+              "hinweis": ""
+            }
+          ]
+        },
+        {
+          "frage": "Sollen Heizkörper oder Fußbodenheizung angepasst werden?",
+          "hilfe": "Wärmepumpen arbeiten mit niedrigen Vorlauftemperaturen am sparsamsten.",
+          "optionen": [
+            {
+              "label": "Nein",
+              "sub": "bestehende Heizflächen reichen",
+              "min": 0,
+              "max": 0,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Einzelne Heizkörper tauschen",
+              "sub": "etwa 2 bis 4 Stück",
+              "min": 800,
+              "max": 3200,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Fußbodenheizung nachrüsten",
+              "sub": "etwa 80 m²",
+              "min": 3200,
+              "max": 8800,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Weiß ich nicht",
+              "sub": "",
+              "min": 0,
+              "max": 0,
+              "faktor": null,
+              "hinweis": "Ob die Heizflächen reichen, prüfen wir mit der Heizlastberechnung."
+            }
+          ]
+        },
+        {
+          "frage": "Wie alt ist der Zählerschrank?",
+          "hilfe": "Für die Wärmepumpe braucht es oft einen eigenen Zähler.",
+          "optionen": [
+            {
+              "label": "Jünger als etwa 20 Jahre",
+              "sub": "",
+              "min": 0,
+              "max": 0,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Älter oder weiß ich nicht",
+              "sub": "",
+              "min": 1500,
+              "max": 3500,
+              "faktor": null,
+              "hinweis": "Ob der Zählerschrank erneuert werden muss, sehen wir vor Ort."
+            }
+          ]
+        },
+        {
+          "frage": "Wann soll es losgehen?",
+          "hilfe": "",
+          "optionen": [
+            {
+              "label": "So bald wie möglich",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "In 1 bis 3 Monaten",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Später als 3 Monate",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Ich informiere mich erst",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": null,
+              "hinweis": ""
+            }
+          ]
+        }
+      ],
+      "enthalten": [
+        "Luft-Wasser-Wärmepumpe",
+        "Heizlastberechnung",
+        "Aufstellung und Anschluss",
+        "Inbetriebnahme und Einweisung"
+      ],
+      "hinweis": "Preise vor Abzug der Förderung. Für den Umstieg auf eine Wärmepumpe gibt es staatliche Zuschüsse; wir prüfen, was für Sie infrage kommt."
+    },
+    {
+      "id": "sanitaer",
+      "label": "Bad und Sanitär",
+      "sub": "Sanierung, Dusche, Leitungen",
+      "icon": "ph-drop",
+      "fragen": [
+        {
+          "frage": "Was ist geplant?",
+          "hilfe": "",
+          "optionen": [
+            {
+              "label": "Komplettes Bad sanieren",
+              "sub": "",
+              "min": 12000,
+              "max": 18000,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Dusche statt Wanne",
+              "sub": "",
+              "min": 3000,
+              "max": 6000,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Barrierearmes Bad",
+              "sub": "",
+              "min": 15000,
+              "max": 25000,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Gäste-WC",
+              "sub": "",
+              "min": 5000,
+              "max": 9000,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Leitungen erneuern",
+              "sub": "Trinkwasser",
+              "min": 4000,
+              "max": 10000,
+              "faktor": null,
+              "hinweis": ""
+            }
+          ]
+        },
+        {
+          "frage": "Wie groß ist das Bad?",
+          "hilfe": "",
+          "optionen": [
+            {
+              "label": "Bis 5 m²",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": 0.8,
+              "hinweis": ""
+            },
+            {
+              "label": "5 bis 8 m²",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": 1,
+              "hinweis": ""
+            },
+            {
+              "label": "8 bis 12 m²",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": 1.3,
+              "hinweis": ""
+            },
+            {
+              "label": "Über 12 m²",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": 1.6,
+              "hinweis": ""
+            }
+          ]
+        },
+        {
+          "frage": "Welche Ausstattung wünschen Sie?",
+          "hilfe": "",
+          "optionen": [
+            {
+              "label": "Solide",
+              "sub": "gute Markenware, schlicht",
+              "min": null,
+              "max": null,
+              "faktor": 1,
+              "hinweis": ""
+            },
+            {
+              "label": "Gehoben",
+              "sub": "z. B. Regendusche, Wand-WC",
+              "min": null,
+              "max": null,
+              "faktor": 1.3,
+              "hinweis": ""
+            },
+            {
+              "label": "Hochwertig",
+              "sub": "Designarmaturen, große Fliesen",
+              "min": null,
+              "max": null,
+              "faktor": 1.7,
+              "hinweis": ""
+            }
+          ]
+        },
+        {
+          "frage": "Wann soll es losgehen?",
+          "hilfe": "",
+          "optionen": [
+            {
+              "label": "So bald wie möglich",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "In 1 bis 3 Monaten",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Später als 3 Monate",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Ich informiere mich erst",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": null,
+              "hinweis": ""
+            }
+          ]
+        }
+      ],
+      "enthalten": [
+        "Rückbau und Entsorgung",
+        "Wasser- und Abwasserleitungen",
+        "Sanitärobjekte und Armaturen",
+        "Abstimmung mit Fliesenleger und Elektriker"
+      ],
+      "hinweis": "Beim Bad hängt der Preis stark vom Zustand und von der Fliesenauswahl ab."
+    },
+    {
+      "id": "wartung",
+      "label": "Wartung oder Reparatur",
+      "sub": "Heizung, Klima, Störung",
+      "icon": "ph-wrench",
+      "fragen": [
+        {
+          "frage": "Worum geht es?",
+          "hilfe": "",
+          "optionen": [
+            {
+              "label": "Wartung Heizung oder Wärmepumpe",
+              "sub": "pro Termin",
+              "min": 120,
+              "max": 250,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Wartung Klimaanlage",
+              "sub": "Reinigung, Filter, Dichtheit",
+              "min": null,
+              "max": null,
+              "faktor": null,
+              "hinweis": ""
+            },
+            {
+              "label": "Störung oder Reparatur",
+              "sub": "",
+              "min": null,
+              "max": null,
+              "faktor": null,
+              "hinweis": "Bei einer akuten Störung rufen Sie am besten direkt an: {{telefon}}."
+            }
+          ]
+        }
+      ],
+      "enthalten": [],
+      "hinweis": ""
+    },
+    {
+      "id": "sonstiges",
+      "label": "Etwas anderes",
+      "sub": "Schreiben Sie uns einfach",
+      "icon": "ph-chat-circle-dots",
+      "fragen": [],
+      "enthalten": [],
+      "hinweis": ""
+    }
+  ]
+}

@@ -3,301 +3,739 @@
 backend:
   name: git-gateway
   branch: main
-
 locale: de
 site_url: /
 media_folder: images
 public_folder: images
-
 collections:
-  - name: seiten
-    label: "Seiten und Texte"
-    format: json
-    files:
-      - label: "Firmendaten (Adresse, Telefon, E-Mail …)"
-        name: site
-        file: content/site.json
+- name: seiten
+  label: Seiten und Texte
+  format: json
+  files:
+  - label: Firmendaten (Adresse, Telefon, E-Mail …)
+    name: site
+    file: content/site.json
+    fields:
+    - label: Firmenname
+      name: firma
+      widget: string
+    - label: Telefon (so angezeigt)
+      name: telefon
+      widget: string
+    - label: Telefon (für den Anruf-Link, nur Ziffern mit Ländervorwahl)
+      name: telefon_link
+      widget: string
+      hint: z. B. +491724386284
+    - label: E-Mail
+      name: email
+      widget: string
+    - label: Straße und Hausnummer
+      name: strasse
+      widget: string
+    - label: PLZ
+      name: plz
+      widget: string
+    - label: Ort
+      name: ort
+      widget: string
+    - label: Bürozeiten
+      name: buero
+      widget: string
+    - label: Geschäftsführung
+      name: geschaeftsfuehrung
+      widget: string
+    - label: Kurzbeschreibung (Fußzeile und Link-Vorschau)
+      name: tagline
+      widget: text
+    - label: 'Band vor der Fußzeile: Titel'
+      name: cta_titel
+      widget: string
+    - label: 'Band vor der Fußzeile: Text'
+      name: cta_text
+      widget: string
+  - label: Startseite
+    name: startseite
+    file: content/startseite.json
+    fields:
+    - label: Suchmaschinen und Browser-Tab
+      name: seo
+      widget: object
+      fields:
+      - label: Seitentitel
+        name: titel
+        widget: string
+      - label: Beschreibung
+        name: beschreibung
+        widget: text
+    - label: Startbereich
+      name: hero
+      widget: object
+      fields:
+      - label: Zeile über der Überschrift
+        name: kicker
+        widget: string
+      - label: Überschrift (drei Wörter)
+        name: ueberschrift
+        widget: list
+        min: 3
+        max: 3
+        field:
+          label: Wort
+          name: eintrag
+          widget: string
+      - label: Einleitung
+        name: lead
+        widget: text
+      - label: Knopf Anfrage starten
+        name: knopf
+        widget: string
+      - label: Knopf Anrufen
+        name: knopf_anrufen
+        widget: string
+    - label: 'Startbereich: drei Gewerke'
+      name: panels
+      widget: list
+      min: 3
+      max: 3
+      summary: '{{fields.titel}}'
+      fields:
+      - label: Nummer
+        name: nummer
+        widget: string
+      - label: Titel
+        name: titel
+        widget: string
+      - label: Text
+        name: text
+        widget: text
+      - label: Stichworte
+        name: chips
+        widget: list
+        field:
+          label: Eintrag
+          name: eintrag
+          widget: string
+      - label: Knopf
+        name: knopf
+        widget: string
+    - label: Leistungen
+      name: leistungen
+      widget: object
+      fields:
+      - label: Titel
+        name: titel
+        widget: string
+      - label: Text
+        name: text
+        widget: text
+      - label: Leistungen
+        name: items
+        widget: list
+        min: 3
+        max: 3
+        summary: '{{fields.titel}}'
         fields:
-          - {label: "Firmenname", name: firma, widget: string}
-          - {label: "Telefon (so angezeigt)", name: telefon, widget: string}
-          - {label: "Telefon (für den Anruf-Link, nur Ziffern mit Ländervorwahl)", name: telefon_link, widget: string, hint: "z. B. +491724386284"}
-          - {label: "E-Mail", name: email, widget: string}
-          - {label: "Straße und Hausnummer", name: strasse, widget: string}
-          - {label: "PLZ", name: plz, widget: string}
-          - {label: "Ort", name: ort, widget: string}
-          - {label: "Bürozeiten", name: buero, widget: string}
-          - {label: "Geschäftsführung", name: geschaeftsfuehrung, widget: string}
-          - {label: "Kurzbeschreibung (Fußzeile und Link-Vorschau)", name: tagline, widget: text}
-      - label: "Startseite"
-        name: startseite
-        file: content/startseite.json
+        - label: Nummer
+          name: nummer
+          widget: string
+        - label: Titel
+          name: titel
+          widget: string
+        - label: Text
+          name: text
+          widget: text
+        - label: Stichworte
+          name: chips
+          widget: list
+          field:
+            label: Eintrag
+            name: eintrag
+            widget: string
+        - label: Bild
+          name: bild
+          widget: image
+          choose_url: false
+        - label: Bildbeschreibung (Alt-Text)
+          name: bild_alt
+          widget: string
+      - label: Kästchen darunter
+        name: minis
+        widget: list
+        min: 3
+        max: 3
+        summary: '{{fields.titel}}'
         fields:
-          - label: "Suchmaschinen und Browser-Tab"
-            name: seo
-            widget: object
-            fields:
-              - {label: "Seitentitel", name: titel, widget: string}
-              - {label: "Beschreibung", name: beschreibung, widget: text}
-          - label: "Startbereich"
-            name: hero
-            widget: object
-            fields:
-              - {label: "Zeile über der Überschrift", name: kicker, widget: string}
-              - {label: "Überschrift (drei Wörter)", name: ueberschrift, widget: list, min: 3, max: 3, field: {label: "Wort", name: eintrag, widget: string}}
-              - {label: "Einleitung", name: lead, widget: text}
-              - {label: "Knopf Anfrage", name: knopf, widget: string}
-              - {label: "Knopf Anrufen", name: knopf_anrufen, widget: string}
-          - label: "Startbereich: drei Gewerke"
-            name: panels
-            widget: list
-            min: 3
-            max: 3
-            summary: "{{fields.titel}}"
-            fields:
-              - {label: "Nummer", name: nummer, widget: string}
-              - {label: "Titel", name: titel, widget: string}
-              - {label: "Text", name: text, widget: text}
-              - {label: "Stichworte", name: chips, widget: list, field: {label: "Eintrag", name: eintrag, widget: string}}
-              - {label: "Knopf", name: knopf, widget: string}
-          - label: "Leistungen"
-            name: leistungen
-            widget: object
-            fields:
-              - {label: "Titel", name: titel, widget: string}
-              - {label: "Text", name: text, widget: text}
-              - label: "Leistungen"
-                name: items
-                widget: list
-                min: 3
-                max: 3
-                summary: "{{fields.titel}}"
-                fields:
-                  - {label: "Nummer", name: nummer, widget: string}
-                  - {label: "Titel", name: titel, widget: string}
-                  - {label: "Text", name: text, widget: text}
-                  - {label: "Stichworte", name: chips, widget: list, field: {label: "Eintrag", name: eintrag, widget: string}}
-                  - {label: "Bild", name: bild, widget: image, choose_url: false}
-                  - {label: "Bildbeschreibung (Alt-Text)", name: bild_alt, widget: string}
-              - label: "Kästchen darunter"
-                name: minis
-                widget: list
-                min: 3
-                max: 3
-                summary: "{{fields.titel}}"
-                fields:
-                  - {label: "Titel", name: titel, widget: string}
-                  - {label: "Text", name: text, widget: text}
-              - {label: "Satz über den Marken", name: marken_text, widget: string}
-              - {label: "Marken", name: marken, widget: list, field: {label: "Marke", name: eintrag, widget: string}}
-          - label: "Ablauf"
-            name: ablauf
-            widget: object
-            fields:
-              - {label: "Titel", name: titel, widget: string}
-              - {label: "Text", name: text, widget: string}
-              - label: "Schritte"
-                name: schritte
-                widget: list
-                min: 4
-                max: 4
-                summary: "{{fields.titel}}"
-                fields:
-                  - {label: "Titel", name: titel, widget: string}
-                  - {label: "Text", name: text, widget: text}
-              - {label: "„Danach“-Label", name: danach_label, widget: string}
-              - {label: "„Danach“-Text", name: danach_text, widget: string}
-          - label: "Einblicke"
-            name: einblicke
-            widget: object
-            fields:
-              - {label: "Titel", name: titel, widget: string}
-              - {label: "Text", name: text, widget: string}
-              - label: "Bilder (5)"
-                name: bilder
-                widget: list
-                min: 5
-                max: 5
-                summary: "{{fields.beschriftung}}"
-                fields:
-                  - {label: "Bild", name: bild, widget: image, choose_url: false}
-                  - {label: "Bildbeschreibung (Alt-Text)", name: alt, widget: string}
-                  - {label: "Beschriftung", name: beschriftung, widget: string}
-              - {label: "Text im Aktionsfeld", name: cta_text, widget: string}
-              - {label: "Knopf im Aktionsfeld", name: cta_knopf, widget: string}
-          - label: "Über uns"
-            name: ueber
-            widget: object
-            fields:
-              - {label: "Titel", name: titel, widget: string}
-              - {label: "Text", name: text, widget: text}
-              - {label: "Bild", name: bild, widget: image, choose_url: false}
-              - {label: "Bildbeschreibung (Alt-Text)", name: bild_alt, widget: string}
-              - label: "Fakten"
-                name: fakten
-                widget: list
-                summary: "{{fields.label}}"
-                fields:
-                  - {label: "Bezeichnung", name: label, widget: string}
-                  - {label: "Wert", name: wert, widget: string, hint: "Platzhalter: {{firma}}, {{telefon}}, {{email}}, {{strasse}}, {{plz}}, {{ort}}, {{buero}}, {{geschaeftsfuehrung}} werden aus „Firmendaten“ eingesetzt."}
-          - label: "Kontakt"
-            name: kontakt
-            widget: object
-            fields:
-              - {label: "Titel", name: titel, widget: string}
-              - {label: "Einleitung", name: lead, widget: text}
-              - {label: "Formular: Titel und Knopf", name: formular_titel, widget: string}
-              - {label: "Formular: Hinweis unter dem Knopf", name: formular_hinweis, widget: string}
-              - {label: "Nach dem Absenden: Titel", name: danke_titel, widget: string}
-              - {label: "Nach dem Absenden: Text", name: danke_text, widget: text}
-      - label: "Heizung und Wärmepumpe"
-        name: heizung
-        file: content/heizung.json
+        - label: Titel
+          name: titel
+          widget: string
+        - label: Text
+          name: text
+          widget: text
+      - label: Satz über den Marken
+        name: marken_text
+        widget: string
+      - label: Marken
+        name: marken
+        widget: list
+        field:
+          label: Marke
+          name: eintrag
+          widget: string
+    - label: Ablauf
+      name: ablauf
+      widget: object
+      fields:
+      - label: Titel
+        name: titel
+        widget: string
+      - label: Text
+        name: text
+        widget: string
+      - label: Schritte
+        name: schritte
+        widget: list
+        min: 4
+        max: 4
+        summary: '{{fields.titel}}'
         fields:
-          - label: "Suchmaschinen und Browser-Tab"
-            name: seo
-            widget: object
-            fields:
-              - {label: "Seitentitel", name: titel, widget: string}
-              - {label: "Beschreibung", name: beschreibung, widget: text}
-          - {label: "Brotkrümel (Name der Seite)", name: crumb, widget: string}
-          - {label: "Überschrift", name: h1, widget: string}
-          - {label: "Einleitung", name: lead, widget: text}
-          - {label: "Titel Leistungsumfang", name: leistungen_titel, widget: string}
-          - {label: "Text Leistungsumfang", name: intro, widget: string}
-          - label: "Leistungsgruppen"
-            name: gruppen
-            widget: list
-            summary: "{{fields.titel}}"
-            fields:
-              - {label: "Titel", name: titel, widget: string}
-              - {label: "Text", name: text, widget: text}
-              - {label: "Punkte", name: punkte, widget: list, field: {label: "Punkt", name: eintrag, widget: string}}
-          - {label: "Titel Geräte", name: geraete_titel, widget: string}
-          - {label: "Text Geräte", name: geraete_text, widget: string}
-          - label: "Geräte (leer lassen, wenn der Abschnitt entfallen soll)"
-            name: geraete
-            widget: list
+        - label: Titel
+          name: titel
+          widget: string
+        - label: Text
+          name: text
+          widget: text
+      - label: „Danach“-Label
+        name: danach_label
+        widget: string
+      - label: „Danach“-Text
+        name: danach_text
+        widget: string
+    - label: Einblicke
+      name: einblicke
+      widget: object
+      fields:
+      - label: Titel
+        name: titel
+        widget: string
+      - label: Text
+        name: text
+        widget: string
+      - label: Bilder (5)
+        name: bilder
+        widget: list
+        min: 5
+        max: 5
+        summary: '{{fields.beschriftung}}'
+        fields:
+        - label: Bild
+          name: bild
+          widget: image
+          choose_url: false
+        - label: Bildbeschreibung (Alt-Text)
+          name: alt
+          widget: string
+        - label: Beschriftung
+          name: beschriftung
+          widget: string
+      - label: Text im Aktionsfeld
+        name: cta_text
+        widget: string
+      - label: Knopf im Aktionsfeld
+        name: cta_knopf
+        widget: string
+    - label: Über uns
+      name: ueber
+      widget: object
+      fields:
+      - label: Titel
+        name: titel
+        widget: string
+      - label: Text
+        name: text
+        widget: text
+      - label: Bild
+        name: bild
+        widget: image
+        choose_url: false
+      - label: Bildbeschreibung (Alt-Text)
+        name: bild_alt
+        widget: string
+      - label: Fakten
+        name: fakten
+        widget: list
+        summary: '{{fields.label}}'
+        fields:
+        - label: Bezeichnung
+          name: label
+          widget: string
+        - label: Wert
+          name: wert
+          widget: string
+          hint: 'Platzhalter: {{firma}}, {{telefon}}, {{email}}, {{strasse}}, {{plz}}, {{ort}}, {{buero}}, {{geschaeftsfuehrung}} werden aus „Firmendaten“ eingesetzt.'
+    - label: Kontakt
+      name: kontakt
+      widget: object
+      fields:
+      - label: Titel
+        name: titel
+        widget: string
+      - label: Einleitung
+        name: lead
+        widget: text
+  - label: Anfrage-Assistent und Preise
+    name: rechner
+    file: content/rechner.json
+    fields:
+    - label: Titel
+      name: titel
+      widget: string
+    - label: Einleitung
+      name: text
+      widget: text
+    - label: Drei Punkte unter dem Fortschritt
+      name: vertrauen
+      widget: list
+      min: 3
+      max: 3
+      field:
+        label: Punkt
+        name: eintrag
+        widget: string
+    - label: Erste Frage
+      name: start_frage
+      widget: string
+    - label: Vorhaben
+      name: gewerke
+      widget: list
+      summary: '{{fields.label}}'
+      hint: Preis = Summe aller „von/bis“-Werte der gewählten Antworten, mal alle Faktoren.
+      fields:
+      - label: Kennung (nicht ändern)
+        name: id
+        widget: string
+        hint: 'Wird von den Unterseiten genutzt: klima, heizung, sanitaer'
+      - label: Name
+        name: label
+        widget: string
+      - label: Zusatz
+        name: sub
+        widget: string
+        required: false
+      - label: Symbol
+        name: icon
+        widget: select
+        options:
+        - ph-snowflake
+        - ph-flame
+        - ph-drop
+        - ph-wrench
+        - ph-chat-circle-dots
+        - ph-thermometer
+        - ph-fan
+        - ph-shower
+        - ph-toilet
+        - ph-house
+        - ph-solar-panel
+        - ph-lightning
+      - label: Fragen
+        name: fragen
+        widget: list
+        required: false
+        summary: '{{fields.frage}}'
+        fields:
+        - label: Frage
+          name: frage
+          widget: string
+        - label: Erklärung unter der Frage
+          name: hilfe
+          widget: string
+          required: false
+        - label: Antworten
+          name: optionen
+          widget: list
+          summary: '{{fields.label}}'
+          fields:
+          - label: Antwort
+            name: label
+            widget: string
+          - label: Zusatz (kleiner Text)
+            name: sub
+            widget: string
             required: false
-            summary: "{{fields.name}}"
-            fields:
-              - {label: "Hersteller", name: hersteller, widget: string}
-              - {label: "Name", name: name, widget: string}
-              - {label: "Text", name: text, widget: text}
-              - {label: "Daten", name: daten, widget: list, field: {label: "Angabe", name: eintrag, widget: string}}
-          - {label: "Quellenangabe Geräte", name: geraete_quelle, widget: string, required: false}
-          - label: "Hinweisband"
-            name: band
-            widget: object
-            fields:
-              - {label: "Titel", name: titel, widget: string}
-              - {label: "Text", name: text, widget: text}
-      - label: "Klima"
-        name: klima
-        file: content/klima.json
-        fields:
-          - label: "Suchmaschinen und Browser-Tab"
-            name: seo
-            widget: object
-            fields:
-              - {label: "Seitentitel", name: titel, widget: string}
-              - {label: "Beschreibung", name: beschreibung, widget: text}
-          - {label: "Brotkrümel (Name der Seite)", name: crumb, widget: string}
-          - {label: "Überschrift", name: h1, widget: string}
-          - {label: "Einleitung", name: lead, widget: text}
-          - {label: "Titel Leistungsumfang", name: leistungen_titel, widget: string}
-          - {label: "Text Leistungsumfang", name: intro, widget: string}
-          - label: "Leistungsgruppen"
-            name: gruppen
-            widget: list
-            summary: "{{fields.titel}}"
-            fields:
-              - {label: "Titel", name: titel, widget: string}
-              - {label: "Text", name: text, widget: text}
-              - {label: "Punkte", name: punkte, widget: list, field: {label: "Punkt", name: eintrag, widget: string}}
-          - {label: "Titel Geräte", name: geraete_titel, widget: string}
-          - {label: "Text Geräte", name: geraete_text, widget: string}
-          - label: "Geräte (leer lassen, wenn der Abschnitt entfallen soll)"
-            name: geraete
-            widget: list
+          - label: Preis von (€)
+            name: min
+            widget: number
+            value_type: int
             required: false
-            summary: "{{fields.name}}"
-            fields:
-              - {label: "Hersteller", name: hersteller, widget: string}
-              - {label: "Name", name: name, widget: string}
-              - {label: "Text", name: text, widget: text}
-              - {label: "Daten", name: daten, widget: list, field: {label: "Angabe", name: eintrag, widget: string}}
-          - {label: "Quellenangabe Geräte", name: geraete_quelle, widget: string, required: false}
-          - label: "Hinweisband"
-            name: band
-            widget: object
-            fields:
-              - {label: "Titel", name: titel, widget: string}
-              - {label: "Text", name: text, widget: text}
-      - label: "Sanitär"
-        name: sanitaer
-        file: content/sanitaer.json
-        fields:
-          - label: "Suchmaschinen und Browser-Tab"
-            name: seo
-            widget: object
-            fields:
-              - {label: "Seitentitel", name: titel, widget: string}
-              - {label: "Beschreibung", name: beschreibung, widget: text}
-          - {label: "Brotkrümel (Name der Seite)", name: crumb, widget: string}
-          - {label: "Überschrift", name: h1, widget: string}
-          - {label: "Einleitung", name: lead, widget: text}
-          - {label: "Titel Leistungsumfang", name: leistungen_titel, widget: string}
-          - {label: "Text Leistungsumfang", name: intro, widget: string}
-          - label: "Leistungsgruppen"
-            name: gruppen
-            widget: list
-            summary: "{{fields.titel}}"
-            fields:
-              - {label: "Titel", name: titel, widget: string}
-              - {label: "Text", name: text, widget: text}
-              - {label: "Punkte", name: punkte, widget: list, field: {label: "Punkt", name: eintrag, widget: string}}
-          - {label: "Titel Geräte", name: geraete_titel, widget: string}
-          - {label: "Text Geräte", name: geraete_text, widget: string}
-          - label: "Geräte (leer lassen, wenn der Abschnitt entfallen soll)"
-            name: geraete
-            widget: list
+            hint: Wird zu den anderen Antworten addiert. Leer = kein Preis.
+          - label: Preis bis (€)
+            name: max
+            widget: number
+            value_type: int
             required: false
-            summary: "{{fields.name}}"
-            fields:
-              - {label: "Hersteller", name: hersteller, widget: string}
-              - {label: "Name", name: name, widget: string}
-              - {label: "Text", name: text, widget: text}
-              - {label: "Daten", name: daten, widget: list, field: {label: "Angabe", name: eintrag, widget: string}}
-          - {label: "Quellenangabe Geräte", name: geraete_quelle, widget: string, required: false}
-          - label: "Hinweisband"
-            name: band
-            widget: object
-            fields:
-              - {label: "Titel", name: titel, widget: string}
-              - {label: "Text", name: text, widget: text}
-      - label: "Impressum"
-        name: impressum
-        file: content/impressum.json
-        fields:
-          - {label: "Überschrift", name: titel, widget: string}
-          - {label: "Hinweis oben (leer lassen = kein Hinweis)", name: hinweis, widget: text, required: false}
-          - label: "Abschnitte"
-            name: abschnitte
-            widget: list
-            summary: "{{fields.titel}}"
-            fields:
-              - {label: "Überschrift", name: titel, widget: string}
-              - {label: "Text (Zeilenumbrüche bleiben erhalten)", name: text, widget: text, hint: "Platzhalter: {{firma}}, {{telefon}}, {{email}}, {{strasse}}, {{plz}}, {{ort}}, {{buero}}, {{geschaeftsfuehrung}} werden aus „Firmendaten“ eingesetzt."}
-      - label: "Datenschutz"
-        name: datenschutz
-        file: content/datenschutz.json
-        fields:
-          - {label: "Überschrift", name: titel, widget: string}
-          - {label: "Hinweis oben (leer lassen = kein Hinweis)", name: hinweis, widget: text, required: false}
-          - label: "Abschnitte"
-            name: abschnitte
-            widget: list
-            summary: "{{fields.titel}}"
-            fields:
-              - {label: "Überschrift", name: titel, widget: string}
-              - {label: "Text (Zeilenumbrüche bleiben erhalten)", name: text, widget: text, hint: "Platzhalter: {{firma}}, {{telefon}}, {{email}}, {{strasse}}, {{plz}}, {{ort}}, {{buero}}, {{geschaeftsfuehrung}} werden aus „Firmendaten“ eingesetzt."}
+            hint: ''
+          - label: Faktor
+            name: faktor
+            widget: number
+            value_type: float
+            required: false
+            hint: Multipliziert die Summe, z. B. 1.3 für +30 %. Leer = 1.
+          - label: Hinweis im Ergebnis
+            name: hinweis
+            widget: text
+            required: false
+      - label: Enthalten (Liste im Ergebnis)
+        name: enthalten
+        widget: list
+        required: false
+        field:
+          label: Punkt
+          name: eintrag
+          widget: string
+      - label: Hinweis im Ergebnis
+        name: hinweis
+        widget: text
+        required: false
+    - label: 'Ergebnis: Überschrift'
+      name: ergebnis_titel
+      widget: string
+    - label: Ergebnis ohne Preis
+      name: ergebnis_ohne_preis
+      widget: string
+    - label: 'Ergebnis: Hinweis unter dem Preis'
+      name: ergebnis_hinweis
+      widget: text
+    - label: Knopf zur Anfrage
+      name: weiter_knopf
+      widget: string
+    - label: 'Kontakt: Überschrift'
+      name: kontakt_titel
+      widget: string
+    - label: 'Kontakt: Text'
+      name: kontakt_text
+      widget: text
+    - label: Knopf Senden
+      name: senden_knopf
+      widget: string
+    - label: Hinweis unter Senden
+      name: senden_hinweis
+      widget: string
+    - label: 'Danke: Überschrift'
+      name: danke_titel
+      widget: string
+    - label: 'Danke: Text'
+      name: danke_text
+      widget: text
+  - label: Heizung und Wärmepumpe
+    name: heizung
+    file: content/heizung.json
+    fields:
+    - label: Suchmaschinen und Browser-Tab
+      name: seo
+      widget: object
+      fields:
+      - label: Seitentitel
+        name: titel
+        widget: string
+      - label: Beschreibung
+        name: beschreibung
+        widget: text
+    - label: Brotkrümel (Name der Seite)
+      name: crumb
+      widget: string
+    - label: Überschrift
+      name: h1
+      widget: string
+    - label: Einleitung
+      name: lead
+      widget: text
+    - label: Titel Leistungsumfang
+      name: leistungen_titel
+      widget: string
+    - label: Text Leistungsumfang
+      name: intro
+      widget: string
+    - label: Leistungsgruppen
+      name: gruppen
+      widget: list
+      summary: '{{fields.titel}}'
+      fields:
+      - label: Titel
+        name: titel
+        widget: string
+      - label: Text
+        name: text
+        widget: text
+      - label: Punkte
+        name: punkte
+        widget: list
+        field:
+          label: Punkt
+          name: eintrag
+          widget: string
+    - label: Titel Geräte
+      name: geraete_titel
+      widget: string
+    - label: Text Geräte
+      name: geraete_text
+      widget: string
+    - label: Geräte (leer lassen, wenn der Abschnitt entfallen soll)
+      name: geraete
+      widget: list
+      required: false
+      summary: '{{fields.name}}'
+      fields:
+      - label: Hersteller
+        name: hersteller
+        widget: string
+      - label: Name
+        name: name
+        widget: string
+      - label: Text
+        name: text
+        widget: text
+      - label: Daten
+        name: daten
+        widget: list
+        field:
+          label: Angabe
+          name: eintrag
+          widget: string
+    - label: Quellenangabe Geräte
+      name: geraete_quelle
+      widget: string
+      required: false
+    - label: Hinweisband
+      name: band
+      widget: object
+      fields:
+      - label: Titel
+        name: titel
+        widget: string
+      - label: Text
+        name: text
+        widget: text
+  - label: Klima
+    name: klima
+    file: content/klima.json
+    fields:
+    - label: Suchmaschinen und Browser-Tab
+      name: seo
+      widget: object
+      fields:
+      - label: Seitentitel
+        name: titel
+        widget: string
+      - label: Beschreibung
+        name: beschreibung
+        widget: text
+    - label: Brotkrümel (Name der Seite)
+      name: crumb
+      widget: string
+    - label: Überschrift
+      name: h1
+      widget: string
+    - label: Einleitung
+      name: lead
+      widget: text
+    - label: Titel Leistungsumfang
+      name: leistungen_titel
+      widget: string
+    - label: Text Leistungsumfang
+      name: intro
+      widget: string
+    - label: Leistungsgruppen
+      name: gruppen
+      widget: list
+      summary: '{{fields.titel}}'
+      fields:
+      - label: Titel
+        name: titel
+        widget: string
+      - label: Text
+        name: text
+        widget: text
+      - label: Punkte
+        name: punkte
+        widget: list
+        field:
+          label: Punkt
+          name: eintrag
+          widget: string
+    - label: Titel Geräte
+      name: geraete_titel
+      widget: string
+    - label: Text Geräte
+      name: geraete_text
+      widget: string
+    - label: Geräte (leer lassen, wenn der Abschnitt entfallen soll)
+      name: geraete
+      widget: list
+      required: false
+      summary: '{{fields.name}}'
+      fields:
+      - label: Hersteller
+        name: hersteller
+        widget: string
+      - label: Name
+        name: name
+        widget: string
+      - label: Text
+        name: text
+        widget: text
+      - label: Daten
+        name: daten
+        widget: list
+        field:
+          label: Angabe
+          name: eintrag
+          widget: string
+    - label: Quellenangabe Geräte
+      name: geraete_quelle
+      widget: string
+      required: false
+    - label: Hinweisband
+      name: band
+      widget: object
+      fields:
+      - label: Titel
+        name: titel
+        widget: string
+      - label: Text
+        name: text
+        widget: text
+  - label: Sanitär
+    name: sanitaer
+    file: content/sanitaer.json
+    fields:
+    - label: Suchmaschinen und Browser-Tab
+      name: seo
+      widget: object
+      fields:
+      - label: Seitentitel
+        name: titel
+        widget: string
+      - label: Beschreibung
+        name: beschreibung
+        widget: text
+    - label: Brotkrümel (Name der Seite)
+      name: crumb
+      widget: string
+    - label: Überschrift
+      name: h1
+      widget: string
+    - label: Einleitung
+      name: lead
+      widget: text
+    - label: Titel Leistungsumfang
+      name: leistungen_titel
+      widget: string
+    - label: Text Leistungsumfang
+      name: intro
+      widget: string
+    - label: Leistungsgruppen
+      name: gruppen
+      widget: list
+      summary: '{{fields.titel}}'
+      fields:
+      - label: Titel
+        name: titel
+        widget: string
+      - label: Text
+        name: text
+        widget: text
+      - label: Punkte
+        name: punkte
+        widget: list
+        field:
+          label: Punkt
+          name: eintrag
+          widget: string
+    - label: Titel Geräte
+      name: geraete_titel
+      widget: string
+    - label: Text Geräte
+      name: geraete_text
+      widget: string
+    - label: Geräte (leer lassen, wenn der Abschnitt entfallen soll)
+      name: geraete
+      widget: list
+      required: false
+      summary: '{{fields.name}}'
+      fields:
+      - label: Hersteller
+        name: hersteller
+        widget: string
+      - label: Name
+        name: name
+        widget: string
+      - label: Text
+        name: text
+        widget: text
+      - label: Daten
+        name: daten
+        widget: list
+        field:
+          label: Angabe
+          name: eintrag
+          widget: string
+    - label: Quellenangabe Geräte
+      name: geraete_quelle
+      widget: string
+      required: false
+    - label: Hinweisband
+      name: band
+      widget: object
+      fields:
+      - label: Titel
+        name: titel
+        widget: string
+      - label: Text
+        name: text
+        widget: text
+  - label: Impressum
+    name: impressum
+    file: content/impressum.json
+    fields:
+    - label: Überschrift
+      name: titel
+      widget: string
+    - label: Hinweis oben (leer lassen = kein Hinweis)
+      name: hinweis
+      widget: text
+      required: false
+    - label: Abschnitte
+      name: abschnitte
+      widget: list
+      summary: '{{fields.titel}}'
+      fields:
+      - label: Überschrift
+        name: titel
+        widget: string
+      - label: Text (Zeilenumbrüche bleiben erhalten)
+        name: text
+        widget: text
+        hint: 'Platzhalter: {{firma}}, {{telefon}}, {{email}}, {{strasse}}, {{plz}}, {{ort}}, {{buero}}, {{geschaeftsfuehrung}} werden aus „Firmendaten“ eingesetzt.'
+  - label: Datenschutz
+    name: datenschutz
+    file: content/datenschutz.json
+    fields:
+    - label: Überschrift
+      name: titel
+      widget: string
+    - label: Hinweis oben (leer lassen = kein Hinweis)
+      name: hinweis
+      widget: text
+      required: false
+    - label: Abschnitte
+      name: abschnitte
+      widget: list
+      summary: '{{fields.titel}}'
+      fields:
+      - label: Überschrift
+        name: titel
+        widget: string
+      - label: Text (Zeilenumbrüche bleiben erhalten)
+        name: text
+        widget: text
+        hint: 'Platzhalter: {{firma}}, {{telefon}}, {{email}}, {{strasse}}, {{plz}}, {{ort}}, {{buero}}, {{geschaeftsfuehrung}} werden aus „Firmendaten“ eingesetzt.'

@@ -11,7 +11,7 @@
       "Sanitär."
     ],
     "lead": "Planung, Einbau und Wartung für Wohnhäuser und Gewerbe in Frankfurt und im Rhein-Main-Gebiet.",
-    "knopf": "Anfrage senden",
+    "knopf": "Anfrage starten",
     "knopf_anrufen": "Anrufen"
   },
   "panels": [
@@ -208,10 +208,6 @@
   },
   "kontakt": {
     "titel": "Kontakt",
-    "lead": "Schreiben Sie uns kurz, worum es geht. Wir melden uns mit einem Terminvorschlag.",
-    "formular_titel": "Anfrage senden",
-    "formular_hinweis": "Ihr E-Mail-Programm öffnet sich mit der fertigen Nachricht.",
-    "danke_titel": "Danke für Ihre Anfrage.",
-    "danke_text": "Bitte senden Sie die vorbereitete E-Mail ab. Wir melden uns so schnell wie möglich."
+    "lead": "Ein paar kurze Fragen, dann sehen Sie eine grobe Preisspanne und können uns direkt schreiben. Oder rufen Sie einfach an."
   }
 }

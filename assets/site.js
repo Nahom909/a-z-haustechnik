@@ -32,7 +32,7 @@
       }).join("") +
       "</div>" +
       '<div class="gate-msg" aria-live="polite"></div>' +
-      '<p class="gate-foot">4M Gebäudetechnik GmbH, Offenbach am Main</p>' +
+      '<p class="gate-foot">4M Gebäudetechnik GmbH, Frankfurt am Main</p>' +
       "</form>";
     document.body.appendChild(g);
 
@@ -344,59 +344,212 @@
     });
   }
 
-  // ---------- Kontaktformular ----------
-  function initForm() {
-    var form = document.querySelector("#anfrage");
-    if (!form) return;
-    var F = form.elements;
-    var pre = new URLSearchParams(location.search).get("anliegen");
-    if (pre && F.anliegen) {
-      [].forEach.call(F.anliegen.options, function (o) { if (o.value === pre) F.anliegen.value = pre; });
-    }
+  // ---------- Anfrage-Assistent: Fragen, grobe Preisspanne, dann Anfrage ----------
+  // Fragen, Antworten und Preise kommen aus content/rechner.json (im CMS bearbeitbar).
+  function initWizard() {
+    var box = document.getElementById("anfrage");
+    var src = document.getElementById("wiz-data");
+    if (!box || !src) return;
+    var D;
+    try { D = JSON.parse(src.textContent); } catch (err) { return; }
+    var body = box.querySelector(".wiz-body");
+    var bar = box.querySelector(".wiz-bar i");
+    var stepTxt = box.querySelector(".wiz-step");
+    var pctTxt = box.querySelector(".wiz-pct");
+    var G = null, ans = [], step = 0, contact = {}, first = true;
 
-    function setErr(el, text) {
-      var box = form.querySelector('[data-err="' + el.name + '"]');
-      el.setAttribute("aria-invalid", text ? "true" : "false");
-      if (box) box.textContent = text || "";
-    }
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var ok = true, first = null;
-      var checks = [
-        [F.name, F.name.value.trim().length > 1, "Bitte geben Sie Ihren Namen an."],
-        [F.kontakt, /\S+@\S+\.\S+|[\d\s+\/()-]{6,}/.test(F.kontakt.value.trim()), "Bitte eine Telefonnummer oder E-Mail-Adresse angeben."],
-        [F.nachricht, F.nachricht.value.trim().length > 4, "Bitte beschreiben Sie kurz Ihr Anliegen."],
-        [F.datenschutz, F.datenschutz.checked, "Bitte stimmen Sie der Verarbeitung Ihrer Angaben zu."]
-      ];
-      checks.forEach(function (c) {
-        setErr(c[0], c[1] ? "" : c[2]);
-        if (!c[1]) { ok = false; first = first || c[0]; }
+    function esc(s) {
+      return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
       });
-      if (!ok) { first.focus(); return; }
+    }
+    function num(v) { var n = parseFloat(v); return isNaN(n) ? null : n; }
+    function qs() { return G ? G.fragen || [] : []; }
+    function hasResult() { return qs().length > 0; }
+    // Schritte: 0 = Vorhaben, 1..n = Fragen, n+1 = Preisspanne (falls Fragen), danach Kontakt, danach Danke
+    function resultStep() { return hasResult() ? qs().length + 1 : -1; }
+    function contactStep() { return qs().length + (hasResult() ? 2 : 1); }
+    function lastStep() { return G ? contactStep() : 7; }
+    function eur(n) { return n.toLocaleString("de-DE") + " €"; }
 
-      var label = F.anliegen.options[F.anliegen.selectedIndex].text;
-      var body =
-        "Name: " + F.name.value.trim() + "\n" +
-        "Kontakt: " + F.kontakt.value.trim() + "\n" +
-        "Ort: " + (F.ort.value.trim() || "-") + "\n" +
-        "Anliegen: " + label + "\n\n" + F.nachricht.value.trim();
-      var to = form.getAttribute("data-mail");
-      var endpoint = form.getAttribute("data-endpoint");
-      var mail = function () {
-        location.href = "mailto:" + to + "?subject=" + encodeURIComponent("Anfrage: " + label) + "&body=" + encodeURIComponent(body);
-      };
-      var done = function () { form.closest(".form").classList.add("sent"); };
+    function price() {
+      var lo = 0, hi = 0, f = 1, priced = false;
+      qs().forEach(function (q, i) {
+        var o = q.optionen[ans[i]];
+        if (!o) return;
+        var mn = num(o.min), mx = num(o.max), fk = num(o.faktor);
+        if (mn !== null || mx !== null) priced = true;
+        lo += mn || 0; hi += mx || 0;
+        if (fk) f *= fk;
+      });
+      if (!priced || hi <= 0) return null;
+      return [Math.floor(lo * f / 100) * 100, Math.ceil(hi * f / 100) * 100];
+    }
+    function priceText() {
+      var p = price();
+      if (!p) return D.ergebnis_ohne_preis;
+      return p[0] === p[1] ? "ca. " + eur(p[0]) : "ca. " + p[0].toLocaleString("de-DE") + " – " + eur(p[1]);
+    }
+    function hints() {
+      var out = [];
+      qs().forEach(function (q, i) { var o = q.optionen[ans[i]]; if (o && o.hinweis) out.push(o.hinweis); });
+      if (G && G.hinweis) out.push(G.hinweis);
+      return out;
+    }
+    function summaryLines() {
+      var l = ["Vorhaben: " + G.label];
+      qs().forEach(function (q, i) {
+        var o = q.optionen[ans[i]];
+        if (o) l.push(q.frage + " " + o.label + (o.sub ? " (" + o.sub + ")" : ""));
+      });
+      if (hasResult()) l.push("Grobe Preisvorstellung: " + priceText());
+      return l;
+    }
 
-      if (endpoint) {
-        fetch(endpoint, { method: "POST", body: new FormData(form) }).then(done, function () { mail(); done(); });
+    function opts(list, sel, cls) {
+      return '<div class="wiz-opts' + (cls ? " " + cls : "") + '">' + list.map(function (o, i) {
+        return '<button type="button" class="wiz-opt" data-i="' + i + '" aria-pressed="' + (sel === i) + '">' +
+          (o.icon ? '<i class="ph ' + esc(o.icon) + '" aria-hidden="true"></i>' : "") +
+          "<strong>" + esc(o.label) + "</strong>" + (o.sub ? "<span>" + esc(o.sub) + "</span>" : "") + "</button>";
+      }).join("") + "</div>";
+    }
+    function back() {
+      return step > 0 ? '<button type="button" class="wiz-back"><i class="ph ph-arrow-left" aria-hidden="true"></i> Zurück</button>' : "";
+    }
+
+    function render() {
+      var n = qs().length, html = "";
+      box.classList.toggle("is-start", step === 0);
+      if (step === 0) {
+        html = '<h4 class="wiz-q">' + esc(D.start_frage) + "</h4>" + opts(D.gewerke, G ? D.gewerke.indexOf(G) : -1, "wiz-opts-start");
+      } else if (step <= n) {
+        var q = qs()[step - 1];
+        html = '<h4 class="wiz-q">' + esc(q.frage) + "</h4>" + (q.hilfe ? '<p class="wiz-help">' + esc(q.hilfe) + "</p>" : "") +
+          opts(q.optionen, ans[step - 1]) + '<div class="wiz-nav">' + back() + "</div>";
+      } else if (step === resultStep()) {
+        var p = price();
+        html = '<p class="wiz-kicker">' + esc(D.ergebnis_titel) + "</p>" +
+          '<p class="wiz-price' + (p ? "" : " none") + '">' + esc(priceText()) + "</p>" +
+          (p ? '<p class="wiz-help">' + esc(D.ergebnis_hinweis) + "</p>" : "") +
+          (G.enthalten && G.enthalten.length ? '<h5>Enthalten</h5><ul class="wiz-list">' + G.enthalten.map(function (x) { return '<li><i class="ph ph-check" aria-hidden="true"></i>' + esc(x) + "</li>"; }).join("") + "</ul>" : "") +
+          hints().map(function (h) { return '<p class="wiz-note"><i class="ph ph-info" aria-hidden="true"></i><span>' + esc(h) + "</span></p>"; }).join("") +
+          '<details class="wiz-sum"><summary>Ihre Angaben</summary><ul>' + summaryLines().slice(0, -1).map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul></details>" +
+          '<button type="button" class="btn btn-light wiz-next">' + esc(D.weiter_knopf) + ' <i class="ph ph-arrow-right" aria-hidden="true"></i></button>' +
+          '<div class="wiz-nav">' + back() + "</div>";
+      } else if (step === contactStep()) {
+        html = '<h4 class="wiz-q">' + esc(D.kontakt_titel) + "</h4>" + '<p class="wiz-help">' + esc(D.kontakt_text) + "</p>" +
+          (hasResult() ? '<p class="wiz-chip"><i class="ph ph-' + "calculator" + '" aria-hidden="true"></i>' + esc(G.label) + ": " + esc(priceText()) + "</p>" : "") +
+          '<form class="wiz-form" novalidate>' +
+          '<div class="frow">' +
+          '<div class="field"><label for="w-name">Name</label><input id="w-name" name="name" autocomplete="name" required value="' + esc(contact.name) + '"><span class="err" data-err="name"></span></div>' +
+          '<div class="field"><label for="w-kontakt">Telefon oder E-Mail</label><input id="w-kontakt" name="kontakt" autocomplete="tel" required value="' + esc(contact.kontakt) + '"><span class="err" data-err="kontakt"></span></div>' +
+          "</div>" +
+          '<div class="field"><label for="w-ort">PLZ und Ort <span class="opt">(optional)</span></label><input id="w-ort" name="ort" autocomplete="postal-code" value="' + esc(contact.ort) + '"></div>' +
+          '<div class="field"><label for="w-nachricht">Nachricht <span class="opt">(optional)</span></label><textarea id="w-nachricht" name="nachricht" placeholder="Wunschtermin, Baujahr, Besonderheiten">' + esc(contact.nachricht) + "</textarea></div>" +
+          '<label class="chk"><input type="checkbox" name="datenschutz" required><span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span></label>' +
+          '<span class="err" data-err="datenschutz" style="display:block;margin:-10px 0 16px"></span>' +
+          '<button class="btn btn-light" type="submit">' + esc(D.senden_knopf) + ' <i class="ph ph-paper-plane-tilt" aria-hidden="true"></i></button>' +
+          '<p class="form-note">' + esc(D.senden_hinweis) + "</p></form>" +
+          '<div class="wiz-nav">' + back() + "</div>";
       } else {
-        mail();
-        done();
+        html = '<div class="wiz-done" role="status"><i class="ph ph-check-circle" aria-hidden="true"></i><h4>' + esc(D.danke_titel) + "</h4><p>" + esc(D.danke_text) + "</p></div>";
       }
+      body.innerHTML = html;
+
+      var last = lastStep(), pct = Math.min(100, Math.round(step / (last + 1) * 100));
+      bar.style.width = Math.max(pct, 4) + "%";
+      stepTxt.textContent = step > last ? "Fertig" : "Schritt " + (step + 1) + " von " + (last + 1);
+      pctTxt.textContent = pct + " % geschafft";
+
+      if (!first) {
+        body.focus({ preventScroll: true });
+        var r = box.getBoundingClientRect();
+        if (r.top < 70 || r.top > window.innerHeight * 0.6) {
+          window.scrollTo({ top: window.scrollY + r.top - 90, behavior: reduce ? "auto" : "smooth" });
+        }
+      }
+      first = false;
+      var f = body.querySelector(".wiz-form");
+      if (f) bindForm(f);
+    }
+
+    body.addEventListener("click", function (e) {
+      var b = e.target.closest(".wiz-opt");
+      if (b) {
+        var i = +b.getAttribute("data-i");
+        if (step === 0) {
+          var g = D.gewerke[i];
+          if (g !== G) { G = g; ans = []; }
+        } else {
+          ans[step - 1] = i;
+        }
+        [].forEach.call(body.querySelectorAll(".wiz-opt"), function (x) { x.setAttribute("aria-pressed", x === b); });
+        setTimeout(function () { step++; render(); }, reduce ? 0 : 160);
+        return;
+      }
+      if (e.target.closest(".wiz-back")) {
+        var form = body.querySelector(".wiz-form");
+        if (form) keep(form);
+        step--; render(); return;
+      }
+      if (e.target.closest(".wiz-next")) { step++; render(); }
     });
-    [].forEach.call(form.querySelectorAll("input, textarea"), function (el) {
-      el.addEventListener("input", function () { if (el.getAttribute("aria-invalid") === "true") setErr(el, ""); });
-    });
+
+    function keep(form) {
+      ["name", "kontakt", "ort", "nachricht"].forEach(function (k) { contact[k] = form.elements[k].value; });
+    }
+
+    function bindForm(form) {
+      var F = form.elements;
+      function setErr(el, text) {
+        var b = form.querySelector('[data-err="' + el.name + '"]');
+        el.setAttribute("aria-invalid", text ? "true" : "false");
+        if (b) b.textContent = text || "";
+      }
+      [].forEach.call(form.querySelectorAll("input, textarea"), function (el) {
+        el.addEventListener("input", function () { if (el.getAttribute("aria-invalid") === "true") setErr(el, ""); });
+      });
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var ok = true, bad = null;
+        [
+          [F.name, F.name.value.trim().length > 1, "Bitte geben Sie Ihren Namen an."],
+          [F.kontakt, /\S+@\S+\.\S+|[\d\s+\/()-]{6,}/.test(F.kontakt.value.trim()), "Bitte eine Telefonnummer oder E-Mail-Adresse angeben."],
+          [F.datenschutz, F.datenschutz.checked, "Bitte stimmen Sie der Verarbeitung Ihrer Angaben zu."]
+        ].forEach(function (c) {
+          setErr(c[0], c[1] ? "" : c[2]);
+          if (!c[1]) { ok = false; bad = bad || c[0]; }
+        });
+        if (!ok) { bad.focus(); return; }
+        keep(form);
+        var text = summaryLines().join("\n") + "\n\n" +
+          "Name: " + contact.name.trim() + "\n" +
+          "Kontakt: " + contact.kontakt.trim() + "\n" +
+          "PLZ/Ort: " + (contact.ort.trim() || "-") + "\n\n" +
+          (contact.nachricht.trim() || "");
+        var subject = "Anfrage: " + G.label + (price() ? " (" + priceText() + ")" : "");
+        var to = box.getAttribute("data-mail");
+        var endpoint = box.getAttribute("data-endpoint");
+        var mail = function () {
+          location.href = "mailto:" + to + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(text);
+        };
+        var done = function () { step++; render(); };
+        if (endpoint) {
+          var fd = new FormData(form);
+          fd.append("vorhaben", G.label);
+          fd.append("zusammenfassung", text);
+          fetch(endpoint, { method: "POST", body: fd }).then(function (r) { if (!r.ok) throw r; done(); }, function () { mail(); done(); });
+        } else {
+          mail();
+          done();
+        }
+      });
+    }
+
+    // Von den Gewerke-Seiten kommt ?anliegen=klima usw.: Vorhaben ist dann schon gewählt
+    var pre = new URLSearchParams(location.search).get("anliegen");
+    D.gewerke.forEach(function (g) { if (g.id === pre) { G = g; step = 1; } });
+    render();
   }
 
   // Nach dem Entsperren erscheint die ganze Seite auf einmal; der Browser kann dabei die Position
@@ -421,7 +574,7 @@
     initStory();
     initNav();
     initSlots();
-    initForm();
+    initWizard();
     if (root.classList.contains("locked")) buildGate();
     else afterUnlock();
   });
