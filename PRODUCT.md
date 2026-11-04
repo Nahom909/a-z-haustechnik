@@ -1,7 +1,7 @@
 # 4M Gebäudetechnik GmbH
 
 ## What it is
-SHK-Fachbetrieb (Heizung, Klima, Sanitär) in Offenbach am Main, Rhein-Main-Gebiet. Plant, installiert und wartet Heizungsanlagen und Wärmepumpen, Klimaanlagen (Split, Multi-Split, Gewerbe/VRF) sowie Bäder und Trinkwassertechnik. Arbeitet herstellerunabhängig mit Marken wie Mitsubishi Heavy Industries, Daikin, Vaillant, Viessmann, Bosch, Panasonic.
+SHK-Fachbetrieb (Heizung, Klima, Sanitär) in Frankfurt am Main, Rhein-Main-Gebiet. Plant, installiert und wartet Heizungsanlagen und Wärmepumpen, Klimaanlagen (Split, Multi-Split, Gewerbe/VRF) sowie Bäder und Trinkwassertechnik. Arbeitet herstellerunabhängig mit Marken wie Mitsubishi Heavy Industries, Daikin, Vaillant, Viessmann, Bosch, Panasonic.
 
 ## Audience
 Hausbesitzer und Vermieter im Rhein-Main-Gebiet (Heizungstausch, Wärmepumpe, Klimaanlage, Badsanierung), dazu kleine Gewerbekunden (Büro, Praxis, Gastronomie).

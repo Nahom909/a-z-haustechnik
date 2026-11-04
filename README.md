@@ -1,6 +1,6 @@
 # 4M Gebäudetechnik GmbH – Website (Vorschau)
 
-Onepager mit drei Gewerke-Unterseiten für einen SHK-Betrieb in Offenbach am Main.
+Onepager mit drei Gewerke-Unterseiten für einen SHK-Betrieb in Frankfurt am Main.
 Zugangscode der Vorschau: **1292** (wird pro Browsersitzung gemerkt).
 
 ## Seiten
@@ -30,11 +30,8 @@ Beispielbilder von Unsplash unter der Unsplash-Lizenz (kostenlos, kommerziell nu
 Keine Personen, keine erkennbaren Herstellerlogos. Eigene Fotos ersetzen sie unter denselben Dateinamen.
 
 ## Offene Punkte
-- [ ] Telefonnummer (`tel:+49XXXXXXXXX` und `[Telefonnummer]`)
-- [ ] E-Mail-Adresse (`[E-Mail-Adresse]`, `mailto:[E-Mail]`, `data-mail` am Formular)
-- [ ] Adresse Kaiserstraße 39, 63065 Offenbach bestätigen (stammt von der alten Seite)
 - [ ] Bürozeiten Mo bis Fr 8 bis 17 Uhr bestätigen
-- [ ] Gründungsjahr, Geschäftsführung, HRB, USt-ID, Handwerkskammer
+- [ ] Gründungsjahr, HRB, USt-ID, Handwerkskammer
 - [ ] Eigene Fotos statt der Unsplash-Beispielbilder (dann Bildnachweis im Impressum anpassen)
 - [ ] Vor Livegang: Schrift, Symbole und three.js lokal einbinden, Formular-Endpunkt (`data-endpoint`), `noindex` entfernen, Code-Sperre entfernen
 - Hinweis: Die Code-Sperre ist clientseitig (Sichtschutz für die Vorschau, kein echter Zugriffsschutz).

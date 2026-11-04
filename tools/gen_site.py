@@ -1,8 +1,8 @@
 # Erzeugt alle Seiten der 4M-Vorschau als statische HTML-Dateien (kein Build-Schritt auf dem Server nötig).
 import pathlib
-OUT = pathlib.Path(r"C:\Users\nahom\OneDrive\Claude_Websites\4M_Gebaeudetechnik")
-TEL = "tel:+49XXXXXXXXX"
-V = "20261102d"  # bei jeder Änderung an CSS/JS erhöhen, damit Browser nicht die alte Datei aus dem Cache nehmen
+OUT = pathlib.Path(__file__).resolve().parent.parent
+TEL = "tel:+491724386284"
+V = "20261104a"  # bei jeder Änderung an CSS/JS erhöhen, damit Browser nicht die alte Datei aus dem Cache nehmen
 
 THREE = """<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
 <script type="module" src="assets/house3d.js?v=__V__"></script>""".replace("__V__", V)
@@ -19,7 +19,7 @@ def head(title, desc, three=False, extra=""):
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#F5F5F7">
 <meta property="og:title" content="4M Gebäudetechnik GmbH">
-<meta property="og:description" content="Heizung, Klima und Sanitär in Offenbach am Main und im Rhein-Main-Gebiet.">
+<meta property="og:description" content="Heizung, Klima und Sanitär in Frankfurt am Main und im Rhein-Main-Gebiet.">
 <meta property="og:image" content="assets/logo-full.png">
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon.png" type="image/png" sizes="64x64">
@@ -75,7 +75,7 @@ def foot(home, anfrage=""):
     <div class="foot-grid">
       <div>
         <img src="assets/logo-horizontal.svg" alt="4M Gebäudetechnik GmbH" width="976" height="120" loading="lazy">
-        <p>Heizung, Klima und Sanitär in Offenbach am Main und im Rhein-Main-Gebiet.</p>
+        <p>Heizung, Klima und Sanitär in Frankfurt am Main und im Rhein-Main-Gebiet.</p>
       </div>
       <div>
         <h4>Leistungen</h4>
@@ -97,10 +97,10 @@ def foot(home, anfrage=""):
       <div>
         <h4>Kontakt</h4>
         <ul>
-          <li>Kaiserstraße 39</li>
-          <li>63065 Offenbach am Main</li>
-          <li><a href="{TEL}">[Telefonnummer]</a></li>
-          <li><a href="mailto:[E-Mail]">[E-Mail-Adresse]</a></li>
+          <li>Kruppstraße 19</li>
+          <li>60388 Frankfurt am Main</li>
+          <li><a href="{TEL}">0172 438 6284</a></li>
+          <li><a href="mailto:info@4m-gebaeudetechnik.de">info@4m-gebaeudetechnik.de</a></li>
         </ul>
       </div>
     </div>
@@ -161,11 +161,11 @@ svcs = "\n".join(f"""        <article class="svc rv">
           <div class="svc-img"><img data-slot src="{img}" alt="{alt}" width="2400" height="1800" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span></div>
         </article>""" for no, h, t, c, href, img, alt in SVCS)
 
-INDEX = head("4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Offenbach am Main",
-             "Heizung und Wärmepumpe, Klimaanlagen, Bad und Sanitär: Planung, Einbau und Wartung durch die 4M Gebäudetechnik GmbH in Offenbach am Main und im Rhein-Main-Gebiet.",
+INDEX = head("4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Frankfurt am Main",
+             "Heizung und Wärmepumpe, Klimaanlagen, Bad und Sanitär: Planung, Einbau und Wartung durch die 4M Gebäudetechnik GmbH in Frankfurt am Main und im Rhein-Main-Gebiet.",
              three=True, extra="""
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"HVACBusiness","name":"4M Gebäudetechnik GmbH","description":"Heizung, Klima und Sanitär: Planung, Einbau und Wartung.","address":{"@type":"PostalAddress","streetAddress":"Kaiserstraße 39","postalCode":"63065","addressLocality":"Offenbach am Main","addressCountry":"DE"},"areaServed":"Rhein-Main-Gebiet","openingHours":"Mo-Fr 08:00-17:00","logo":"assets/logo-full.png"}
+{"@context":"https://schema.org","@type":"HVACBusiness","name":"4M Gebäudetechnik GmbH","description":"Heizung, Klima und Sanitär: Planung, Einbau und Wartung.","address":{"@type":"PostalAddress","streetAddress":"Kruppstraße 19","postalCode":"60388","addressLocality":"Frankfurt am Main","addressCountry":"DE"},"areaServed":"Rhein-Main-Gebiet","openingHours":"Mo-Fr 08:00-17:00","logo":"assets/logo-full.png"}
 </script>""") + nav(True) + f"""
 <main id="main">
 
@@ -176,9 +176,9 @@ INDEX = head("4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Offenbach
         <div class="house" data-house="story"></div>
         <div class="panels">
           <div class="panel panel-intro">
-            <p class="kicker">Fachbetrieb in Offenbach am Main</p>
+            <p class="kicker">Fachbetrieb in Frankfurt am Main</p>
             <h1><span><i>Heizung.</i></span><span><i>Klima.</i></span><span><i>Sanitär.</i></span></h1>
-            <p class="lead">Planung, Einbau und Wartung für Wohnhäuser und Gewerbe in Offenbach und im Rhein-Main-Gebiet.</p>
+            <p class="lead">Planung, Einbau und Wartung für Wohnhäuser und Gewerbe in Frankfurt und im Rhein-Main-Gebiet.</p>
             <div class="cta">
               <a class="btn btn-light" href="#kontakt">Anfrage senden <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
               <a class="btn btn-ghost inv" href="{TEL}"><i class="ph ph-phone" aria-hidden="true"></i> Anrufen</a>
@@ -244,7 +244,7 @@ INDEX = head("4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Offenbach
     <div class="wrap">
       <div class="kopf rv">
         <h2>Einblicke</h2>
-        <p>Aus unseren Projekten in Offenbach und Umgebung.</p>
+        <p>Aus unseren Projekten in Frankfurt und Umgebung.</p>
       </div>
       <div class="bento">
         <figure class="tile t1 rv"><img data-slot src="images/projekt-1.webp" alt="Wärmepumpe an einem Einfamilienhaus" width="2400" height="1600" loading="lazy"><span class="ph-note"><i class="ph ph-camera" aria-hidden="true"></i>Foto folgt</span><figcaption>Wärmepumpe</figcaption></figure>
@@ -264,14 +264,14 @@ INDEX = head("4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Offenbach
       <div class="about-txt rv">
         <div>
           <h2>Über uns</h2>
-          <p>Die 4M Gebäudetechnik GmbH ist ein Fachbetrieb für Heizung, Klima und Sanitär mit Sitz in Offenbach am Main. Wir planen, bauen ein und warten, für Privatkunden, Vermieter und Gewerbe.</p>
+          <p>Die 4M Gebäudetechnik GmbH ist ein Fachbetrieb für Heizung, Klima und Sanitär mit Sitz in Frankfurt am Main. Wir planen, bauen ein und warten, für Privatkunden, Vermieter und Gewerbe.</p>
         </div>
         <dl class="facts">
-          <div><dt>Sitz</dt><dd>Offenbach am Main</dd></div>
+          <div><dt>Sitz</dt><dd>Frankfurt am Main</dd></div>
           <div><dt>Gewerke</dt><dd>Heizung, Klima, Sanitär</dd></div>
-          <div><dt>Einsatzgebiet</dt><dd>Offenbach, Frankfurt, Rhein-Main</dd></div>
+          <div><dt>Einsatzgebiet</dt><dd>Frankfurt, Offenbach, Rhein-Main</dd></div>
           <div><dt>Gegründet</dt><dd>[Gründungsjahr]</dd></div>
-          <div><dt>Geschäftsführung</dt><dd>[Name]</dd></div>
+          <div><dt>Geschäftsführung</dt><dd>Mile Manev</dd></div>
           <div><dt>Bürozeiten</dt><dd>Mo bis Fr, 8 bis 17 Uhr</dd></div>
         </dl>
       </div>
@@ -285,15 +285,15 @@ INDEX = head("4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Offenbach
         <h2>Kontakt</h2>
         <p class="lead">Schreiben Sie uns kurz, worum es geht. Wir melden uns mit einem Terminvorschlag.</p>
         <ul class="cinfo">
-          <li><span class="ic"><i class="ph ph-phone" aria-hidden="true"></i></span><div><small>Telefon</small><a href="{TEL}">[Telefonnummer]</a></div></li>
-          <li><span class="ic"><i class="ph ph-envelope-simple" aria-hidden="true"></i></span><div><small>E-Mail</small><a href="mailto:[E-Mail]">[E-Mail-Adresse]</a></div></li>
-          <li><span class="ic"><i class="ph ph-map-pin" aria-hidden="true"></i></span><div><small>Adresse</small><a href="https://www.google.com/maps/search/?api=1&amp;query=Kaiserstra%C3%9Fe+39+63065+Offenbach+am+Main" target="_blank" rel="noopener">Kaiserstraße 39, 63065 Offenbach am Main</a></div></li>
+          <li><span class="ic"><i class="ph ph-phone" aria-hidden="true"></i></span><div><small>Telefon</small><a href="{TEL}">0172 438 6284</a></div></li>
+          <li><span class="ic"><i class="ph ph-envelope-simple" aria-hidden="true"></i></span><div><small>E-Mail</small><a href="mailto:info@4m-gebaeudetechnik.de">info@4m-gebaeudetechnik.de</a></div></li>
+          <li><span class="ic"><i class="ph ph-map-pin" aria-hidden="true"></i></span><div><small>Adresse</small><a href="https://www.google.com/maps/search/?api=1&amp;query=Kruppstra%C3%9Fe+19+60388+Frankfurt+am+Main" target="_blank" rel="noopener">Kruppstraße 19, 60388 Frankfurt am Main</a></div></li>
           <li><span class="ic"><i class="ph ph-clock" aria-hidden="true"></i></span><div><small>Bürozeiten</small><span class="v">Montag bis Freitag, 8 bis 17 Uhr</span></div></li>
         </ul>
       </div>
 
       <div class="form rv">
-        <form id="anfrage" novalidate data-mail="[E-Mail]">
+        <form id="anfrage" novalidate data-mail="info@4m-gebaeudetechnik.de">
           <div class="form-fields">
             <h3>Anfrage senden</h3>
             <div class="frow">
@@ -314,7 +314,7 @@ INDEX = head("4M Gebäudetechnik GmbH | Heizung, Klima und Sanitär in Offenbach
                   <i class="ph ph-caret-down" aria-hidden="true"></i>
                 </div>
               </div>
-              <div class="field"><label for="f-ort">Ort <span class="opt">(optional)</span></label><input id="f-ort" name="ort" autocomplete="address-level2" placeholder="z. B. Offenbach"></div>
+              <div class="field"><label for="f-ort">Ort <span class="opt">(optional)</span></label><input id="f-ort" name="ort" autocomplete="address-level2" placeholder="z. B. Frankfurt"></div>
             </div>
             <div class="field"><label for="f-nachricht">Nachricht</label><textarea id="f-nachricht" name="nachricht" required placeholder="Was ist geplant? Gebäude, Baujahr, Wunschtermin"></textarea><span class="err" data-err="nachricht"></span></div>
             <label class="chk"><input type="checkbox" name="datenschutz" required><span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span></label>
@@ -418,8 +418,8 @@ def trade_page(p):
 
 PAGES = [
     dict(file="heizung.html", k="heat", anliegen="heizung", crumb="Heizung und Wärmepumpe",
-         title="Heizung und Wärmepumpe in Offenbach | 4M Gebäudetechnik GmbH",
-         desc="Wärmepumpe, Heizungstausch, Heizkörper, Fußbodenheizung und Wartung in Offenbach und im Rhein-Main-Gebiet.",
+         title="Heizung und Wärmepumpe in Frankfurt | 4M Gebäudetechnik GmbH",
+         desc="Wärmepumpe, Heizungstausch, Heizkörper, Fußbodenheizung und Wartung in Frankfurt und im Rhein-Main-Gebiet.",
          h1="Heizung und Wärmepumpe", intro="Von der Heizlastberechnung bis zur Wartung.",
          lead="Heizungen, die zum Haus passen. Mit Heizlastberechnung, sauberem Einbau und Wartung.",
          groups=[
@@ -442,8 +442,8 @@ PAGES = [
          band=("Förderung für Wärmepumpen", "Für den Umstieg auf eine Wärmepumpe gibt es staatliche Zuschüsse. Wir prüfen, was für Ihr Haus infrage kommt, und unterstützen Sie beim Antrag.")),
 
     dict(file="klima.html", k="cool", anliegen="klima", crumb="Klima",
-         title="Klimaanlagen in Offenbach | 4M Gebäudetechnik GmbH",
-         desc="Split- und Multi-Split-Klimaanlagen für Wohnung, Haus und Gewerbe. Planung, Einbau und Wartung in Offenbach und im Rhein-Main-Gebiet.",
+         title="Klimaanlagen in Frankfurt | 4M Gebäudetechnik GmbH",
+         desc="Split- und Multi-Split-Klimaanlagen für Wohnung, Haus und Gewerbe. Planung, Einbau und Wartung in Frankfurt und im Rhein-Main-Gebiet.",
          h1="Klimaanlagen", intro="Für Wohnräume, Büros und ganze Gebäude.",
          lead="Kühlen im Sommer, heizen in der Übergangszeit. Leise Geräte, sauber verlegt.",
          groups=[
@@ -468,8 +468,8 @@ PAGES = [
          band=("Wir kommen vorbei und messen auf.", "Danach wissen Sie, welches Gerät passt, wo es hinkommt und was es kostet.")),
 
     dict(file="sanitaer.html", k="water", anliegen="sanitaer", crumb="Sanitär",
-         title="Sanitär und Badsanierung in Offenbach | 4M Gebäudetechnik GmbH",
-         desc="Badsanierung, barrierearme Bäder, Trinkwasserleitungen und Warmwasser in Offenbach und im Rhein-Main-Gebiet.",
+         title="Sanitär und Badsanierung in Frankfurt | 4M Gebäudetechnik GmbH",
+         desc="Badsanierung, barrierearme Bäder, Trinkwasserleitungen und Warmwasser in Frankfurt und im Rhein-Main-Gebiet.",
          h1="Sanitär und Bad", intro="Vom Hausanschluss bis zur Armatur.",
          lead="Neue Bäder, Trinkwasserleitungen und Warmwasser. Geplant, abgestimmt und sauber ausgeführt.",
          groups=[
@@ -497,11 +497,11 @@ LEGAL_IMP = """
       <h1>Impressum</h1>
       <div class="todo">Hinweis für die Vorschau: Alle Angaben in eckigen Klammern bitte durch die echten Daten ersetzen und vor Veröffentlichung prüfen lassen.</div>
       <h2>Angaben gemäß § 5 DDG</h2>
-      <p>4M Gebäudetechnik GmbH<br>Kaiserstraße 39<br>63065 Offenbach am Main</p>
+      <p>4M Gebäudetechnik GmbH<br>Kruppstraße 19<br>60388 Frankfurt am Main</p>
       <h2>Vertreten durch</h2>
-      <p>[Name der Geschäftsführung]</p>
+      <p>Mile Manev</p>
       <h2>Kontakt</h2>
-      <p>Telefon: [Telefonnummer]<br>E-Mail: [E-Mail-Adresse]</p>
+      <p>Telefon: 0172 438 6284<br>E-Mail: info@4m-gebaeudetechnik.de</p>
       <h2>Registereintrag</h2>
       <p>Eintragung im Handelsregister<br>Registergericht: [Amtsgericht]<br>Registernummer: [HRB]</p>
       <h2>Umsatzsteuer-ID</h2>
@@ -531,7 +531,7 @@ LEGAL_DS = """
       <h1>Datenschutzerklärung</h1>
       <div class="todo">Hinweis für die Vorschau: Textbausteine, vor Veröffentlichung an Hosting und tatsächliche Abläufe anpassen und rechtlich prüfen lassen.</div>
       <h2>1. Verantwortlicher</h2>
-      <p>4M Gebäudetechnik GmbH, Kaiserstraße 39, 63065 Offenbach am Main<br>Telefon: [Telefonnummer], E-Mail: [E-Mail-Adresse]</p>
+      <p>4M Gebäudetechnik GmbH, Kruppstraße 19, 60388 Frankfurt am Main<br>Telefon: 0172 438 6284, E-Mail: info@4m-gebaeudetechnik.de</p>
       <h2>2. Hosting</h2>
       <p>Diese Website wird bei [Hosting-Anbieter] gehostet. Beim Aufruf werden technisch notwendige Daten (zum Beispiel IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browser) in Server-Logfiles verarbeitet. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse liegt im sicheren und stabilen Betrieb der Website.</p>
       <h2>3. Kontaktaufnahme</h2>
@@ -550,7 +550,7 @@ LEGAL_DS = """
 """
 
 for name, body, title in [("impressum.html", LEGAL_IMP, "Impressum"), ("datenschutz.html", LEGAL_DS, "Datenschutz")]:
-    html = head(f"{title} | 4M Gebäudetechnik GmbH", f"{title} der 4M Gebäudetechnik GmbH, Offenbach am Main.") + nav(False) + body + foot(False)
+    html = head(f"{title} | 4M Gebäudetechnik GmbH", f"{title} der 4M Gebäudetechnik GmbH, Frankfurt am Main.") + nav(False) + body + foot(False)
     (OUT / name).write_text(html, encoding="utf-8")
 
 print("ok")
