@@ -17,20 +17,19 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
-<link rel="stylesheet" href="assets/site.css?v=20261105a">
+<link rel="stylesheet" href="assets/site.css?v=20261105c">
 <script>if(/(invite|recovery|confirmation)_token=/.test(location.hash)){location.replace("/admin/"+location.hash)}</script>
-<script src="assets/site.js?v=20261105a"></script>
+<script src="assets/site.js?v=20261105c"></script>
 
 </head>
 <body>
 <a class="skip" href="#main">Zum Inhalt springen</a>
 
 <header class="nav">
-  <button class="burger" type="button" aria-label="Menü" aria-expanded="false" aria-controls="sheet"><i class="ph ph-list" aria-hidden="true"></i></button>
   <a class="brand" href="index.html" aria-label="4M Gebäudetechnik GmbH, zur Startseite"><img class="logo-light" src="assets/logo-horizontal.svg" alt="4M Gebäudetechnik GmbH" width="976" height="120"><img class="logo-dark" src="assets/logo-horizontal-dark.svg" alt="" width="976" height="120"></a>
-  <nav aria-label="Hauptnavigation" style="margin-left:auto">
+  <nav class="nav-main" aria-label="Hauptnavigation">
     <ul class="nav-links">
-      <li><a href="index.html">Start</a></li>
+      <li><a class="nav-start" href="index.html"><i class="ph ph-house" aria-hidden="true"></i><span>Start</span></a></li>
       <li class="dd">
         <button class="dd-btn" type="button" aria-expanded="false" aria-controls="dd-leistungen">Leistungen <i class="ph ph-caret-down" aria-hidden="true"></i></button>
         <div class="dd-menu" id="dd-leistungen">
@@ -39,16 +38,13 @@
           <a href="sanitaer.html"><span class="ic"><i class="ph ph-drop" aria-hidden="true"></i></span><span><strong>Sanitär und Bad</strong><small>Badsanierung, Trinkwasser, Warmwasser</small></span></a>
         </div>
       </li>
-      <li><a href="index.html?ziel=ablauf">Ablauf</a></li>
-      <li><a href="index.html?ziel=einblicke">Einblicke</a></li>
-      <li><a href="index.html?ziel=ueber-uns">Über uns</a></li>
-      <li><a href="index.html?ziel=kontakt">Kontakt</a></li>
     </ul>
   </nav>
+  <a class="nav-call" href="tel:+491724386284" aria-label="Anrufen: 0172 438 6284"><i class="ph ph-phone" aria-hidden="true"></i><span>Anrufen</span></a>
   <div class="nav-cta"><a class="btn" href="index.html?ziel=kontakt">Anfrage starten</a></div>
-  <a class="nav-home" href="index.html" aria-label="Start"><i class="ph ph-house" aria-hidden="true"></i></a>
+  <button class="burger" type="button" aria-label="Alle Inhalte" aria-expanded="false" aria-controls="sheet"><i class="ph ph-list" aria-hidden="true"></i></button>
 </header>
-<nav class="sheet" id="sheet" aria-label="Menü">
+<nav class="sheet" id="sheet" aria-label="Alle Inhalte">
   <a class="sheet-start" href="index.html"><i class="ph ph-house" aria-hidden="true"></i>Start</a>
   <p class="sheet-label">Leistungen</p>
   <div class="sheet-tiles">
@@ -56,12 +52,19 @@
       <a href="klima.html"><i class="ph ph-snowflake" aria-hidden="true"></i>Klima</a>
       <a href="sanitaer.html"><i class="ph ph-drop" aria-hidden="true"></i>Sanitär</a>
   </div>
+  <p class="sheet-label">Auf der Startseite</p>
   <ul>
+    <li><a href="index.html?ziel=leistungen">Leistungen im Überblick <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
     <li><a href="index.html?ziel=ablauf">Ablauf <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
     <li><a href="index.html?ziel=einblicke">Einblicke <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
     <li><a href="index.html?ziel=ueber-uns">Über uns <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
-    <li><a href="index.html?ziel=kontakt">Kontakt <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
+    <li><a href="index.html?ziel=kontakt">Kontakt und Anfrage <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
   </ul>
+  <div class="sheet-contact">
+    <a href="tel:+491724386284"><i class="ph ph-phone" aria-hidden="true"></i>0172 438 6284</a>
+    <a href="mailto:info@4m-gebaeudetechnik.de"><i class="ph ph-envelope-simple" aria-hidden="true"></i>info@4m-gebaeudetechnik.de</a>
+  </div>
+  <p class="sheet-legal"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></p>
   <a class="btn" href="index.html?ziel=kontakt">Anfrage starten</a>
 </nav>
 
@@ -72,7 +75,7 @@
       <h1>Datenschutzerklärung</h1>
       <div class="todo">Hinweis für die Vorschau: Textbausteine, vor Veröffentlichung an Hosting und tatsächliche Abläufe anpassen und rechtlich prüfen lassen.</div>
       <h2>1. Verantwortlicher</h2>
-      <p>4M Gebäudetechnik GmbH, Kruppstraße 19, 60388 Frankfurt am Main<br>Telefon: 0172 438 6284, E-Mail: info@4m-gebaeudetechnik.de</p>
+      <p>4M Gebäudetechnik GmbH, Kruppstraße 119, 60388 Frankfurt am Main<br>Telefon: 0172 438 6284, E-Mail: info@4m-gebaeudetechnik.de</p>
       <h2>2. Hosting</h2>
       <p>Diese Website wird bei [Hosting-Anbieter] gehostet. Beim Aufruf werden technisch notwendige Daten (zum Beispiel IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browser) in Server-Logfiles verarbeitet. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse liegt im sicheren und stabilen Betrieb der Website.</p>
       <h2>3. Kontaktaufnahme</h2>
@@ -127,7 +130,7 @@
       <div>
         <h4>Kontakt</h4>
         <ul>
-          <li>Kruppstraße 19</li>
+          <li>Kruppstraße 119</li>
           <li>60388 Frankfurt am Main</li>
           <li><a href="tel:+491724386284">0172 438 6284</a></li>
           <li><a href="mailto:info@4m-gebaeudetechnik.de">info@4m-gebaeudetechnik.de</a></li>

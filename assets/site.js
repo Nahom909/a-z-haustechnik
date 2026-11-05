@@ -323,7 +323,16 @@
       burger.setAttribute("aria-expanded", open ? "true" : "false");
       burger.querySelector("i").className = open ? "ph ph-x" : "ph ph-list";
     };
-    burger.addEventListener("click", function () { setOpen(!sheet.classList.contains("open")); });
+    burger.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var open = !sheet.classList.contains("open");
+      if (open && dd) { dd.classList.remove("open"); dd.querySelector(".dd-btn").setAttribute("aria-expanded", "false"); }
+      setOpen(open);
+    });
+    // Klick neben das Menü schließt es (wichtig am Computer, wo es als Panel offen ist)
+    document.addEventListener("click", function (e) {
+      if (sheet.classList.contains("open") && !sheet.contains(e.target) && !burger.contains(e.target)) setOpen(false);
+    });
     sheet.addEventListener("click", function (e) { if (e.target.closest("a")) setOpen(false); });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") setOpen(false); });
   }

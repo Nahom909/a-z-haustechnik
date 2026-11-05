@@ -20,8 +20,9 @@ geometrisches 4M-Monogramm in Volltonfarben, Wortmarke aus Archivo (SIL Open Fon
 Keine Verläufe, keine Schatten, kein Slogan, keine Symbolzeile. Das ursprüngliche Logo liegt nur noch als `assets/logo-original.jpg` zum Vergleich bei.
 
 ## Navigation
-- Oben: „Start“, „Leistungen“ mit Untermenü (Heizung und Wärmepumpe, Klima, Sanitär und Bad), dann die Abschnitte der Startseite.
-- Handy: Menü oben links (Start, die drei Unterseiten als Kacheln, Abschnitte), rechts ein Start-Knopf (Haus).
+- Leiste oben: Logo, „Start“ mit Haus, „Leistungen“ mit Untermenü (Heizung und Wärmepumpe, Klima, Sanitär und Bad), rechts „Anrufen“, „Anfrage starten“ und das Menü mit drei Strichen.
+- Das Menü zeigt alle Inhalte: Start, die drei Unterseiten, die Abschnitte der Startseite, Telefon, E-Mail, Impressum, Datenschutz. Am Computer als Panel rechts, auf dem Handy über die ganze Breite.
+- Handy: Logo, Start-Knopf (Haus), Anrufen (Telefon) und Menü; „Leistungen“ steht im Menü, „Anfrage starten“ in der Anrufleiste unten.
 - Hero auf dem Handy: das 3D-Haus steht oben in einem eigenen Bereich, der Text darunter; der Gewerke-Schalter ist dort ausgeblendet.
 
 ## Anfrage-Assistent mit Preisspanne
