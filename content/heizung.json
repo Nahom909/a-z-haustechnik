@@ -17,7 +17,9 @@
         "Auslegung des Geräts",
         "Aufstellung und Anschluss",
         "Speicher und Warmwasser"
-      ]
+      ],
+      "bild": "images/heizung.webp",
+      "bild_alt": "Wärmepumpe vor einem modernen Haus"
     },
     {
       "titel": "Heizungstausch",
@@ -27,7 +29,9 @@
         "Ausbau der Altanlage",
         "Umstieg auf die Wärmepumpe",
         "Einweisung"
-      ]
+      ],
+      "bild": "images/projekt-1.webp",
+      "bild_alt": "Wärmepumpe an einem Einfamilienhaus"
     },
     {
       "titel": "Wärmeverteilung",
@@ -37,7 +41,9 @@
         "Fußbodenheizung",
         "Pumpen und Regelung",
         "Hydraulischer Abgleich"
-      ]
+      ],
+      "bild": "images/projekt-4.webp",
+      "bild_alt": "Heizkörper unter einem Fenster"
     },
     {
       "titel": "Wartung und Service",
@@ -47,7 +53,9 @@
         "Störungsbehebung",
         "Regelung anpassen",
         "Dokumentation"
-      ]
+      ],
+      "bild": "images/projekt-2.webp",
+      "bild_alt": "Heizungsleitungen mit Manometer"
     }
   ],
   "geraete_titel": "Geräte",

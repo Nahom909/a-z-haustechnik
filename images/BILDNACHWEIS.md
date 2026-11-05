@@ -19,3 +19,15 @@ Lizenz am 02.11.2026 auf jeder Fotoseite geprüft („Kostenlos zu verwenden im 
 
 Bearbeitungen: Herstellerlogos wurden aus heizung.webp, projekt-1.webp (alpha innotec) und klima.webp (LG) entfernt.
 Hinweis: Die Unsplash-Lizenz deckt keine Markenrechte ab; deshalb keine Fotos mit erkennbaren Logos oder Personen verwenden.
+
+### Ergänzt am 04.11.2026 (Unterseiten)
+| Datei | Motiv | Fotograf | Quelle |
+|---|---|---|---|
+| klima-wohnzimmer.webp | Wohnzimmer mit Klimagerät | Caroline Badran | https://unsplash.com/de/fotos/modernes-wohnzimmer-mit-klimaanlage-und-dekor-BsHycOlU6Bg |
+| klima-gewerbe.webp | Außengeräte an Gewerbefassade | alpha innotec | https://unsplash.com/de/fotos/drei-graue-klimaanlagen-die-an-einer-weissen-wand-montiert-sind-VsjNRXO_c2w |
+| bad-armatur.webp | Waschtischarmatur | Sasikan Ulevik | https://unsplash.com/de/fotos/grauer-edelstahlhahn-8jQC5RHWuSE |
+| klima-planung.webp | Grundriss einer Wohnung (zugeschnitten) | Brian Zajac | https://unsplash.com/de/fotos/grundriss-des-dreizimmerhauses-9lB0cUTt9IQ |
+| sanitaer-warmwasser.webp | Warmwasserspeicher mit Wärmepumpe (zugeschnitten) | Sergio Martins | https://unsplash.com/de/fotos/warmwasserbereiter-fur-privathaushalte-und-klimaanlage-an-einer-aussenwand-Mqtt4KNB8Ck |
+
+Lizenz am 04./05.11.2026 auf jeder Fotoseite geprüft („Kostenlos zu verwenden im Rahmen der Unsplash Lizenz“).
+Bearbeitungen: Herstellerlogos entfernt aus klima-wohnzimmer.webp (Daikin), klima-gewerbe.webp (alpha innotec, drei Stellen) und sanitaer-warmwasser.webp (its).

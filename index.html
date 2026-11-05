@@ -17,11 +17,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
-<link rel="stylesheet" href="assets/site.css?v=20261104b">
+<link rel="stylesheet" href="assets/site.css?v=20261105a">
 <script>if(/(invite|recovery|confirmation)_token=/.test(location.hash)){location.replace("/admin/"+location.hash)}</script>
-<script src="assets/site.js?v=20261104b"></script>
+<script src="assets/site.js?v=20261105a"></script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
-<script type="module" src="assets/house3d.js?v=20261104b"></script>
+<script type="module" src="assets/house3d.js?v=20261105a"></script>
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "HVACBusiness", "name": "4M Gebäudetechnik GmbH", "description": "Heizung, Klima und Sanitär: Planung, Einbau und Wartung.", "address": {"@type": "PostalAddress", "streetAddress": "Kruppstraße 19", "postalCode": "60388", "addressLocality": "Frankfurt am Main", "addressCountry": "DE"}, "areaServed": "Rhein-Main-Gebiet", "openingHours": "Mo-Fr 08:00-17:00", "logo": "assets/logo-full.png"}
 </script>
@@ -30,28 +30,43 @@
 <a class="skip" href="#main">Zum Inhalt springen</a>
 
 <header class="nav">
+  <button class="burger" type="button" aria-label="Menü" aria-expanded="false" aria-controls="sheet"><i class="ph ph-list" aria-hidden="true"></i></button>
   <a class="brand" href="index.html" aria-label="4M Gebäudetechnik GmbH, zur Startseite"><img class="logo-light" src="assets/logo-horizontal.svg" alt="4M Gebäudetechnik GmbH" width="976" height="120"><img class="logo-dark" src="assets/logo-horizontal-dark.svg" alt="" width="976" height="120"></a>
   <nav aria-label="Hauptnavigation" style="margin-left:auto">
     <ul class="nav-links">
-      <li><a href="#leistungen">Leistungen</a></li>
+      <li><a href="#main" aria-current="page">Start</a></li>
+      <li class="dd">
+        <button class="dd-btn" type="button" aria-expanded="false" aria-controls="dd-leistungen">Leistungen <i class="ph ph-caret-down" aria-hidden="true"></i></button>
+        <div class="dd-menu" id="dd-leistungen">
+          <a href="heizung.html"><span class="ic"><i class="ph ph-flame" aria-hidden="true"></i></span><span><strong>Heizung und Wärmepumpe</strong><small>Wärmepumpe, Heizungstausch, Wartung</small></span></a>
+          <a href="klima.html"><span class="ic"><i class="ph ph-snowflake" aria-hidden="true"></i></span><span><strong>Klima</strong><small>Split, Multi-Split, Gewerbe</small></span></a>
+          <a href="sanitaer.html"><span class="ic"><i class="ph ph-drop" aria-hidden="true"></i></span><span><strong>Sanitär und Bad</strong><small>Badsanierung, Trinkwasser, Warmwasser</small></span></a>
+        </div>
+      </li>
       <li><a href="#ablauf">Ablauf</a></li>
       <li><a href="#einblicke">Einblicke</a></li>
       <li><a href="#ueber-uns">Über uns</a></li>
       <li><a href="#kontakt">Kontakt</a></li>
     </ul>
   </nav>
-  <div class="nav-cta"><a class="btn" href="#kontakt">Anfrage senden</a></div>
-  <button class="burger" type="button" aria-label="Menü" aria-expanded="false" aria-controls="sheet"><i class="ph ph-list" aria-hidden="true"></i></button>
+  <div class="nav-cta"><a class="btn" href="#kontakt">Anfrage starten</a></div>
+  <a class="nav-home" href="#main" aria-label="Start" aria-current="page"><i class="ph ph-house" aria-hidden="true"></i></a>
 </header>
 <nav class="sheet" id="sheet" aria-label="Menü">
+  <a class="sheet-start" href="#main" aria-current="page"><i class="ph ph-house" aria-hidden="true"></i>Start</a>
+  <p class="sheet-label">Leistungen</p>
+  <div class="sheet-tiles">
+      <a href="heizung.html"><i class="ph ph-flame" aria-hidden="true"></i>Heizung</a>
+      <a href="klima.html"><i class="ph ph-snowflake" aria-hidden="true"></i>Klima</a>
+      <a href="sanitaer.html"><i class="ph ph-drop" aria-hidden="true"></i>Sanitär</a>
+  </div>
   <ul>
-    <li><a href="#leistungen">Leistungen <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
     <li><a href="#ablauf">Ablauf <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
     <li><a href="#einblicke">Einblicke <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
     <li><a href="#ueber-uns">Über uns <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
     <li><a href="#kontakt">Kontakt <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
   </ul>
-  <a class="btn" href="#kontakt">Anfrage senden</a>
+  <a class="btn" href="#kontakt">Anfrage starten</a>
 </nav>
 
 <main id="main">
@@ -67,7 +82,7 @@
             <h1><span><i>Heizung.</i></span><span><i>Klima.</i></span><span><i>Sanitär.</i></span></h1>
             <p class="lead">Planung, Einbau und Wartung für Wohnhäuser und Gewerbe in Frankfurt und im Rhein-Main-Gebiet.</p>
             <div class="cta">
-              <a class="btn btn-light" href="#kontakt">Anfrage senden <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+              <a class="btn btn-light" href="#kontakt">Anfrage starten <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
               <a class="btn btn-ghost inv" href="tel:+491724386284"><i class="ph ph-phone" aria-hidden="true"></i> Anrufen</a>
             </div>
           </div>
@@ -219,7 +234,7 @@
     <div class="wrap contact-grid">
       <div class="rv">
         <h2>Kontakt</h2>
-        <p class="lead">Schreiben Sie uns kurz, worum es geht. Wir melden uns mit einem Terminvorschlag.</p>
+        <p class="lead">Ein paar kurze Fragen, dann sehen Sie eine grobe Preisspanne und können uns direkt schreiben. Oder rufen Sie einfach an.</p>
         <ul class="cinfo">
           <li><span class="ic"><i class="ph ph-phone" aria-hidden="true"></i></span><div><small>Telefon</small><a href="tel:+491724386284">0172 438 6284</a></div></li>
           <li><span class="ic"><i class="ph ph-envelope-simple" aria-hidden="true"></i></span><div><small>E-Mail</small><a href="mailto:info@4m-gebaeudetechnik.de">info@4m-gebaeudetechnik.de</a></div></li>
@@ -228,42 +243,17 @@
         </ul>
       </div>
 
-      <div class="form rv">
-        <form id="anfrage" novalidate data-mail="info@4m-gebaeudetechnik.de">
-          <div class="form-fields">
-            <h3>Anfrage senden</h3>
-            <div class="frow">
-              <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required><span class="err" data-err="name"></span></div>
-              <div class="field"><label for="f-kontakt">Telefon oder E-Mail</label><input id="f-kontakt" name="kontakt" autocomplete="email" required><span class="err" data-err="kontakt"></span></div>
-            </div>
-            <div class="frow">
-              <div class="field">
-                <label for="f-anliegen">Anliegen</label>
-                <div class="selwrap">
-                  <select id="f-anliegen" name="anliegen">
-                    <option value="heizung">Heizung oder Wärmepumpe</option>
-                    <option value="klima">Klimaanlage</option>
-                    <option value="sanitaer">Bad oder Sanitär</option>
-                    <option value="wartung">Wartung oder Reparatur</option>
-                    <option value="sonstiges">Sonstiges</option>
-                  </select>
-                  <i class="ph ph-caret-down" aria-hidden="true"></i>
-                </div>
-              </div>
-              <div class="field"><label for="f-ort">Ort <span class="opt">(optional)</span></label><input id="f-ort" name="ort" autocomplete="address-level2" placeholder="z. B. Frankfurt"></div>
-            </div>
-            <div class="field"><label for="f-nachricht">Nachricht</label><textarea id="f-nachricht" name="nachricht" required placeholder="Was ist geplant? Gebäude, Baujahr, Wunschtermin"></textarea><span class="err" data-err="nachricht"></span></div>
-            <label class="chk"><input type="checkbox" name="datenschutz" required><span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span></label>
-            <span class="err" data-err="datenschutz" style="display:block;margin:-10px 0 16px"></span>
-            <button class="btn btn-light" type="submit">Anfrage senden <i class="ph ph-paper-plane-tilt" aria-hidden="true"></i></button>
-            <p class="form-note">Ihr E-Mail-Programm öffnet sich mit der fertigen Nachricht.</p>
-          </div>
-          <div class="form-ok" role="status">
-            <i class="ph ph-check-circle" aria-hidden="true"></i>
-            <h3>Danke für Ihre Anfrage.</h3>
-            <p>Bitte senden Sie die vorbereitete E-Mail ab. Wir melden uns so schnell wie möglich.</p>
-          </div>
-        </form>
+      <div class="wiz rv" id="anfrage" data-mail="info@4m-gebaeudetechnik.de">
+        <div class="wiz-head">
+          <h3>Anfrage starten</h3>
+          <p>In wenigen Schritten zur groben Preisvorstellung. Danach schreiben Sie uns direkt, mit allen Angaben.</p>
+          <div class="wiz-prog" aria-hidden="true"><span class="wiz-step"></span><span class="wiz-pct"></span><div class="wiz-bar"><i></i></div></div>
+          <ul class="wiz-trust"><li><i class="ph ph-check-circle" aria-hidden="true"></i>Kostenlos und unverbindlich</li><li><i class="ph ph-handshake" aria-hidden="true"></i>Festpreis nach Termin vor Ort</li><li><i class="ph ph-scales" aria-hidden="true"></i>Herstellerunabhängig</li></ul>
+        </div>
+        <div class="wiz-body" tabindex="-1">
+          <noscript><p>Bitte rufen Sie uns an oder schreiben Sie eine E-Mail an <a href="mailto:info@4m-gebaeudetechnik.de">info@4m-gebaeudetechnik.de</a>.</p></noscript>
+        </div>
+        <script type="application/json" id="wiz-data">{"titel": "Anfrage starten", "text": "In wenigen Schritten zur groben Preisvorstellung. Danach schreiben Sie uns direkt, mit allen Angaben.", "vertrauen": ["Kostenlos und unverbindlich", "Festpreis nach Termin vor Ort", "Herstellerunabhängig"], "start_frage": "Was planen Sie?", "ergebnis_titel": "Ihre grobe Preisvorstellung", "ergebnis_ohne_preis": "Preis nach Aufwand. Wir nennen ihn Ihnen vorab.", "ergebnis_hinweis": "Unverbindliche Richtwerte inklusive Montage. Den Festpreis nennen wir nach dem Termin vor Ort.", "weiter_knopf": "Weiter zur Anfrage", "kontakt_titel": "Wohin dürfen wir uns melden?", "kontakt_text": "Ihre Angaben von eben senden wir mit. So wissen wir vor dem Termin schon, worum es geht.", "senden_knopf": "Anfrage senden", "senden_hinweis": "Ihr E-Mail-Programm öffnet sich mit der fertigen Nachricht.", "danke_titel": "Danke für Ihre Anfrage.", "danke_text": "Bitte senden Sie die vorbereitete E-Mail ab. Wir melden uns mit einem Terminvorschlag.", "gewerke": [{"id": "klima", "label": "Klimaanlage", "sub": "Kühlen und heizen", "icon": "ph-snowflake", "fragen": [{"frage": "Wie viele Räume sollen gekühlt werden?", "hilfe": "", "optionen": [{"label": "1 Raum", "sub": "Single-Split", "min": 1500, "max": 3500, "faktor": null, "hinweis": ""}, {"label": "2 Räume", "sub": "Multi-Split", "min": 3500, "max": 5500, "faktor": null, "hinweis": ""}, {"label": "3 Räume", "sub": "Multi-Split", "min": 5500, "max": 8000, "faktor": null, "hinweis": ""}, {"label": "4 oder mehr", "sub": "Multi-Split", "min": 6000, "max": 9000, "faktor": null, "hinweis": ""}, {"label": "Weiß ich noch nicht", "sub": "", "min": 1500, "max": 9000, "faktor": null, "hinweis": "Wie viele Innengeräte sinnvoll sind, klären wir beim Termin vor Ort."}]}, {"frage": "Wie groß ist der größte Raum?", "hilfe": "Danach richtet sich die Leistung des Innengeräts.", "optionen": [{"label": "Bis 25 m²", "sub": "z. B. Schlafzimmer", "min": 0, "max": 0, "faktor": null, "hinweis": ""}, {"label": "25 bis 40 m²", "sub": "z. B. Wohnzimmer", "min": 200, "max": 500, "faktor": null, "hinweis": ""}, {"label": "Über 40 m²", "sub": "z. B. offener Wohnbereich, Büro", "min": 400, "max": 1000, "faktor": null, "hinweis": ""}, {"label": "Weiß ich nicht", "sub": "", "min": 0, "max": 500, "faktor": null, "hinweis": ""}]}, {"frage": "Wo soll das Außengerät hin?", "hilfe": "Je weiter der Weg und je höher, desto aufwendiger die Montage.", "optionen": [{"label": "Boden, Terrasse oder Balkon", "sub": "nah am Raum, kurze Leitung", "min": 0, "max": 0, "faktor": null, "hinweis": ""}, {"label": "Fassade, Obergeschoss", "sub": "Wandkonsole, 6 bis 8 m Leitung", "min": 300, "max": 400, "faktor": null, "hinweis": ""}, {"label": "Dach oder weit entfernt", "sub": "lange Leitung, Dachkonsole", "min": 700, "max": 1200, "faktor": null, "hinweis": ""}, {"label": "Weiß ich noch nicht", "sub": "", "min": 0, "max": 1200, "faktor": null, "hinweis": ""}]}, {"frage": "Um welches Gebäude geht es?", "hilfe": "", "optionen": [{"label": "Einfamilienhaus", "sub": "", "min": null, "max": null, "faktor": null, "hinweis": ""}, {"label": "Eigentumswohnung", "sub": "", "min": null, "max": null, "faktor": null, "hinweis": "Für das Außengerät an der Fassade braucht es meist die Zustimmung der Eigentümergemeinschaft."}, {"label": "Mietwohnung", "sub": "", "min": null, "max": null, "faktor": null, "hinweis": "Für den Einbau braucht es die Zustimmung des Vermieters."}, {"label": "Büro oder Gewerbe", "sub": "", "min": null, "max": null, "faktor": null, "hinweis": "Für Gewerbe planen wir individuell, zum Beispiel mit Deckenkassetten oder VRF-Systemen."}]}, {"frage": "Wann soll es losgehen?", "hilfe": "", "optionen": [{"label": "So bald wie möglich", "sub": "", "min": null, "max": null, "faktor": null, "hinweis": ""}, {"label": "In 1 bis 3 Monaten", "sub": "", "min": null, "max": null, "faktor": null, "hinweis": ""}, {"label": "Später als 3 Monate", "sub": "", "min": null, "max": null, "faktor": null, "hinweis": ""}, {"label": "Ich informiere mich erst", "sub": "", "min": null, "max": null, "faktor": null, "hinweis": ""}]}], "enthalten": ["Innen- und Außengerät", "Kältemittelleitung und Kondensatablauf", "Wanddurchbruch (Kernbohrung)", "Elektroanschluss", "Inbetriebnahme mit Dichtheitsprüfung"], "hinweis": ""}, {"id": "heizung", "label": "Wärmepumpe", "sub": "Heizungstausch oder Neubau", "icon": "ph-flame", "fragen": [{"frage": "Wie groß ist die Wohnfläche?", "hilfe": "Danach richtet sich die Größe der Wärmepumpe.", "optionen": [{"label": "Bis 120 m²", "sub": "", "min": 15000, "max": 22000, "faktor": null, "hinweis": ""}, {"label": "120 bis 200 m²", "sub": "", "min": 18000, "max": 25000, "faktor": null, "hinweis": ""}, {"label": "Über 200 m²", "sub": "", "min": 22000, "max": 30000, "faktor": null, "hinweis": ""}, {"label": "Weiß ich nicht genau", "sub": "", "min": 15000, "max": 30000, "faktor": null, "hinweis": ""}]}, {"frage": "Was heizt bisher?", "hilfe": "", "optionen": [{"label": "Gas oder Öl", "sub": "alte Heizung wird ersetzt", "min": 500, "max": 1500, "faktor": null, "hinweis": "Beim Tausch einer Gas- oder Ölheizung gibt es meist höhere Zuschüsse."}, {"label": "Neubau", "sub": "noch keine Heizung", "min": 0, "max": 0, "faktor": null, "hinweis": ""}, {"label": "Etwas anderes", "sub": "z. B. Nachtspeicher", "min": 500, "max": 1500, "faktor": null, "hinweis": ""}]}, {"frage": "Sollen Heizkörper oder Fußbodenheizung angepasst werden?", "hilfe": "Wärmepumpen arbeiten mit niedrigen Vorlauftemperaturen am sparsamsten.", "optionen": [{"label": "Nein", "sub": "bestehende Heizflächen reichen", "min": 0, "max": 0, "faktor": null, "hinweis": ""}, {"label": "Einzelne Heizkörper tauschen", "sub": "etwa 2 bis 4 Stück", "min": 800, "max": 3200, "faktor": null, "hinweis": ""}, {"label": "Fußbodenheizung nachrüsten", "sub": "etwa 80 m²", "min": 3200, "max": 8800, "faktor": null, "hinweis": ""}, {"label": "Weiß ich nicht", "sub": "", "min": 0, "max": 0, "faktor": null, "hinweis": "Ob die Heizflächen reichen, prüfen wir mit der Heizlastberechnung."}]}, {"frage": "Wie alt ist der Zählerschrank?", "hilfe": "Für die Wärmepumpe braucht es oft einen eigenen Zähler.", "optionen": [{"label": "Jünger als etwa 20 Jahre", "sub": "", "min": 0, "max": 0, "faktor": null, "hinweis": ""}, {"label": "Älter oder weiß ich nicht", "sub": "", "min": 1500, "max": 3500, "faktor": null, "hinweis": "Ob der Zählerschrank erneuert werden muss, sehen wir vor Ort."}]}, {"frage": "Wann soll es losgehen?", "hilfe": "", "optionen": [{"label": "So bald wie möglich", "sub": "", "min": null, "max": null, "faktor": null, "hinweis": ""}, {"label": "In 1 bis 3 Monaten", "sub": "", "min": null, "max": null, "faktor": null, "hinweis": ""}, {"label": "Später als 3 Monate", "sub": "", "min": null, "max": null, "faktor": null, "hinweis": ""}, {"label": "Ich informiere mich erst", "sub": "", "min": null, "max": null, "faktor": null, "hinweis": ""}]}], "enthalten": ["Luft-Wasser-Wärmepumpe", "Heizlastberechnung", "Aufstellung und Anschluss", "Inbetriebnahme und Einweisung"], "hinweis": "Preise vor Abzug der Förderung. Für den Umstieg auf eine Wärmepumpe gibt es staatliche Zuschüsse; wir prüfen, was für Sie infrage kommt."}, {"id": "sanitaer", "label": "Bad und Sanitär", "sub": "Sanierung, Dusche, Leitungen", "icon": "ph-drop", "fragen": [{"frage": "Was ist geplant?", "hilfe": "", "optionen": [{"label": "Komplettes Bad sanieren", "sub": "", "min": 12000, "max": 18000, "faktor": null, "hinweis": ""}, {"label": "Dusche statt Wanne", "sub": "", "min": 3000, "max": 6000, "faktor": null, "hinweis": ""}, {"label": "Barrierearmes Bad", "sub": "", "min": 15000, "max": 25000, "faktor": null, "hinweis": ""}, {"label": "Gäste-WC", "sub": "", "min": 5000, "max": 9000, "faktor": null, "hinweis": ""}, {"label": "Leitungen erneuern", "sub": "Trinkwasser", "min": 4000, "max": 10000, "faktor": null, "hinweis": ""}]}, {"frage": "Wie groß ist das Bad?", "hilfe": "", "optionen": [{"label": "Bis 5 m²", "sub": "", "min": null, "max": null, "faktor": 0.8, "hinweis": ""}, {"label": "5 bis 8 m²", "sub": "", "min": null, "max": null, "faktor": 1, "hinweis": ""}, {"label": "8 bis 12 m²", "sub": "", "min": null, "max": null, "faktor": 1.3, "hinweis": ""}, {"label": "Über 12 m²", "sub": "", "min": null, "max": null, "faktor": 1.6, "hinweis": ""}]}, {"frage": "Welche Ausstattung wünschen Sie?", "hilfe": "", "optionen": [{"label": "Solide", "sub": "gute Markenware, schlicht", "min": null, "max": null, "faktor": 1, "hinweis": ""}, {"label": "Gehoben", "sub": "z. B. Regendusche, Wand-WC", "min": null, "max": null, "faktor": 1.3, "hinweis": ""}, {"label": "Hochwertig", "sub": "Designarmaturen, große Fliesen", "min": null, "max": null, "faktor": 1.7, "hinweis": ""}]}, {"frage": "Wann soll es losgehen?", "hilfe": "", "optionen": [{"label": "So bald wie möglich", "sub": "", "min": null, "max": null, "faktor": null, "hinweis": ""}, {"label": "In 1 bis 3 Monaten", "sub": "", "min": null, "max": null, "faktor": null, "hinweis": ""}, {"label": "Später als 3 Monate", "sub": "", "min": null, "max": null, "faktor": null, "hinweis": ""}, {"label": "Ich informiere mich erst", "sub": "", "min": null, "max": null, "faktor": null, "hinweis": ""}]}], "enthalten": ["Rückbau und Entsorgung", "Wasser- und Abwasserleitungen", "Sanitärobjekte und Armaturen", "Abstimmung mit Fliesenleger und Elektriker"], "hinweis": "Beim Bad hängt der Preis stark vom Zustand und von der Fliesenauswahl ab."}, {"id": "wartung", "label": "Wartung oder Reparatur", "sub": "Heizung, Klima, Störung", "icon": "ph-wrench", "fragen": [{"frage": "Worum geht es?", "hilfe": "", "optionen": [{"label": "Wartung Heizung oder Wärmepumpe", "sub": "pro Termin", "min": 120, "max": 250, "faktor": null, "hinweis": ""}, {"label": "Wartung Klimaanlage", "sub": "Reinigung, Filter, Dichtheit", "min": null, "max": null, "faktor": null, "hinweis": ""}, {"label": "Störung oder Reparatur", "sub": "", "min": null, "max": null, "faktor": null, "hinweis": "Bei einer akuten Störung rufen Sie am besten direkt an: 0172 438 6284."}]}], "enthalten": [], "hinweis": ""}, {"id": "sonstiges", "label": "Etwas anderes", "sub": "Schreiben Sie uns einfach", "icon": "ph-chat-circle-dots", "fragen": [], "enthalten": [], "hinweis": ""}]}</script>
       </div>
     </div>
   </section>
@@ -312,7 +302,7 @@
 
 <div class="callbar">
   <a class="btn btn-ghost" href="tel:+491724386284"><i class="ph ph-phone" aria-hidden="true"></i> Anrufen</a>
-  <a class="btn" href="#kontakt">Anfrage senden</a>
+  <a class="btn" href="#kontakt">Anfrage starten</a>
 </div>
 </body>
 </html>

@@ -19,6 +19,19 @@ Neu gezeichnet als Vektor (`assets/logo-*.svg`, `icon.svg`), erzeugt mit `python
 geometrisches 4M-Monogramm in Volltonfarben, Wortmarke aus Archivo (SIL Open Font License, Buchstaben in Pfade umgewandelt).
 Keine Verläufe, keine Schatten, kein Slogan, keine Symbolzeile. Das ursprüngliche Logo liegt nur noch als `assets/logo-original.jpg` zum Vergleich bei.
 
+## Navigation
+- Oben: „Start“, „Leistungen“ mit Untermenü (Heizung und Wärmepumpe, Klima, Sanitär und Bad), dann die Abschnitte der Startseite.
+- Handy: Menü oben links (Start, die drei Unterseiten als Kacheln, Abschnitte), rechts ein Start-Knopf (Haus).
+- Hero auf dem Handy: das 3D-Haus steht oben in einem eigenen Bereich, der Text darunter; der Gewerke-Schalter ist dort ausgeblendet.
+
+## Anfrage-Assistent mit Preisspanne
+Im Kontaktbereich der Startseite führt ein Assistent den Kunden durch kurze Fragen (z. B. Klima: Anzahl Räume, Raumgröße, Ort des Außengeräts, Gebäude, Zeitraum). Danach sieht er eine grobe Preisspanne, was enthalten ist und passende Hinweise (z. B. Zustimmung von Vermieter oder WEG). Erst dann folgt das Kontaktformular; die E-Mail an den Betrieb enthält alle Antworten und die Spanne.
+- Fragen, Antworten und Preise: `content/rechner.json`, im CMS unter „Anfrage-Assistent und Preise“.
+- Rechnung: Summe der „von/bis“-Werte aller gewählten Antworten, multipliziert mit den Faktoren (z. B. Badgröße, Ausstattung), auf 100 € gerundet. Antworten ohne Preis ändern nichts; ohne jeden Preis erscheint „Preis nach Aufwand“.
+- Die Unterseiten verlinken mit `?anliegen=klima|heizung|sanitaer`; der Assistent startet dann direkt bei der ersten Frage.
+- Preisquellen: Klima und Wärmepumpe nach kosten-preise-ratgeber.de (Stand Mai 2026), Bad-Preise sind Schätzwerte und müssen vom Betrieb bestätigt werden.
+- Vor jeder Fußzeile der Unterseiten steht das Band „Bereit für Ihr Projekt?“ (Texte in den Firmendaten).
+
 ## Texte bearbeiten (Netlify CMS)
 Alle Texte stehen in `content/*.json` und lassen sich im Browser unter `https://<ihre-seite>/admin/` bearbeiten (Decap CMS). Speichern erzeugt einen Commit auf `main`, Netlify baut die Seite neu (`netlify.toml`: `python3 tools/gen_site.py`).
 Einrichtung einmalig in Netlify: **Identity** aktivieren, unter *Identity > Registration* auf „Invite only“ stellen, unter *Identity > Services* **Git Gateway** einschalten, dann Nutzer einladen. Der Einladungslink führt automatisch ins CMS.
@@ -34,10 +47,12 @@ Abschnitts-Links: auf der Startseite `#anker` (per JS ohne Eintrag in der Adress
 Nach Änderungen an CSS/JS die Versionsnummer `V` in `tools/gen_site.py` erhöhen.
 
 ## Fotos
+Auf den Unterseiten hat jeder der vier Leistungskästen oben ein eigenes Foto (`bild` je Eintrag in `gruppen`, im CMS austauschbar). Fehlt in einem Kasten das Foto, zeigt die ganze Unterseite keine Fotos.
 Beispielbilder von Unsplash unter der Unsplash-Lizenz (kostenlos, kommerziell nutzbar). Fotograf, Quelle und Bearbeitungen: `images/BILDNACHWEIS.md`.
 Keine Personen, keine erkennbaren Herstellerlogos. Eigene Fotos ersetzen sie unter denselben Dateinamen.
 
 ## Offene Punkte
+- [ ] Preise im Anfrage-Assistenten mit dem Inhaber abstimmen, vor allem Bad und Wärmepumpe über 120 m²
 - [ ] Bürozeiten Mo bis Fr 8 bis 17 Uhr bestätigen
 - [ ] Gründungsjahr, HRB, USt-ID, Handwerkskammer
 - [ ] Eigene Fotos statt der Unsplash-Beispielbilder (dann Bildnachweis im Impressum anpassen)
