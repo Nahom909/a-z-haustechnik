@@ -100,19 +100,21 @@ h3{letter-spacing:-.028em;line-height:1.08}
 .nav.dark .btn{background:#fff;color:var(--ink)}
 .nav.dark .burger{background:rgba(255,255,255,.12);color:var(--on)}
 @media (hover:hover) and (pointer:fine){.nav.dark .nav-links a:hover{color:var(--on);background:rgba(255,255,255,.1)}.nav.dark .btn:hover{background:#E8E8ED}}
-.nav-links{display:flex;gap:2px;margin:0 0 0 auto;padding:0;list-style:none}
+.nav-main{flex:none}
+.nav-links{display:flex;gap:2px;margin:0 0 0 6px;padding:0;list-style:none}
 .nav-links a{display:block;padding:8px 13px;border-radius:999px;text-decoration:none;font-size:.93rem;font-weight:500;color:var(--ink-2);transition:color .15s ease,background-color .15s ease}
 .nav-links a[aria-current="page"]{color:var(--ink);background:rgba(0,0,0,.05)}
 @media (hover:hover) and (pointer:fine){.nav-links a:hover{color:var(--ink);background:rgba(0,0,0,.05)}}
 .nav .btn{min-height:44px;padding:0 1.2rem;font-size:.92rem}
-.burger{display:none;flex:none;width:44px;height:44px;border-radius:999px;border:0;background:rgba(0,0,0,.06);cursor:pointer;align-items:center;justify-content:center;transition:transform .16s var(--ease-out)}
+.nav-cta{margin-left:auto}
+.burger{display:inline-flex;flex:none;width:44px;height:44px;border-radius:999px;border:0;background:rgba(0,0,0,.06);cursor:pointer;align-items:center;justify-content:center;transition:transform .16s var(--ease-out)}
 .burger:active{transform:scale(.94)}
 .burger i{font-size:1.3rem}
 .sheet{
   position:fixed;top:82px;left:var(--edge);right:var(--edge);z-index:59;padding:10px 18px 18px;border-radius:var(--r-lg);
-  background:rgba(250,250,252,.92);-webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);
+  background:rgba(250,250,252,.97);-webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);
   border:1px solid rgba(0,0,0,.06);box-shadow:0 18px 50px rgba(0,0,0,.14);
-  transform-origin:top left;opacity:0;transform:scale(.96) translateY(-6px);pointer-events:none;visibility:hidden;
+  transform-origin:top right;opacity:0;transform:scale(.96) translateY(-6px);pointer-events:none;visibility:hidden;
   transition:opacity .22s var(--ease-out),transform .3s var(--ease-sheet),visibility 0s linear .3s;
 }
 .sheet.open{opacity:1;transform:none;pointer-events:auto;visibility:visible;transition:opacity .22s var(--ease-out),transform .3s var(--ease-sheet)}
@@ -120,14 +122,22 @@ h3{letter-spacing:-.028em;line-height:1.08}
 .sheet li a{display:flex;justify-content:space-between;align-items:center;padding:15px 4px;border-bottom:1px solid var(--line);text-decoration:none;font-size:1.15rem;font-weight:500;letter-spacing:-.02em}
 .sheet .btn{width:100%;margin-top:14px}
 @media (prefers-reduced-transparency:reduce){.nav,.sheet{background:#FAFAFC;-webkit-backdrop-filter:none;backdrop-filter:none}}
-.nav-home{display:none;flex:none;margin-left:auto;width:44px;height:44px;border-radius:999px;background:rgba(0,0,0,.06);color:var(--ink);align-items:center;justify-content:center;text-decoration:none;transition:transform .16s var(--ease-out)}
-.nav-home i{font-size:1.25rem}
-.nav-home:active{transform:scale(.94)}
-.nav.dark .nav-home{background:rgba(255,255,255,.12);color:var(--on)}
+/* Start-Knopf mit Haus */
+.nav .nav-links a.nav-start{display:inline-flex;align-items:center;gap:7px}
+.nav-start i{font-size:1.1rem}
 @media (max-width:980px){
-  .nav{padding:0 8px;gap:12px}
-  .nav-links,.nav .nav-cta{display:none}
-  .burger,.nav-home{display:inline-flex}
+  .nav{gap:10px}
+}
+@media (max-width:700px){
+  .nav{padding:0 8px 0 16px}
+  .dd,.nav .nav-cta{display:none}
+  .nav-main{margin-left:auto}
+}
+@media (max-width:560px){
+  .nav .nav-links a.nav-start{width:44px;height:44px;padding:0;justify-content:center;background:rgba(0,0,0,.06);color:var(--ink)}
+  .nav.dark .nav-links a.nav-start{background:rgba(255,255,255,.12);color:var(--on)}
+  .nav-start span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .nav-start i{font-size:1.25rem}
 }
 
 /* Leistungen-Untermenü */
@@ -632,3 +642,16 @@ html.locked body > *:not(.gate){display:none!important}
   .hero .lead,.panel p.txt{font-size:.97rem}
   .panel p.txt,.hero.page .lead{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 }
+
+/* Menü mit allen Inhalten: am Computer als Panel rechts unter der Leiste */
+.sheet{max-height:calc(100dvh - 100px);overflow-y:auto;overscroll-behavior:contain}
+@media (max-width:700px){.sheet{max-height:calc(100dvh - 82px - 92px - env(safe-area-inset-bottom))}}
+@media (min-width:701px){
+  .sheet{left:auto;right:max(var(--edge),calc((100vw - 1080px) / 2));width:420px}
+}
+.sheet-contact{display:grid;gap:4px;margin-top:14px}
+.sheet-contact a{display:flex;align-items:center;gap:10px;padding:8px 4px;text-decoration:none;font-weight:500;color:var(--ink-2)}
+.sheet-contact i{font-size:1.15rem}
+.sheet-legal{display:flex;gap:18px;margin:8px 4px 0;font-size:.9rem}
+.sheet-legal a{color:var(--ink-3)}
+@media (hover:hover) and (pointer:fine){.sheet li a:hover,.sheet-contact a:hover,.sheet-start:hover{color:var(--ink-3)}.sheet-tiles a:hover{border-color:rgba(0,0,0,.2)}}

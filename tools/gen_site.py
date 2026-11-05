@@ -8,7 +8,7 @@ import re
 
 OUT = pathlib.Path(__file__).resolve().parent.parent
 CONTENT = OUT / "content"
-V = "20261105a"  # bei jeder Änderung an CSS/JS erhöhen, damit Browser nicht die alte Datei aus dem Cache nehmen
+V = "20261105b"  # bei jeder Änderung an CSS/JS erhöhen, damit Browser nicht die alte Datei aus dem Cache nehmen
 
 
 def load(name):
@@ -91,47 +91,52 @@ TRADES = [("heizung.html", "ph-flame", "Heizung und Wärmepumpe", "Wärmepumpe, 
 
 
 def nav(home, anfrage="", cur=None):
-    """Glas-Navigation. cur = Dateiname der aktuellen Unterseite (für die Markierung im Menü)."""
+    """Leiste oben: Logo, Start (Haus), Leistungen (Untermenü), Anfrage starten, Menü (drei Striche) mit allen Inhalten.
+    cur = Dateiname der aktuellen Unterseite (für die Markierung)."""
     start = "#main" if home else "index.html"
     start_cur = ' aria-current="page"' if home else ""
     cc = lambda f: ' aria-current="page"' if f == cur else ""  # noqa: E731
-    sections = [("ablauf", "Ablauf"), ("einblicke", "Einblicke"), ("ueber-uns", "Über uns"), ("kontakt", "Kontakt")]
-    li = "\n      ".join(f'<li><a href="{to(home, a)}">{t}</a></li>' for a, t in sections)
     dd = "\n          ".join(
         f'<a href="{f}"{cc(f)}><span class="ic"><i class="ph {ic}" aria-hidden="true"></i></span><span><strong>{t}</strong><small>{sub}</small></span></a>'
         for f, ic, t, sub, short in TRADES)
     tiles = "\n      ".join(
         f'<a href="{f}"{cc(f)}><i class="ph {ic}" aria-hidden="true"></i>{short}</a>'
         for f, ic, t, sub, short in TRADES)
+    sections = [("leistungen", "Leistungen im Überblick"), ("ablauf", "Ablauf"), ("einblicke", "Einblicke"),
+                ("ueber-uns", "Über uns"), ("kontakt", "Kontakt und Anfrage")]
     sheet = "\n    ".join(f'<li><a href="{to(home, a)}">{t} <i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>' for a, t in sections)
     return f"""
 <header class="nav">
-  <button class="burger" type="button" aria-label="Menü" aria-expanded="false" aria-controls="sheet"><i class="ph ph-list" aria-hidden="true"></i></button>
   <a class="brand" href="index.html" aria-label="{FIRMA}, zur Startseite"><img class="logo-light" src="assets/logo-horizontal.svg" alt="{FIRMA}" width="976" height="120"><img class="logo-dark" src="assets/logo-horizontal-dark.svg" alt="" width="976" height="120"></a>
-  <nav aria-label="Hauptnavigation" style="margin-left:auto">
+  <nav class="nav-main" aria-label="Hauptnavigation">
     <ul class="nav-links">
-      <li><a href="{start}"{start_cur}>Start</a></li>
+      <li><a class="nav-start" href="{start}"{start_cur}><i class="ph ph-house" aria-hidden="true"></i><span>Start</span></a></li>
       <li class="dd">
         <button class="dd-btn" type="button" aria-expanded="false" aria-controls="dd-leistungen"{' data-cur' if cur else ''}>Leistungen <i class="ph ph-caret-down" aria-hidden="true"></i></button>
         <div class="dd-menu" id="dd-leistungen">
           {dd}
         </div>
       </li>
-      {li}
     </ul>
   </nav>
   <div class="nav-cta"><a class="btn" href="{to(home, 'kontakt', anfrage)}">Anfrage starten</a></div>
-  <a class="nav-home" href="{start}" aria-label="Start"{start_cur}><i class="ph ph-house" aria-hidden="true"></i></a>
+  <button class="burger" type="button" aria-label="Alle Inhalte" aria-expanded="false" aria-controls="sheet"><i class="ph ph-list" aria-hidden="true"></i></button>
 </header>
-<nav class="sheet" id="sheet" aria-label="Menü">
+<nav class="sheet" id="sheet" aria-label="Alle Inhalte">
   <a class="sheet-start" href="{start}"{start_cur}><i class="ph ph-house" aria-hidden="true"></i>Start</a>
   <p class="sheet-label">Leistungen</p>
   <div class="sheet-tiles">
       {tiles}
   </div>
+  <p class="sheet-label">Auf der Startseite</p>
   <ul>
     {sheet}
   </ul>
+  <div class="sheet-contact">
+    <a href="{TEL}"><i class="ph ph-phone" aria-hidden="true"></i>{e(SITE['telefon'])}</a>
+    <a href="mailto:{e(SITE['email'])}"><i class="ph ph-envelope-simple" aria-hidden="true"></i>{e(SITE['email'])}</a>
+  </div>
+  <p class="sheet-legal"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></p>
   <a class="btn" href="{to(home, 'kontakt', anfrage)}">Anfrage starten</a>
 </nav>
 """
