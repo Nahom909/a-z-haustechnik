@@ -8,7 +8,7 @@ import re
 
 OUT = pathlib.Path(__file__).resolve().parent.parent
 CONTENT = OUT / "content"
-V = "20261105b"  # bei jeder Änderung an CSS/JS erhöhen, damit Browser nicht die alte Datei aus dem Cache nehmen
+V = "20261105c"  # bei jeder Änderung an CSS/JS erhöhen, damit Browser nicht die alte Datei aus dem Cache nehmen
 
 
 def load(name):
@@ -119,6 +119,7 @@ def nav(home, anfrage="", cur=None):
       </li>
     </ul>
   </nav>
+  <a class="nav-call" href="{TEL}" aria-label="Anrufen: {e(SITE['telefon'])}"><i class="ph ph-phone" aria-hidden="true"></i><span>Anrufen</span></a>
   <div class="nav-cta"><a class="btn" href="{to(home, 'kontakt', anfrage)}">Anfrage starten</a></div>
   <button class="burger" type="button" aria-label="Alle Inhalte" aria-expanded="false" aria-controls="sheet"><i class="ph ph-list" aria-hidden="true"></i></button>
 </header>

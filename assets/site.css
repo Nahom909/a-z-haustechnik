@@ -106,7 +106,12 @@ h3{letter-spacing:-.028em;line-height:1.08}
 .nav-links a[aria-current="page"]{color:var(--ink);background:rgba(0,0,0,.05)}
 @media (hover:hover) and (pointer:fine){.nav-links a:hover{color:var(--ink);background:rgba(0,0,0,.05)}}
 .nav .btn{min-height:44px;padding:0 1.2rem;font-size:.92rem}
-.nav-cta{margin-left:auto}
+/* Anrufen in der Leiste: am Computer mit Text, sonst runder Knopf mit Telefon */
+.nav-call{margin-left:auto;flex:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:0 1.05rem;border-radius:999px;border:1px solid rgba(0,0,0,.16);color:var(--ink);text-decoration:none;font-size:.92rem;font-weight:500;white-space:nowrap;transition:background-color .2s ease,border-color .2s ease,transform .16s var(--ease-out)}
+.nav-call i{font-size:1.1rem}
+.nav-call:active{transform:scale(.96)}
+.nav.dark .nav-call{color:var(--on);border-color:rgba(255,255,255,.28)}
+@media (hover:hover) and (pointer:fine){.nav-call:hover{background:rgba(0,0,0,.05)}.nav.dark .nav-call:hover{background:rgba(255,255,255,.1)}}
 .burger{display:inline-flex;flex:none;width:44px;height:44px;border-radius:999px;border:0;background:rgba(0,0,0,.06);cursor:pointer;align-items:center;justify-content:center;transition:transform .16s var(--ease-out)}
 .burger:active{transform:scale(.94)}
 .burger i{font-size:1.3rem}
@@ -127,14 +132,23 @@ h3{letter-spacing:-.028em;line-height:1.08}
 .nav-start i{font-size:1.1rem}
 @media (max-width:980px){
   .nav{gap:10px}
+  .nav-call{width:44px;padding:0;border:0;background:rgba(0,0,0,.06)}
+  .nav.dark .nav-call{background:rgba(255,255,255,.12)}
+  .nav-call span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .nav-call i{font-size:1.25rem}
 }
 @media (max-width:700px){
-  .nav{padding:0 8px 0 16px}
+  .nav{padding:0 8px 0 16px;gap:8px}
   .dd,.nav .nav-cta{display:none}
   .nav-main{margin-left:auto}
+  .nav-call{margin-left:0}
 }
 @media (max-width:560px){
-  .nav .nav-links a.nav-start{width:44px;height:44px;padding:0;justify-content:center;background:rgba(0,0,0,.06);color:var(--ink)}
+  .nav{padding:0 6px 0 14px;gap:6px}
+  .brand{flex:0 1 auto;min-width:0}
+  .brand img{height:20px}
+  .nav-call,.burger{width:42px;height:42px;min-height:42px}
+  .nav .nav-links a.nav-start{width:42px;height:42px;padding:0;justify-content:center;background:rgba(0,0,0,.06);color:var(--ink)}
   .nav.dark .nav-links a.nav-start{background:rgba(255,255,255,.12);color:var(--on)}
   .nav-start span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .nav-start i{font-size:1.25rem}
@@ -655,3 +669,8 @@ html.locked body > *:not(.gate){display:none!important}
 .sheet-legal{display:flex;gap:18px;margin:8px 4px 0;font-size:.9rem}
 .sheet-legal a{color:var(--ink-3)}
 @media (hover:hover) and (pointer:fine){.sheet li a:hover,.sheet-contact a:hover,.sheet-start:hover{color:var(--ink-3)}.sheet-tiles a:hover{border-color:rgba(0,0,0,.2)}}
+@media (max-width:360px){.brand img{height:17px}}
+/* Sehr schmale Handys (320 px): nichts ragt über den Rand */
+h1,h2,h3{overflow-wrap:break-word;hyphens:auto}
+.facts>div{min-width:0}
+@media (max-width:400px){.facts{grid-template-columns:1fr}}
