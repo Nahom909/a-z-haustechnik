@@ -599,21 +599,12 @@ html.locked body > *:not(.gate){display:none!important}
 .cta-btns{display:flex;flex-wrap:wrap;gap:10px}
 @media (max-width:820px){.cta-box{grid-template-columns:1fr}.cta-btns .btn{flex:1 1 auto}}
 
-/* ---------- Fotos auf den Unterseiten ---------- */
-.pics{display:grid;gap:14px;margin-top:14px}
-.pics.n3{grid-template-columns:1.15fr 1fr;grid-template-rows:repeat(2,minmax(0,1fr));aspect-ratio:16/9}
-.pics.n3 .pic:first-child{grid-row:span 2}
-.pics.n2{grid-template-columns:1fr 1fr}
-.pics.n1 .pic,.pics.n2 .pic{aspect-ratio:4/3}
-.pic{position:relative;margin:0;border-radius:var(--r-xl);overflow:hidden;background:#E8E8ED}
-.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease-out)}
-@media (hover:hover) and (pointer:fine){.pic:hover img{transform:scale(1.03)}}
-@media (max-width:700px){
-  .pics.n3{grid-template-columns:1fr 1fr;grid-template-rows:auto;aspect-ratio:auto}
-  .pics.n3 .pic:first-child{grid-row:auto;grid-column:1/-1;aspect-ratio:4/3}
-  .pics.n3 .pic{aspect-ratio:4/3}
-  .pic{border-radius:var(--r-lg)}
-}
+/* ---------- Fotos in den Leistungskästen der Unterseiten ---------- */
+.group.has-img{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.group-img{position:relative;aspect-ratio:3/2;background:#E8E8ED;overflow:hidden}
+.group-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 15%;transition:transform .8s var(--ease-out)}
+.group.has-img .group-body{padding:26px 30px 30px}
+@media (hover:hover) and (pointer:fine){.group.has-img:hover .group-img img{transform:scale(1.03)}}
 
 /* ---------- Hero auf dem Handy: Haus oben, Text darunter, nichts überlappt ---------- */
 @media (max-width:820px){

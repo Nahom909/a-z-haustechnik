@@ -47,7 +47,7 @@ Abschnitts-Links: auf der Startseite `#anker` (per JS ohne Eintrag in der Adress
 Nach Änderungen an CSS/JS die Versionsnummer `V` in `tools/gen_site.py` erhöhen.
 
 ## Fotos
-Jede Unterseite zeigt drei Fotos (`bilder` in `content/heizung.json` usw., im CMS austauschbar).
+Auf den Unterseiten hat jeder der vier Leistungskästen oben ein eigenes Foto (`bild` je Eintrag in `gruppen`, im CMS austauschbar). Fehlt in einem Kasten das Foto, zeigt die ganze Unterseite keine Fotos.
 Beispielbilder von Unsplash unter der Unsplash-Lizenz (kostenlos, kommerziell nutzbar). Fotograf, Quelle und Bearbeitungen: `images/BILDNACHWEIS.md`.
 Keine Personen, keine erkennbaren Herstellerlogos. Eigene Fotos ersetzen sie unter denselben Dateinamen.
 

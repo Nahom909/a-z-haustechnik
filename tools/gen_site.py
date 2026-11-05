@@ -8,7 +8,7 @@ import re
 
 OUT = pathlib.Path(__file__).resolve().parent.parent
 CONTENT = OUT / "content"
-V = "20261104d"  # bei jeder Änderung an CSS/JS erhöhen, damit Browser nicht die alte Datei aus dem Cache nehmen
+V = "20261105a"  # bei jeder Änderung an CSS/JS erhöhen, damit Browser nicht die alte Datei aus dem Cache nehmen
 
 
 def load(name):
@@ -436,15 +436,15 @@ def seg(active):
 
 
 def groups(items):
-    return "\n".join(f'        <div class="group rv"><h3>{e(g["titel"])}</h3><p>{e(g["text"])}</p><ul class="chips">{chips(g["punkte"])}</ul></div>' for g in items)
+    """Leistungskästen. Fotos oben im Kasten nur, wenn jeder Kasten der Seite ein Foto hat;
+    sonst bleibt die ganze Seite ohne Fotos (einheitliches Bild)."""
+    with_pics = bool(items) and all((g.get("bild") or "").strip() for g in items)
 
+    def pic(g):
+        return f'<div class="group-img">{slot(g["bild"], g.get("bild_alt", ""), 1600, 1067)}</div>' if with_pics else ""
 
-def pics(items):
-    """Drei Fotos zum Gewerk: eines groß links, zwei rechts übereinander."""
-    if not items:
-        return ""
-    figs = "\n".join(f'        <figure class="pic rv">{slot(b["bild"], b["alt"], 1800, 1200)}</figure>' for b in items[:3])
-    return f'      <div class="pics n{min(len(items), 3)}">\n{figs}\n      </div>'
+    cls = "group rv has-img" if with_pics else "group rv"
+    return "\n".join(f'        <div class="{cls}">{pic(g)}<div class="group-body"><h3>{e(g["titel"])}</h3><p>{e(g["text"])}</p><ul class="chips">{chips(g["punkte"])}</ul></div></div>' for g in items)
 
 
 def devices(p):
@@ -496,7 +496,6 @@ def trade_page(file, k, anliegen):
       <div class="groups">
 {groups(p['gruppen'])}
       </div>
-{pics(p.get('bilder') or [])}
     </div>
   </section>
 {devices(p)}

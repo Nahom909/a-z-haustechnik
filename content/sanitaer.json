@@ -17,7 +17,9 @@
         "Rückbau",
         "Vorwandinstallation",
         "Dusche, WC, Waschtisch"
-      ]
+      ],
+      "bild": "images/projekt-3.webp",
+      "bild_alt": "Bad mit Doppelwaschtisch und freistehender Wanne"
     },
     {
       "titel": "Barrierearme Bäder",
@@ -27,7 +29,9 @@
         "Haltegriffe",
         "Mehr Bewegungsfläche",
         "Unterfahrbare Waschtische"
-      ]
+      ],
+      "bild": "images/projekt-5.webp",
+      "bild_alt": "Bodengleiche Dusche mit dunklen Fliesen"
     },
     {
       "titel": "Trinkwasser",
@@ -37,7 +41,9 @@
         "Hauswasserstation",
         "Druckminderer",
         "Leckage-Schutz"
-      ]
+      ],
+      "bild": "images/bad-armatur.webp",
+      "bild_alt": "Waschtischarmatur aus Edelstahl"
     },
     {
       "titel": "Warmwasser",
@@ -47,21 +53,9 @@
         "Durchlauferhitzer",
         "Über die Wärmepumpe",
         "Zirkulation"
-      ]
-    }
-  ],
-  "bilder": [
-    {
-      "bild": "images/bad-waschtisch.webp",
-      "alt": "Aufsatzwaschbecken mit goldener Armatur"
-    },
-    {
-      "bild": "images/bad-armatur.webp",
-      "alt": "Waschtischarmatur aus Edelstahl"
-    },
-    {
-      "bild": "images/projekt-5.webp",
-      "alt": "Bodengleiche Dusche mit dunklen Fliesen"
+      ],
+      "bild": "images/sanitaer-warmwasser.webp",
+      "bild_alt": "Warmwasserspeicher mit Wärmepumpe an einer Hauswand"
     }
   ],
   "geraete_titel": "Geräte",

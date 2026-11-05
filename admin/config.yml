@@ -473,20 +473,16 @@ collections:
           label: Punkt
           name: eintrag
           widget: string
-    - label: Fotos (bis zu 3; das erste wird groß gezeigt)
-      name: bilder
-      widget: list
-      required: false
-      max: 3
-      summary: '{{fields.alt}}'
-      fields:
-      - label: Bild
+      - label: Foto (oben im Kasten)
         name: bild
         widget: image
         choose_url: false
+        required: false
       - label: Bildbeschreibung (Alt-Text)
-        name: alt
+        name: bild_alt
         widget: string
+        required: false
+      hint: Fotos erscheinen oben im Kasten, aber nur wenn alle Kästen dieser Seite ein Foto haben.
     - label: Titel Geräte
       name: geraete_titel
       widget: string
@@ -576,20 +572,16 @@ collections:
           label: Punkt
           name: eintrag
           widget: string
-    - label: Fotos (bis zu 3; das erste wird groß gezeigt)
-      name: bilder
-      widget: list
-      required: false
-      max: 3
-      summary: '{{fields.alt}}'
-      fields:
-      - label: Bild
+      - label: Foto (oben im Kasten)
         name: bild
         widget: image
         choose_url: false
+        required: false
       - label: Bildbeschreibung (Alt-Text)
-        name: alt
+        name: bild_alt
         widget: string
+        required: false
+      hint: Fotos erscheinen oben im Kasten, aber nur wenn alle Kästen dieser Seite ein Foto haben.
     - label: Titel Geräte
       name: geraete_titel
       widget: string
@@ -679,20 +671,16 @@ collections:
           label: Punkt
           name: eintrag
           widget: string
-    - label: Fotos (bis zu 3; das erste wird groß gezeigt)
-      name: bilder
-      widget: list
-      required: false
-      max: 3
-      summary: '{{fields.alt}}'
-      fields:
-      - label: Bild
+      - label: Foto (oben im Kasten)
         name: bild
         widget: image
         choose_url: false
+        required: false
       - label: Bildbeschreibung (Alt-Text)
-        name: alt
+        name: bild_alt
         widget: string
+        required: false
+      hint: Fotos erscheinen oben im Kasten, aber nur wenn alle Kästen dieser Seite ein Foto haben.
     - label: Titel Geräte
       name: geraete_titel
       widget: string

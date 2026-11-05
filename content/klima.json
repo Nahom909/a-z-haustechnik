@@ -17,7 +17,9 @@
         "Multi-Split",
         "Unauffällige Leitungen",
         "Bedienung per App"
-      ]
+      ],
+      "bild": "images/klima-wohnzimmer.webp",
+      "bild_alt": "Wohnzimmer mit Klimagerät an der Wand"
     },
     {
       "titel": "Gewerbe",
@@ -27,7 +29,9 @@
         "VRF-Systeme",
         "Zonenregelung",
         "Abstimmung mit Verwaltung"
-      ]
+      ],
+      "bild": "images/klima-gewerbe.webp",
+      "bild_alt": "Außengeräte an der Fassade eines Gewerbebaus"
     },
     {
       "titel": "Planung",
@@ -37,7 +41,9 @@
         "Standort Außengerät",
         "Schall und Optik",
         "Schriftliches Angebot"
-      ]
+      ],
+      "bild": "images/klima-planung.webp",
+      "bild_alt": "Grundriss einer Wohnung von oben"
     },
     {
       "titel": "Wartung",
@@ -47,21 +53,9 @@
         "Filterwechsel",
         "Dichtheitsprüfung",
         "Störungsbehebung"
-      ]
-    }
-  ],
-  "bilder": [
-    {
-      "bild": "images/klima-wohnzimmer.webp",
-      "alt": "Wohnzimmer mit Klimagerät an der Wand"
-    },
-    {
+      ],
       "bild": "images/klima.webp",
-      "alt": "Klimagerät an einer hellen Wand"
-    },
-    {
-      "bild": "images/klima-gewerbe.webp",
-      "alt": "Außengeräte an der Fassade eines Gewerbebaus"
+      "bild_alt": "Klimagerät an einer hellen Wand"
     }
   ],
   "geraete_titel": "Geräte",
